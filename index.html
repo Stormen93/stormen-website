@@ -17,11 +17,10 @@
   </style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans">
-  <!-- Header -->
+  <!-- Header with centered nav -->
   <header class="bg-gray-800">
-     <div class="container mx-auto flex items-center justify-between p-4">
-        <h1 class="text-3xl font-bold">Stormen</h1>
-        <nav class="space-x-6">
+     <div class="container mx-auto flex justify-center p-4">
+        <nav class="space-x-6 text-lg font-medium">
            <a href="#about" class="hover:text-indigo-400">About</a>
            <a href="watch.html" class="hover:text-indigo-400">Watch&nbsp;Me</a>
            <a href="#merch" class="hover:text-indigo-400">Merch</a>
@@ -29,46 +28,18 @@
      </div>
   </header>
 
-  <!-- Hero with video background & about overlay -->
-  <section class="relative h-screen overflow-hidden flex items-center">
+  <!-- Hero with video background & centered about overlay -->
+  <section class="relative h-screen overflow-hidden flex items-center justify-center">
       <!-- Video background -->
       <video class="absolute inset-0 w-full h-full object-cover" src="media/stormen_bg.mp4" autoplay loop muted playsinline></video>
       <!-- Dark overlay -->
       <div class="absolute inset-0 bg-black bg-opacity-60"></div>
 
-      <!-- Content -->
-      <div class="relative z-10 w-full">
-        <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-between gap-10">
-          <!-- Left: Heading text -->
-          <div class="text-center lg:text-left max-w-xl mx-auto lg:mx-0">
-            <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Welcome to the Storm</h2>
-            <p class="text-lg md:text-xl">FPS veteran, Apex Predator, and full‑time creator — join the community and ride the Storm!</p>
-          </div>
-
-          <!-- Right: About card overlay -->
-          <div id="about" class="flex flex-col items-center text-center gap-4 bg-gray-800 bg-opacity-70 p-6 rounded-2xl shadow-lg max-w-md mx-auto lg:mx-0">
-             <img src="images/avatar.jpg" alt="Stormen avatar" class="w-56 h-56 rounded-full object-cover border-4 border-gray-700 shadow-md" />
-             <div class="flex gap-4 text-2xl">
-                <a href="mailto:contact@stormen@thenewgen.com" class="hover:text-indigo-400" aria-label="email"><i data-feather="mail"></i></a>
-                <a href="https://instagram.com/stormentwitch" target="_blank" class="hover:text-indigo-400" aria-label="instagram"><i data-feather="instagram"></i></a>
-                <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="hover:text-indigo-400" aria-label="tiktok"><i data-feather="music"></i></a>
-                <a href="https://youtube.com/@stormentv" target="_blank" class="hover:text-indigo-400" aria-label="youtube"><i data-feather="youtube"></i></a>
-                <a href="https://twitter.com/stormentv" target="_blank" class="hover:text-indigo-400" aria-label="twitter"><i data-feather="x"></i></a>
-                <a href="https://twitch.tv/stormen" target="_blank" class="hover:text-indigo-400" aria-label="twitch"><i data-feather="tv"></i></a>
-             </div>
-             <p class="leading-relaxed text-sm">
-                Hey, I'm <strong>Stormen</strong> — competitive gamer turned content creator. I’ve spent the past decade battling through the top tiers of esports. These days you’ll catch me shredding lobbies in <em>Apex Legends</em>, building a positive, hype‑fuelled community along the way.
-             </p>
-          </div>
-        </div>
-      </div>
-  </section>
-
-  <main class="container mx-auto px-4">
-      <!-- About section -->
-      <section id="about" class="py-16 flex flex-col items-center text-center gap-6">
-         <img src="images/avatar.jpg" alt="Stormen avatar" class="w-96 h-96 rounded-full object-cover border-4 border-gray-700 shadow-lg"" />
-         <div class="flex gap-6 text-2xl">
+      <!-- About card overlay -->
+      <div id="about" class="relative z-10 flex flex-col items-center text-center gap-6 bg-gray-800 bg-opacity-70 p-8 rounded-2xl shadow-lg max-w-lg mx-auto">
+         <img src="images/avatar.jpg" alt="Stormen avatar" class="w-64 h-64 rounded-full object-cover border-4 border-gray-700 shadow-md" />
+         <h2 class="text-4xl font-extrabold">Stormen</h2>
+         <div class="flex gap-4 text-2xl">
             <a href="mailto:contact@stormen@thenewgen.com" class="hover:text-indigo-400" aria-label="email"><i data-feather="mail"></i></a>
             <a href="https://instagram.com/stormentwitch" target="_blank" class="hover:text-indigo-400" aria-label="instagram"><i data-feather="instagram"></i></a>
             <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="hover:text-indigo-400" aria-label="tiktok"><i data-feather="music"></i></a>
@@ -76,15 +47,13 @@
             <a href="https://twitter.com/stormentv" target="_blank" class="hover:text-indigo-400" aria-label="twitter"><i data-feather="x"></i></a>
             <a href="https://twitch.tv/stormen" target="_blank" class="hover:text-indigo-400" aria-label="twitch"><i data-feather="tv"></i></a>
          </div>
-         <p class="leading-relaxed max-w-3xl mt-4">
-            Hey, I'm <strong>Stormen</strong> — competitive gamer turned content creator. I’ve spent the
-            past decade battling through the top tiers of esports, from LAN arenas to
-            online showdowns. These days you’ll catch me shredding lobbies in <em>Apex Legends</em>,
-            theory‑crafting the meta, and building a positive, hype‑fuelled community along the way.
-            Tune in for clutch plays, honest laughs, and the occasional cracked controller.
+         <p class="leading-relaxed text-sm">
+            Hey, I'm <strong>Stormen</strong> — competitive gamer turned content creator. I’ve spent the past decade battling through the top tiers of esports. These days you’ll catch me shredding lobbies in <em>Apex Legends</em>, building a positive, hype-fuelled community along the way.
          </p>
-      </section>
+      </div>
+  </section>
 
+  <main class="container mx-auto px-4">
       <!-- Merch -->
       <section id="merch" class="py-16">
         <h3 class="text-3xl font-bold mb-6 text-center">Moustache Club Merch</h3>
