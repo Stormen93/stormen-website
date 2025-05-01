@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stormen | Official Site</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/feather-icons"></script>
   <style>
     /* Responsive iframe helper */
     .responsive-iframe {position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;}
@@ -36,9 +37,19 @@
 
   <main class="container mx-auto px-4">
       <!-- About -->
-      <section id="about" class="py-16">
-         <h3 class="text-3xl font-bold mb-6">About Me</h3>
-         <p class="leading-relaxed max-w-3xl">
+      <section id="about" class="py-16 flex flex-col items-center text-center gap-6">
+         <!-- Avatar -->
+         <img src="images/avatar.jpg" alt="Stormen avatar" class="w-32 h-32 rounded-full object-cover border-4 border-gray-700 shadow-lg" />
+         <!-- Social row -->
+         <div class="flex gap-6 text-2xl">
+          <a href="mailto:contact@stormen.tv" class="hover:text-indigo-400" aria-label="email"><i data-feather="mail"></i></a>
+          <a href="https://instagram.com/stormentwitch" target="_blank" class="hover:text-indigo-400" aria-label="instagram"><i data-feather="instagram"></i></a>
+          <a href="https://www.tiktok.com/@stormentv" target="_blank" class="hover:text-indigo-400" aria-label="tiktok"><i data-feather="music"></i></a>
+          <a href="https://youtube.com/@stormentv" target="_blank" class="hover:text-indigo-400" aria-label="youtube"><i data-feather="youtube"></i></a>
+          <a href="https://twitter.com/stormentv" target="_blank" class="hover:text-indigo-400" aria-label="twitter"><i data-feather="x"></i></a>
+          <a href="https://twitch.tv/stormen" target="_blank" class="hover:text-indigo-400" aria-label="twitch"><i data-feather="tv"></i></a>
+        </div>
+         <p class="leading-relaxed max-w-3xl mt-4">
             Hey, I'm <strong>Stormen</strong> — competitive gamer turned content creator. I’ve spent the
             past decade battling through the top tiers of esports, from LAN arenas to
             online showdowns. These days you’ll catch me shredding lobbies in <em>Apex Legends</em>,
@@ -68,7 +79,6 @@
             <div>
                <h4 class="text-xl font-semibold mb-2"><a href="https://youtube.com/@stormentv" target="_blank" class="hover:text-indigo-400">Latest YouTube Video</a></h4>
                <div class="responsive-iframe">
-                  <!-- Replace UUPLAYLISTID—your channel’s uploads playlist ID that starts with UU. This playlist is ordered newest‑first, so the first video is always your latest upload. -->
                   <iframe src="https://www.youtube.com/embed/videoseries?si=3t-65oYSf1tSjdO8&amp;list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J" frameborder="0" allowfullscreen title="Latest YouTube video"></iframe>
                </div>
             </div>
@@ -84,7 +94,7 @@
              <img src="images/tshirt.jpg" alt="Stormen Tee" class="rounded-lg shadow-md transform group-hover:scale-105 transition duration-200" />
            </a>
            <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block group">
-            <img src="images/hoodie.png" alt="Stormen Hoodie" class="rounded-lg shadow-md transform group-hover:scale-105 transition duration-200" />
+             <img src="images/hoodie.png" alt="Stormen Hoodie" class="rounded-lg shadow-md transform group-hover:scale-105 transition duration-200" />
            </a>
            <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block group">
              <img src="images/dadhat.jpg" alt="Stormen Dad Hat" class="rounded-lg shadow-md transform group-hover:scale-105 transition duration-200" />
@@ -101,5 +111,7 @@
         <a href="https://instagram.com/stormentwitch" class="hover:text-indigo-400">Instagram</a>
      </div>
   </footer>
+
+  <script>feather.replace();</script>
 </body>
 </html>
