@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Watch Stormen Live</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    .responsive-iframe{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;}
+    .responsive-iframe iframe{position:absolute;top:0;left:0;width:100%;height:100%;}
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans">
+  <!-- Header -->
+  <header class="bg-gray-800">
+     <div class="container mx-auto flex items-center justify-between p-4">
+        <h1 class="text-3xl font-bold"><a href="index.html">Stormen</a></h1>
+        <nav class="space-x-6">
+           <a href="index.html#about" class="hover:text-indigo-400">About</a>
+           <span class="text-indigo-400">Watch&nbsp;Me</span>
+           <a href="index.html#merch" class="hover:text-indigo-400">Merch</a>
+        </nav>
+     </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-cover bg-center h-64" style="background-image:url('https://images.unsplash.com/photo-1605902711622-cfb43c4437b1?fit=crop&w=1200&q=80');">
+      <div class="bg-black bg-opacity-60 h-full flex items-center">
+         <div class="container mx-auto text-center px-4">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Watch Me Live</h2>
+            <p class="text-lg md:text-xl max-w-2xl mx-auto">Catch the action on Twitch or the latest VOD on YouTube.</p>
+         </div>
+      </div>
+  </section>
+
+  <main class="container mx-auto px-4 py-16">
+    <div class="grid md:grid-cols-2 gap-10 items-start">
+      <div>
+        <h3 class="text-2xl font-semibold mb-2"><a href="https://twitch.tv/stormen" target="_blank" class="hover:text-indigo-400">Twitch.tv/Stormen</a></h3>
+        <div class="responsive-iframe mb-10 md:mb-0">
+          <iframe src="https://player.twitch.tv/?channel=stormen&parent=stormen.tv" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+      <div>
+        <h3 class="text-2xl font-semibold mb-2"><a href="https://youtube.com/@stormentv" target="_blank" class="hover:text-indigo-400">Latest YouTube Video</a></h3>
+        <div class="responsive-iframe">
+          <iframe src="https://www.youtube.com/embed/videoseries?si=3t-65oYSf1tSjdO8&amp;list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 py-6">
+     <div class="container mx-auto text-center text-sm text-gray-400">
+        © 2025 Stormen. All rights reserved. | Follow on <a href="https://twitter.com/stormentv" class="hover:text-indigo-400">Twitter</a> & <a href="https://instagram.com/stormentwitch" class="hover:text-indigo-400">Instagram</a>
+     </div>
+  </footer>
+
+  <script>feather.replace();</script>
+</body>
+</html>
