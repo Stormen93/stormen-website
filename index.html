@@ -7,9 +7,14 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    /* Responsive iframe helper */
-    .responsive-iframe {position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;}
-    .responsive-iframe iframe {position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
+    .responsive-iframe{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;}
+    .responsive-iframe iframe{position:absolute;top:0;left:0;width:100%;height:100%;}
+    /* merch hover effect */
+    .merch-item{position:relative;overflow:hidden;}
+    .merch-item img{transition:opacity .3s ease-in-out;}
+    .merch-item .back{position:absolute;inset:0;opacity:0;}
+    .merch-item:hover .back{opacity:1;}
+    .merch-item:hover .front{opacity:0;}
   </style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans">
@@ -38,9 +43,7 @@
   <main class="container mx-auto px-4">
       <!-- About -->
       <section id="about" class="py-16 flex flex-col items-center text-center gap-6">
-         <!-- Avatar -->
          <img src="images/avatar.jpg" alt="Stormen avatar" class="w-32 h-32 rounded-full object-cover border-4 border-gray-700 shadow-lg" />
-         <!-- Social row -->
          <div class="flex gap-6 text-2xl">
           <a href="mailto:contact@stormen.tv" class="hover:text-indigo-400" aria-label="email"><i data-feather="mail"></i></a>
           <a href="https://instagram.com/stormentwitch" target="_blank" class="hover:text-indigo-400" aria-label="instagram"><i data-feather="instagram"></i></a>
@@ -62,20 +65,12 @@
       <section id="live" class="py-16">
         <h3 class="text-3xl font-bold mb-6">Live / Latest Content</h3>
         <div class="grid md:grid-cols-2 gap-8">
-           <!-- Twitch -->
            <div>
                <h4 class="text-xl font-semibold mb-2"><a href="https://twitch.tv/stormen" target="_blank" class="hover:text-indigo-400">Twitch.tv/Stormen</a></h4>
                <div class="responsive-iframe">
-                 <iframe
-                   src="https://player.twitch.tv/?channel=stormen&parent=stormen.tv"
-                   frameborder="0"
-                   allowfullscreen="true"
-                   scrolling="no">
-                 </iframe>
+                 <iframe src="https://player.twitch.tv/?channel=stormen&parent=stormen.tv" frameborder="0" allowfullscreen></iframe>
                </div>
             </div>
-
-            <!-- YouTube - always shows the latest upload automatically via uploads playlist -->
             <div>
                <h4 class="text-xl font-semibold mb-2"><a href="https://youtube.com/@stormentv" target="_blank" class="hover:text-indigo-400">Latest YouTube Video</a></h4>
                <div class="responsive-iframe">
@@ -88,16 +83,19 @@
       <!-- Merch -->
       <section id="merch" class="py-16">
         <h3 class="text-3xl font-bold mb-6">Merch</h3>
-        <p class="mb-8">Rep the Storm wherever you go. Click any item to visit my Fourthwall store.</p>
+        <p class="mb-8 text-center">Hover to see back view — click any item to visit my Fourthwall store.</p>
         <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-           <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block group">
-             <img src="images/tshirt.jpg" alt="Stormen Tee" class="rounded-lg shadow-md transform group-hover:scale-105 transition duration-200" />
+           <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
+             <img src="images/hoodie_front.jpg" alt="Stormen Hoodie front" class="rounded-lg shadow-md front" />
+             <img src="images/hoodie_back.jpg" alt="Stormen Hoodie back" class="rounded-lg shadow-md back" />
            </a>
-           <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block group">
-             <img src="images/hoodie.png" alt="Stormen Hoodie" class="rounded-lg shadow-md transform group-hover:scale-105 transition duration-200" />
+           <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
+             <img src="images/tshirt_front.jpg" alt="Stormen Tee front" class="rounded-lg shadow-md front" />
+             <img src="images/tshirt_back.jpg" alt="Stormen Tee back" class="rounded-lg shadow-md back" />
            </a>
-           <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block group">
-             <img src="images/dadhat.jpg" alt="Stormen Dad Hat" class="rounded-lg shadow-md transform group-hover:scale-105 transition duration-200" />
+           <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
+             <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
+             <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
            </a>
         </div>
       </section>
@@ -106,9 +104,7 @@
   <!-- Footer -->
   <footer class="bg-gray-800 py-6">
      <div class="container mx-auto text-center text-sm text-gray-400">
-        © 2025 Stormen. All rights reserved. | Follow on 
-        <a href="https://twitter.com/stormentv" class="hover:text-indigo-400">Twitter</a> &amp; 
-        <a href="https://instagram.com/stormentwitch" class="hover:text-indigo-400">Instagram</a>
+        © 2025 Stormen. All rights reserved. | Follow on <a href="https://twitter.com/stormentv" class="hover:text-indigo-400">Twitter</a> &amp; <a href="https://instagram.com/stormentwitch" class="hover:text-indigo-400">Instagram</a>
      </div>
   </footer>
 
