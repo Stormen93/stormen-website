@@ -29,25 +29,45 @@
      </div>
   </header>
 
-  <!-- Hero with video background -->
-  <section class="relative h-screen overflow-hidden">
+  <!-- Hero with video background & about overlay -->
+  <section class="relative h-screen overflow-hidden flex items-center">
       <!-- Video background -->
       <video class="absolute inset-0 w-full h-full object-cover" src="media/stormen_bg.mp4" autoplay loop muted playsinline></video>
-      <!-- Dark overlay for readability -->
+      <!-- Dark overlay -->
       <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-      <!-- Hero text -->
-      <div class="relative z-10 flex items-center h-full">
-         <div class="container mx-auto text-center px-4">
+
+      <!-- Content -->
+      <div class="relative z-10 w-full">
+        <div class="container mx-auto px-4 flex flex-col lg:flex-row items-center justify-between gap-10">
+          <!-- Left: Heading text -->
+          <div class="text-center lg:text-left max-w-xl mx-auto lg:mx-0">
             <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Welcome to the Storm</h2>
-            <p class="text-lg md:text-xl max-w-2xl mx-auto">FPS veteran, Apex Predator, and full‑time creator — join the community and ride the Storm!</p>
-         </div>
+            <p class="text-lg md:text-xl">FPS veteran, Apex Predator, and full‑time creator — join the community and ride the Storm!</p>
+          </div>
+
+          <!-- Right: About card overlay -->
+          <div id="about" class="flex flex-col items-center text-center gap-4 bg-gray-800 bg-opacity-70 p-6 rounded-2xl shadow-lg max-w-md mx-auto lg:mx-0">
+             <img src="images/avatar.jpg" alt="Stormen avatar" class="w-56 h-56 rounded-full object-cover border-4 border-gray-700 shadow-md" />
+             <div class="flex gap-4 text-2xl">
+                <a href="mailto:contact@stormen@thenewgen.com" class="hover:text-indigo-400" aria-label="email"><i data-feather="mail"></i></a>
+                <a href="https://instagram.com/stormentwitch" target="_blank" class="hover:text-indigo-400" aria-label="instagram"><i data-feather="instagram"></i></a>
+                <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="hover:text-indigo-400" aria-label="tiktok"><i data-feather="music"></i></a>
+                <a href="https://youtube.com/@stormentv" target="_blank" class="hover:text-indigo-400" aria-label="youtube"><i data-feather="youtube"></i></a>
+                <a href="https://twitter.com/stormentv" target="_blank" class="hover:text-indigo-400" aria-label="twitter"><i data-feather="x"></i></a>
+                <a href="https://twitch.tv/stormen" target="_blank" class="hover:text-indigo-400" aria-label="twitch"><i data-feather="tv"></i></a>
+             </div>
+             <p class="leading-relaxed text-sm">
+                Hey, I'm <strong>Stormen</strong> — competitive gamer turned content creator. I’ve spent the past decade battling through the top tiers of esports. These days you’ll catch me shredding lobbies in <em>Apex Legends</em>, building a positive, hype‑fuelled community along the way.
+             </p>
+          </div>
+        </div>
       </div>
   </section>
 
   <main class="container mx-auto px-4">
       <!-- About section -->
       <section id="about" class="py-16 flex flex-col items-center text-center gap-6">
-         <img src="images/avatar.jpg" alt="Stormen avatar" class="w-96 h-96 rounded-full object-cover border-4 border-gray-700 shadow-lg" />
+         <img src="images/avatar.jpg" alt="Stormen avatar" class="w-96 h-96 rounded-full object-cover border-4 border-gray-700 shadow-lg"" />
          <div class="flex gap-6 text-2xl">
             <a href="mailto:contact@stormen@thenewgen.com" class="hover:text-indigo-400" aria-label="email"><i data-feather="mail"></i></a>
             <a href="https://instagram.com/stormentwitch" target="_blank" class="hover:text-indigo-400" aria-label="instagram"><i data-feather="instagram"></i></a>
