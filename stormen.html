@@ -33,12 +33,12 @@
     a[href*="tiktok.com"] img { position: relative; top: 2px; }
   </style>
 </head>
-<body class="bg-black text-gray-100 overflow-x-hidden">
+<body class="bg-white text-gray-900 overflow-x-hidden flex flex-col min-h-screen">
   <!-- Header -->
   <header id="siteHeader" class="fixed inset-x-0 top-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
     <button id="menuBtn" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 focus:outline-none">
-      <span class="burger-line bg-white"></span>
-      <span class="burger-line lower bg-white"></span>
+      <span class="burger-line bg-gray-900"></span>
+      <span class="burger-line lower bg-gray-900"></span>
     </button>
     <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
       <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
@@ -58,7 +58,7 @@
   </aside>
 
   <!-- About Section: White Background -->
-  <section class="bg-white py-20 flex items-center justify-center">
+  <main class="flex-grow bg-white py-20 flex items-center justify-center">
     <div class="flex flex-col md:flex-row items-center text-left gap-12 mx-auto max-w-4xl">
       <!-- Profile Photo -->
       <img src="images/avatar.jpg" alt="Stormen avatar" class="w-[32rem] h-[32rem] rounded-full object-cover border-4 border-black shadow-md mb-8 md:mb-0" />
@@ -73,6 +73,8 @@
   </section>
 
   <!-- Footer -->
+  </main>
+
   <footer class="bg-white py-10 text-gray-900">
     <div class="container mx-auto flex flex-col items-center space-y-6">
       <!-- Social Links -->
