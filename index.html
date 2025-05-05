@@ -25,7 +25,9 @@
     }
     /* slide to panel right */
     #menuBtn.open {
-      left: calc(4rem + 18rem); /* 1rem left offset + panel width 18rem */
+      /* slide right and position over panel close corner */
+      left: calc(4rem + 18rem - 3rem); /* moved further left by 1rem */
+      top: 1.25rem; /* lift up inside header */
     }
     /* styling */
     .responsive-iframe { position: relative; padding-bottom: 56.25%; height:0; overflow:hidden; }
@@ -119,6 +121,12 @@
       const open = panel.classList.toggle('-translate-x-full') === false;
       backdrop.classList.toggle('hidden', !open);
       menuBtn.classList.toggle('open', open);
+    });
+    // close panel when clicking on backdrop
+    backdrop.addEventListener('click', () => {
+      panel.classList.add('-translate-x-full');
+      backdrop.classList.add('hidden');
+      menuBtn.classList.remove('open');
     });
 
     window.addEventListener('scroll', () => {
