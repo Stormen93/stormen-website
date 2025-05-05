@@ -3,25 +3,31 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Watch | Stormen</title>
+  <title>Collection | Stormen</title>
   <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
   <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    /* Burger animation */
+    /* Burger icon */
     .burger-line { display:block; width:48px; height:2px; background:#fff; margin:6px 0; transition:transform .3s ease, background-color .3s ease; }
     .burger-line.lower { height:1px; }
     #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
     #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
-    /* Slide to panel and position */
     #menuBtn.open { left:calc(1rem + 18rem - 3rem); top:1.25rem; }
-    /* Panel transition */
+
+    /* Slide-out panel */
     #sidePanel { transition:transform .3s ease-in-out; }
     #backdrop { transition:opacity .3s ease-in-out; }
-    /* Responsive embeds */
-    .responsive-iframe { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; }
-    .responsive-iframe iframe { position:absolute; top:0; left:0; width:100%; height:100%; }
+
+    /* Video embeds + merch */
+    .responsive-iframe{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;}
+    .responsive-iframe iframe{position:absolute;top:0;left:0;width:100%;height:100%;}
+    .merch-item{position:relative;overflow:hidden;}
+    .merch-item img{transition:opacity .3s ease-in-out;}
+    .merch-item .back{position:absolute;inset:0;opacity:0;}
+    @media(hover:hover){.merch-item:hover .back{opacity:1;}.merch-item:hover .front{opacity:0;}}
+    @media(hover:none){.merch-item:active .back{opacity:1;}.merch-item:active .front{opacity:0;}}
   </style>
 </head>
 <body class="bg-black text-gray-100 overflow-x-hidden">
@@ -37,37 +43,47 @@
     </a>
   </header>
 
-  <!-- Backdrop & Side Panel -->
+  <!-- Backdrop and Side Panel -->
   <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 opacity-0 pointer-events-none z-40"></div>
   <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 transform -translate-x-full z-50 shadow-xl p-6 space-y-6 font-semibold uppercase">
     <nav class="mt-14 space-y-6">
-      <a href="/stormen.html" class="block hover:text-indigo-500">STORMEN</a>
-      <a href="/watch.html" class="block hover:text-indigo-500">WATCH</a>
-      <a href="/collection.html" class="block hover:text-indigo-500">COLLECTION</a>
+      <a href="/" class="block hover:text-indigo-500">STORMEN</a>
+      <a href="/watch" class="block hover:text-indigo-500">WATCH</a>
+      <a href="/collection" class="block hover:text-indigo-500">COLLECTION</a>
     </nav>
   </aside>
 
-  <!-- Hero with video background and embeds -->
+  <!-- Hero Video -->
   <section class="relative h-screen overflow-hidden pt-40">
     <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline preload="auto" poster="images/video-poster.jpg">
       <source src="media/stormen_bg.mp4" type="video/mp4">
       <img src="images/video-poster.jpg" alt="Stormen background" class="w-full h-full object-cover">
     </video>
     <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-    <div class="relative z-10 container mx-auto px-4 grid md:grid-cols-2 gap-10 items-start">
-      <div>
-        <h3 class="text-2xl font-semibold mb-2 text-white">Twitch.tv/Stormen</h3>
-        <div class="responsive-iframe mb-10 md:mb-0"><iframe src="https://player.twitch.tv/?channel=stormen&parent=stormen.tv" frameborder="0" allowfullscreen></iframe></div>
-      </div>
-      <div>
-        <h3 class="text-2xl font-semibold mb-2 text-white">Latest YouTube Video</h3>
-        <div class="responsive-iframe"><iframe src="https://www.youtube.com/embed/videoseries?si=3t-65oYSf1tSjdO8&list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J" frameborder="0" allowfullscreen></iframe></div>
-      </div>
-    </div>
   </section>
 
+  <!-- Collection Section -->
+  <main class="container mx-auto px-4 py-16">
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
+        <img src="images/tshirt_front.jpg" alt="Stormen Tee front" class="rounded-lg shadow-md front" />
+        <img src="images/tshirt_back.jpg" alt="Stormen Tee back" class="rounded-lg shadow-md back" />
+      </a>
+      <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
+        <img src="images/hoodie_front.png" alt="Stormen Hoodie front" class="rounded-lg shadow-md front" />
+        <img src="images/hoodie_back.png" alt="Stormen Hoodie back" class="rounded-lg shadow-md back" />
+      </a>
+      <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
+        <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
+        <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
+      </a>
+    </div>
+  </main>
+
   <!-- Footer -->
-  <footer class="bg-gray-800 py-6"><div class="container mx-auto text-center text-sm text-gray-400">© 2025 Stormen. All rights reserved.</div></footer>
+  <footer class="bg-gray-800 py-6">
+    <div class="container mx-auto text-center text-sm text-gray-400">© 2025 Stormen. All rights reserved.</div>
+  </footer>
 
   <!-- Scripts -->
   <script>
@@ -76,21 +92,24 @@
     const panel = document.getElementById('sidePanel');
     const backdrop = document.getElementById('backdrop');
 
-    // Toggle panel & icon
+    // Toggle side panel & icon
     menuBtn.addEventListener('click', () => {
-      const isOpen = panel.classList.toggle('-translate-x-full') === false;
-      backdrop.classList.toggle('pointer-events-none', !isOpen);
-      backdrop.classList.toggle('opacity-0', !isOpen);
-      backdrop.classList.toggle('opacity-100', isOpen);
-      menuBtn.classList.toggle('open', isOpen);
+      const open = !panel.classList.contains('-translate-x-full');
+      panel.classList.toggle('-translate-x-full', open);
+      backdrop.classList.toggle('pointer-events-none', open);
+      backdrop.classList.toggle('opacity-0', open);
+      backdrop.classList.toggle('opacity-100', !open);
+      menuBtn.classList.toggle('open', !open);
     });
+
+    // Close on backdrop click
     backdrop.addEventListener('click', () => {
       panel.classList.add('-translate-x-full');
       backdrop.classList.add('pointer-events-none', 'opacity-0');
       menuBtn.classList.remove('open');
     });
 
-    // Scroll effects
+    // Header scroll
     window.addEventListener('scroll', () => {
       const hdr = document.getElementById('siteHeader');
       const lines = hdr.querySelectorAll('.burger-line');

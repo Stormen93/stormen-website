@@ -3,25 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Watch | Stormen</title>
+  <title>Stormen | About</title>
   <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
   <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    /* Burger animation */
+    /* Burger icon styling */
     .burger-line { display:block; width:48px; height:2px; background:#fff; margin:6px 0; transition:transform .3s ease, background-color .3s ease; }
     .burger-line.lower { height:1px; }
     #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
     #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
-    /* Slide to panel and position */
+    /* Position shifted when open */
     #menuBtn.open { left:calc(1rem + 18rem - 3rem); top:1.25rem; }
-    /* Panel transition */
+    /* Panel animation */
     #sidePanel { transition:transform .3s ease-in-out; }
     #backdrop { transition:opacity .3s ease-in-out; }
-    /* Responsive embeds */
-    .responsive-iframe { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; }
-    .responsive-iframe iframe { position:absolute; top:0; left:0; width:100%; height:100%; }
   </style>
 </head>
 <body class="bg-black text-gray-100 overflow-x-hidden">
@@ -47,27 +44,34 @@
     </nav>
   </aside>
 
-  <!-- Hero with video background and embeds -->
+  <!-- Hero with video and About card -->
   <section class="relative h-screen overflow-hidden pt-40">
     <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline preload="auto" poster="images/video-poster.jpg">
       <source src="media/stormen_bg.mp4" type="video/mp4">
       <img src="images/video-poster.jpg" alt="Stormen background" class="w-full h-full object-cover">
     </video>
     <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-    <div class="relative z-10 container mx-auto px-4 grid md:grid-cols-2 gap-10 items-start">
-      <div>
-        <h3 class="text-2xl font-semibold mb-2 text-white">Twitch.tv/Stormen</h3>
-        <div class="responsive-iframe mb-10 md:mb-0"><iframe src="https://player.twitch.tv/?channel=stormen&parent=stormen.tv" frameborder="0" allowfullscreen></iframe></div>
+    <div class="relative z-10 flex flex-col items-center text-center gap-6 bg-gray-800 bg-opacity-70 p-8 rounded-2xl shadow-lg max-w-lg mx-auto mt-12">
+      <img src="images/avatar.jpg" alt="Stormen avatar" class="w-64 h-64 rounded-full object-cover border-4 border-gray-700 shadow-md" />
+      <h1 class="text-5xl font-extrabold text-white">Stormen</h1>
+      <div class="flex gap-4 text-2xl text-white">
+        <a href="mailto:contact@stormen@thenewgen.com" class="hover:text-indigo-400"><i data-feather="mail"></i></a>
+        <a href="https://instagram.com/stormentwitch" target="_blank" class="hover:text-indigo-400"><i data-feather="instagram"></i></a>
+        <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="hover:text-indigo-400"><i data-feather="music"></i></a>
+        <a href="https://youtube.com/@stormentv" target="_blank" class="hover:text-indigo-400"><i data-feather="youtube"></i></a>
+        <a href="https://twitter.com/stormentv" target="_blank" class="hover:text-indigo-400"><i data-feather="x"></i></a>
+        <a href="https://twitch.tv/stormen" target="_blank" class="hover:text-indigo-400"><i data-feather="tv"></i></a>
       </div>
-      <div>
-        <h3 class="text-2xl font-semibold mb-2 text-white">Latest YouTube Video</h3>
-        <div class="responsive-iframe"><iframe src="https://www.youtube.com/embed/videoseries?si=3t-65oYSf1tSjdO8&list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J" frameborder="0" allowfullscreen></iframe></div>
-      </div>
+      <p class="leading-relaxed text-sm text-white max-w-md">
+        Hey, I'm <strong>Stormen</strong> — competitive gamer turned content creator. I’ve spent the past decade battling through the top tiers of esports, from LAN arenas to online showdowns. These days you’ll catch me shredding lobbies in <em>Apex Legends</em>, building a positive, hype‑fuelled community along the way. Tune in for clutch plays, honest laughs, and the occasional cracked controller.
+      </p>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-gray-800 py-6"><div class="container mx-auto text-center text-sm text-gray-400">© 2025 Stormen. All rights reserved.</div></footer>
+  <footer class="bg-gray-800 py-6">
+    <div class="container mx-auto text-center text-sm text-gray-400">© 2025 Stormen. All rights reserved.</div>
+  </footer>
 
   <!-- Scripts -->
   <script>
@@ -76,21 +80,23 @@
     const panel = document.getElementById('sidePanel');
     const backdrop = document.getElementById('backdrop');
 
-    // Toggle panel & icon
+    // Toggle panel & animate icon
     menuBtn.addEventListener('click', () => {
-      const isOpen = panel.classList.toggle('-translate-x-full') === false;
-      backdrop.classList.toggle('pointer-events-none', !isOpen);
-      backdrop.classList.toggle('opacity-0', !isOpen);
-      backdrop.classList.toggle('opacity-100', isOpen);
-      menuBtn.classList.toggle('open', isOpen);
+      const open = panel.classList.toggle('-translate-x-full') === false;
+      backdrop.classList.toggle('pointer-events-none', !open);
+      backdrop.classList.toggle('opacity-0', !open);
+      backdrop.classList.toggle('opacity-100', open);
+      menuBtn.classList.toggle('open', open);
     });
+
+    // Close on backdrop click
     backdrop.addEventListener('click', () => {
       panel.classList.add('-translate-x-full');
       backdrop.classList.add('pointer-events-none', 'opacity-0');
       menuBtn.classList.remove('open');
     });
 
-    // Scroll effects
+    // Header scroll effect
     window.addEventListener('scroll', () => {
       const hdr = document.getElementById('siteHeader');
       const lines = hdr.querySelectorAll('.burger-line');
