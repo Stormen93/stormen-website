@@ -3,61 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stormen | Official Site</title>
-  <!-- Tailwind CDN -->
+  <title>About | Stormen</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
   <script src="https://unpkg.com/feather-icons"></script>
-  <style>
-    /* burger animation and slide */
-    .burger-line { display: block; width: 48px; height: 2px; margin: 6px 0; transition: transform 0.3s ease, background-color 0.3s ease;
-      margin: 6px 0;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-    .burger-line.lower {
-      height: 1px;
-    }
-    /* rotate into X */
-    #menuBtn.open .burger-line:first-child {
-      transform: rotate(45deg);
-    }
-    #menuBtn.open .burger-line.lower {
-      transform: rotate(-45deg) translateY(-1px);
-    }
-    /* slide to panel right */
-    #menuBtn.open {
-      /* slide right and position over panel close corner */
-      left: calc(4rem + 18rem - 3rem); /* moved further left by 1rem */
-      top: 1.25rem; /* lift up inside header */
-    }
-    /* styling */
-    .responsive-iframe { position: relative; padding-bottom: 56.25%; height:0; overflow:hidden; }
-    .responsive-iframe iframe { position:absolute; top:0; left:0; width:100%; height:100%; }
-    .merch-item { position: relative; overflow:hidden; }
-    .merch-item img { transition: opacity .3s ease-in-out; }
-    .merch-item .back { position:absolute; inset:0; opacity:0; }
-    @media(hover:hover) { .merch-item:hover .back { opacity:1; } .merch-item:hover .front { opacity:0; } }
-    @media(hover:none) { .merch-item:active .back { opacity:1; } .merch-item:active .front { opacity:0; } }
-    #sidePanel { transition: transform .3s ease-in-out; }
-  </style>
+  <style>#sidePanel{transition:transform .3s ease-in-out;}</style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans overflow-x-hidden">
-  <!-- HEADER -->
-  <header id="siteHeader" class="fixed inset-x-0 top-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
-    <!-- Hamburger becomes close -->
-    <button id="menuBtn" class="focus:outline-none p-3 absolute left-4 top-1/2 -translate-y-1/2">
-      <span class="burger-line bg-white"></span>
-      <span class="burger-line lower bg-white"></span>
-    </button>
-    <!-- Dual logos -->
-    <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
-      <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
-      <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
-    </a>
+  <!-- Header with hamburger left & big centered logo -->
+  <header class="fixed inset-x-0 top-0 z-30 bg-gray-900/30 backdrop-blur-md">
+    <div class="flex items-center p-4 w-full max-w-7xl mx-auto">
+     <button id="menuBtn" class="absolute left-4 top-1/2 -translate-y-1/2 focus:outline-none">
+        <span class="block w-10 h-0.5 bg-white mb-1"></span>
+        <span class="block w-10 h-0.5 bg-white"></span>
+      </button>
+      <a href="/" class="mx-auto"><img src="images/logo.png" alt="Stormen logo" class="h-48"/></a>
+    </div>
   </header>
 
-  <!-- BACKDROP and PANEL -->
-  <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
-  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 transform -translate-x-full z-50 shadow-xl p-6 space-y-6 font-semibold">
+  <!-- Slide‑out navigation panel -->
+  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 transform -translate-x-full z-40 shadow-xl p-6 space-y-6 font-semibold">
+    <button id="closeBtn" class="absolute top-4 right-4 text-gray-700 hover:text-indigo-500"><i data-feather="x" class="w-6 h-6"></i></button>
     <nav class="mt-14 space-y-6">
       <a href="/" class="block hover:text-indigo-500">About</a>
       <a href="/watch" class="block hover:text-indigo-500">Watch Me</a>
@@ -65,71 +30,36 @@
     </nav>
   </aside>
 
-  <!-- HERO -->
+  <!-- Hero background -->
   <section class="relative h-screen overflow-hidden flex items-center justify-center pt-40">
-      <video class="absolute inset-0 w-full h-full object-cover" src="media/stormen_bg.mp4" autoplay loop muted playsinline></video>
-      <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+     <video class="absolute inset-0 w-full h-full object-cover" src="media/stormen_bg.mp4" autoplay loop muted playsinline></video>
+     <div class="absolute inset-0 bg-black bg-opacity-60"></div>
 
-      <p class="leading-relaxed text-sm max-w-md">
-            Hey, I'm <strong>Stormen</strong> — competitive gamer turned content creator. I’ve spent the past decade battling through the top tiers of esports. These days you’ll catch me shredding lobbies in <em>Apex Legends</em>, building a positive, hype‑fuelled community along the way.
-         </p>
-      </div>
+     <!-- About card -->
+     <div class="relative z-10 flex flex-col items-center text-center gap-6 bg-gray-800 bg-opacity-70 p-8 rounded-2xl shadow-lg max-w-lg mx-auto">
+        <img src="images/avatar.jpg" alt="Stormen avatar" class="w-64 h-64 rounded-full object-cover border-4 border-gray-700 shadow-md" />
+        <h1 class="text-5xl font-extrabold">Stormen</h1>
+        <div class="flex gap-4 text-2xl">
+          <a href="mailto:contact@stormen@thenewgen.com" class="hover:text-indigo-500"><i data-feather="mail"></i></a>
+          <a href="https://instagram.com/stormentwitch" target="_blank" class="hover:text-indigo-500"><i data-feather="instagram"></i></a>
+          <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="hover:text-indigo-500"><i data-feather="music"></i></a>
+          <a href="https://youtube.com/@stormentv" target="_blank" class="hover:text-indigo-500"><i data-feather="youtube"></i></a>
+          <a href="https://twitter.com/stormentv" target="_blank" class="hover:text-indigo-500"><i data-feather="x"></i></a>
+          <a href="https://twitch.tv/stormen" target="_blank" class="hover:text-indigo-500"><i data-feather="tv"></i></a>
+        </div>
+        <p class="leading-relaxed text-sm max-w-md">
+          Hey, I'm <strong>Stormen</strong> — competitive gamer turned content creator. I’ve spent the past decade battling through the top tiers of esports, from LAN arenas to online showdowns. These days you’ll catch me shredding lobbies in <em>Apex Legends</em>, building a positive, hype‑fuelled community along the way. Tune in for clutch plays, honest laughs, and the occasional cracked controller.
+        </p>
+     </div>
   </section>
 
-  <!-- MERCH PREVIEW -->
-  <main class="container mx-auto px-4">
-      <section id="merch" class="py-16">
-        <h3 class="text-3xl font-bold mb-6 text-center">Moustache Club Merch</h3>
-        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-           <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-             <img src="images/tshirt_front.jpg" alt="Stormen Tee front" class="rounded-lg shadow-md front" />
-             <img src="images/tshirt_back.jpg" alt="Stormen Tee back" class="rounded-lg shadow-md back" />
-           </a>
-           <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-             <img src="images/hoodie_front.png" alt="Stormen Hoodie front" class="rounded-lg shadow-md front" />
-             <img src="images/hoodie_back.png" alt="Stormen Hoodie back" class="rounded-lg shadow-md back" />
-           </a>
-           <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-             <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
-             <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
-           </a>
-        </div>
-      </section>
-  </main>
+  <footer class="bg-gray-800 py-6"><div class="container mx-auto text-center text-sm text-gray-400">© 2025 Stormen. All rights reserved.</div></footer>
 
-  <!-- SCRIPTS -->
   <script>
     feather.replace();
-    const menuBtn = document.getElementById('menuBtn');
-    const panel = document.getElementById('sidePanel');
-    const backdrop = document.getElementById('backdrop');
-
-    // toggle panel + animate icon
-    menuBtn.addEventListener('click', () => {
-      const open = panel.classList.toggle('-translate-x-full') === false;
-      backdrop.classList.toggle('hidden', !open);
-      menuBtn.classList.toggle('open', open);
-    });
-    // close panel when clicking on backdrop
-    backdrop.addEventListener('click', () => {
-      panel.classList.add('-translate-x-full');
-      backdrop.classList.add('hidden');
-      menuBtn.classList.remove('open');
-    });
-
-    window.addEventListener('scroll', () => {
-      const hdr = document.getElementById('siteHeader');
-      const lines = hdr.querySelectorAll('.burger-line');
-      const whiteLogo = document.querySelector('.logo-white');
-      const yellowLogo = document.querySelector('.logo-black');
-      const scrolled = window.scrollY > 10;
-      hdr.classList.toggle('bg-white', scrolled);
-      hdr.classList.toggle('shadow-sm', scrolled);
-      lines.forEach(l => l.classList.toggle('bg-white', !scrolled));
-      lines.forEach(l => l.classList.toggle('bg-gray-900', scrolled));
-      whiteLogo.classList.toggle('opacity-0', scrolled);
-      yellowLogo.classList.toggle('opacity-0', !scrolled);
-    });
+    const panel=document.getElementById('sidePanel');
+    document.getElementById('menuBtn').addEventListener('click',()=>panel.classList.remove('-translate-x-full'));
+    document.getElementById('closeBtn').addEventListener('click',()=>panel.classList.add('-translate-x-full'));
   </script>
 </body>
 </html>
