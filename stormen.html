@@ -1,65 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Stormen | About</title>
-  <!-- Roboto Condensed font -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- Roboto Condensed -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet"/>
   <!-- Tailwind CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
   <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    /* Global font override */
     body { font-family: 'Roboto Condensed', sans-serif; }
-
-    /* Burger icon styling */
-    .burger-line {
-      display: block;
-      width: 48px;
-      height: 2px;
-      background: #1a202c !important;
-      margin: 6px 0;
-      transition: transform .3s ease, background-color .3s ease;
-    }
-    .burger-line.lower { height: 1px; }
-    /* Panel and backdrop transitions */
-    #sidePanel { transition: transform .3s ease-in-out; }
-    #backdrop { transition: opacity .3s ease-in-out; }
-
-    /* TikTok icon adjust */
-    a[href*="tiktok.com"] img { position: relative; top: 2px; }
+    .burger-line { display:block; width:48px; height:2px; background:#1a202c!important; margin:6px 0; transition:transform .3s, background-color .3s; }
+    .burger-line.lower { height:1px; }
+    #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
+    #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
+    #menuBtn.open { left:calc(4rem + 18rem - 3rem); top:1.25rem; }
+    #sidePanel { transition:transform .3s ease-in-out; }
+    #backdrop { transition:opacity .3s ease-in-out; }
+    a[href*="tiktok.com"] img { position:relative; top:2px; }
   </style>
 </head>
-<body class="bg-white text-gray-900 overflow-x-hidden flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen bg-white text-gray-900 overflow-x-hidden">
   <!-- Header -->
-  <header id="siteHeader" class="fixed inset-x-0 top-0 z-50 h-20 flex items-center bg-transparent">
-    <button id="menuBtn" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 focus:outline-none">
+  <header class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent">
+    <button id="menuBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none">
       <span class="burger-line"></span>
       <span class="burger-line lower"></span>
     </button>
-    <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
-      <img src="images/logo_yellow.png" alt="Stormen logo yellow" class="h-36 logo-yellow transition-opacity duration-300" />
-      <img src="images/logo_white.png" alt="Stormen logo white" class="h-36 logo-white opacity-0 absolute inset-0 transition-opacity duration-300" />
+    <a href="/" class="mx-auto flex items-center justify-center h-36">
+      <img src="images/logo_yellow.png" alt="Stormen logo" class="h-36"/>
     </a>
   </header>
-
-  <!-- Backdrop & Side Panel -->
+  <!-- Backdrop & Panel -->
   <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 opacity-0 pointer-events-none z-40"></div>
-  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 transform -translate-x-full z-50 shadow-xl p-6 font-semibold uppercase">
-    <nav class="mt-14 space-y-6 uppercase">
+  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold">
+    <nav class="mt-14 space-y-6">
       <a href="/"                class="block hover:text-indigo-500">HOME</a>
       <a href="/stormen.html"    class="block hover:text-indigo-500">STORMEN</a>
       <a href="/watch.html"      class="block hover:text-indigo-500">WATCH</a>
       <a href="/collection.html" class="block hover:text-indigo-500">COLLECTION</a>
     </nav>
   </aside>
-
-  <!-- About Section -->
-  <main class="flex-grow bg-white py-20 flex flex-col md:flex-row items-center justify-center">
-    <img src="images/avatar.jpg" alt="Stormen avatar" class="w-[20rem] h-[20rem] rounded-full object-cover border-4 border-black shadow-md mr-12 mb-8 md:mb-0" />
-    <div class="max-w-lg text-gray-900 text-lg leading-relaxed">
+  <!-- About Content -->
+  <main class="flex-grow flex flex-col md:flex-row items-center justify-center py-20 px-4">
+    <img src="images/avatar.jpg" alt="Stormen avatar" class="w-[20rem] h-[20rem] max-w-full h-auto rounded-full border-4 border-black shadow-md mr-12 mb-8 md:mb-0"/>
+    <div class="max-w-lg">
       <h1 class="text-5xl font-extrabold mb-4">Stormen</h1>
       <p>
         Hey there, I’m <strong>Stormen</strong>! I’ve been streaming full-time for almost a decade, mostly focusing on FPS games where I balance a high-skill approach with a laid-back, welcoming vibe.
@@ -69,39 +56,26 @@
       </p>
     </div>
   </main>
-
   <!-- Footer -->
   <footer class="bg-white py-10 text-gray-900 mt-auto">
     <div class="container mx-auto flex flex-col items-center space-y-6">
       <div class="flex space-x-6">
-        <a href="https://instagram.com/stormentwitch"   target="_blank" class="social-link">
-          <img src="images/instagram.png" alt="Instagram" class="w-8 h-8" />
-        </a>
-        <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="social-link">
-          <img src="images/tiktok.png" alt="TikTok" class="w-7 h-7" />
-        </a>
-        <a href="https://twitter.com/stormentv"        target="_blank" class="social-link">
-          <img src="images/twitter.png" alt="Twitter" class="w-8 h-8" />
-        </a>
-        <a href="https://youtube.com/@stormentv"        target="_blank" class="social-link">
-          <img src="images/youtube.png" alt="YouTube" class="w-8 h-8" />
-        </a>
-        <a href="https://twitch.tv/stormen"             target="_blank" class="social-link">
-          <img src="images/twitch.png" alt="Twitch" class="w-8 h-8" />
-        </a>
+        <a href="https://instagram.com/stormentwitch" class="social-link"><img src="images/instagram.png" alt="Instagram" class="w-8 h-8"/></a>
+        <a href="https://www.tiktok.com/@stormentwitch" class="social-link"><img src="images/tiktok.png" alt="TikTok" class="w-7 h-7"/></a>
+        <a href="https://twitter.com/stormentv" class="social-link"><img src="images/twitter.png" alt="Twitter" class="w-8 h-8"/></a>
+        <a href="https://youtube.com/@stormentv" class="social-link"><img src="images/youtube.png" alt="YouTube" class="w-8 h-8"/></a>
+        <a href="https://twitch.tv/stormen" class="social-link"><img src="images/twitch.png" alt="Twitch" class="w-8 h-8"/></a>
       </div>
-      <div class="w-full border-t border-gray-700"></div>
-      <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
+      <div class="w-full border-t border-gray-300"></div>
+      <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
     </div>
   </footer>
-
   <!-- Scripts -->
   <script>
     feather.replace();
     const menuBtn = document.getElementById('menuBtn');
-    const panel   = document.getElementById('sidePanel');
-    const backdrop= document.getElementById('backdrop');
-
+    const panel = document.getElementById('sidePanel');
+    const backdrop = document.getElementById('backdrop');
     menuBtn.addEventListener('click', () => {
       const open = !panel.classList.contains('-translate-x-full');
       panel.classList.toggle('-translate-x-full');
@@ -110,10 +84,9 @@
       backdrop.classList.toggle('opacity-100', !panel.classList.contains('-translate-x-full'));
       menuBtn.classList.toggle('open', !panel.classList.contains('-translate-x-full'));
     });
-
     backdrop.addEventListener('click', () => {
       panel.classList.add('-translate-x-full');
-      backdrop.classList.add('pointer-events-none', 'opacity-0');
+      backdrop.classList.add('pointer-events-none','opacity-0');
       menuBtn.classList.remove('open');
     });
   </script>
