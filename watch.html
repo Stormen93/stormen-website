@@ -154,6 +154,13 @@
     });
     backdrop.addEventListener('click', closePanel);
     closeBtn.addEventListener('click', closePanel);
+    // Close panel when clicking anywhere outside of it
+    document.addEventListener('click', (e) => {
+      const isClickInsidePanel = panel.contains(e.target) || menuBtn.contains(e.target);
+      if (!isClickInsidePanel && !panel.classList.contains('-translate-x-full')) {
+        closePanel();
+      }
+    });
   </script>
 </body>
 </html>
