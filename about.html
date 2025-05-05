@@ -4,39 +4,45 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About | Stormen</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
   <script src="https://unpkg.com/feather-icons"></script>
+  <style>#sidePanel{transition:transform .3s ease-in-out;}</style>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans">
-  <!-- Header -->
-  <header class="fixed inset-x-0 top-0 z-20 bg-gray-900/30 backdrop-blur-md">
-     <div class="container mx-auto flex justify-center p-4">
-        <nav class="flex gap-10 text-sm font-semibold uppercase tracking-wider">
-           <a href="/" class="group relative hover:text-indigo-400">Home</a></span>
-           <a href="/watch" class="group relative hover:text-indigo-400">Watch&nbsp;Me <span class="absolute left-0 -bottom-1 w-full h-0.5 bg-indigo-400 transform scale-x-0 group-hover:scale-x-100 transition-origin-left duration-300"></span>
-           </a>
-           <a href="/merch" class="group relative hover:text-indigo-400">Collection <span class="absolute left-0 -bottom-1 w-full h-0.5 bg-indigo-400 transform scale-x-0 group-hover:scale-x-100 transition-origin-left duration-300"></span>
-           </a>
-        </nav>
-     </div>
+<body class="bg-gray-900 text-gray-100 font-sans overflow-x-hidden">
+  <!-- Header with hamburger left & big centered logo -->
+  <header class="fixed inset-x-0 top-0 z-30 bg-gray-900/30 backdrop-blur-md">
+    <div class="flex items-center p-4 w-full max-w-7xl mx-auto">
+      <button id="menuBtn" class="text-gray-200 hover:text-indigo-400"><i data-feather="menu" class="w-7 h-7"></i></button>
+      <a href="/" class="mx-auto"><img src="images/logo.png" alt="Stormen logo" class="h-36"/></a>
+    </div>
   </header>
 
+  <!-- Slide‑out navigation panel -->
+  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 transform -translate-x-full z-40 shadow-xl p-6 space-y-6 font-semibold">
+    <button id="closeBtn" class="absolute top-4 right-4 text-gray-700 hover:text-indigo-500"><i data-feather="x" class="w-6 h-6"></i></button>
+    <nav class="mt-14 space-y-6">
+      <a href="/" class="block hover:text-indigo-500">About</a>
+      <a href="/watch" class="block hover:text-indigo-500">Watch Me</a>
+      <a href="/merch" class="block hover:text-indigo-500">Merch</a>
+    </nav>
+  </aside>
+
   <!-- Hero background -->
-  <section class="relative h-screen overflow-hidden flex items-center justify-center">
+  <section class="relative h-screen overflow-hidden flex items-center justify-center pt-40">
      <video class="absolute inset-0 w-full h-full object-cover" src="media/stormen_bg.mp4" autoplay loop muted playsinline></video>
      <div class="absolute inset-0 bg-black bg-opacity-60"></div>
 
      <!-- About card -->
-     <div class="relative z-10 flex flex-col items-center text-center gap-6 bg-gray-800 bg-opacity-70 p-8 rounded-2xl shadow-lg max-w-lg mx-auto pt-24">
+     <div class="relative z-10 flex flex-col items-center text-center gap-6 bg-gray-800 bg-opacity-70 p-8 rounded-2xl shadow-lg max-w-lg mx-auto">
         <img src="images/avatar.jpg" alt="Stormen avatar" class="w-64 h-64 rounded-full object-cover border-4 border-gray-700 shadow-md" />
         <h1 class="text-5xl font-extrabold">Stormen</h1>
         <div class="flex gap-4 text-2xl">
-          <a href="mailto:contact@stormen@thenewgen.com" class="hover:text-indigo-400"><i data-feather="mail"></i></a>
-          <a href="https://instagram.com/stormentwitch" target="_blank" class="hover:text-indigo-400"><i data-feather="instagram"></i></a>
-          <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="hover:text-indigo-400"><i data-feather="music"></i></a>
-          <a href="https://youtube.com/@stormentv" target="_blank" class="hover:text-indigo-400"><i data-feather="youtube"></i></a>
-          <a href="https://twitter.com/stormentv" target="_blank" class="hover:text-indigo-400"><i data-feather="x"></i></a>
-          <a href="https://twitch.tv/stormen" target="_blank" class="hover:text-indigo-400"><i data-feather="tv"></i></a>
+          <a href="mailto:contact@stormen@thenewgen.com" class="hover:text-indigo-500"><i data-feather="mail"></i></a>
+          <a href="https://instagram.com/stormentwitch" target="_blank" class="hover:text-indigo-500"><i data-feather="instagram"></i></a>
+          <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="hover:text-indigo-500"><i data-feather="music"></i></a>
+          <a href="https://youtube.com/@stormentv" target="_blank" class="hover:text-indigo-500"><i data-feather="youtube"></i></a>
+          <a href="https://twitter.com/stormentv" target="_blank" class="hover:text-indigo-500"><i data-feather="x"></i></a>
+          <a href="https://twitch.tv/stormen" target="_blank" class="hover:text-indigo-500"><i data-feather="tv"></i></a>
         </div>
         <p class="leading-relaxed text-sm max-w-md">
           Hey, I'm <strong>Stormen</strong> — competitive gamer turned content creator. I’ve spent the past decade battling through the top tiers of esports, from LAN arenas to online showdowns. These days you’ll catch me shredding lobbies in <em>Apex Legends</em>, building a positive, hype‑fuelled community along the way. Tune in for clutch plays, honest laughs, and the occasional cracked controller.
@@ -44,12 +50,13 @@
      </div>
   </section>
 
-  <footer class="bg-gray-800 py-6">
-     <div class="container mx-auto text-center text-sm text-gray-400">
-        © 2025 Stormen. All rights reserved.
-     </div>
-  </footer>
+  <footer class="bg-gray-800 py-6"><div class="container mx-auto text-center text-sm text-gray-400">© 2025 Stormen. All rights reserved.</div></footer>
 
-<script>feather.replace();</script>
+  <script>
+    feather.replace();
+    const panel=document.getElementById('sidePanel');
+    document.getElementById('menuBtn').addEventListener('click',()=>panel.classList.remove('-translate-x-full'));
+    document.getElementById('closeBtn').addEventListener('click',()=>panel.classList.add('-translate-x-full'));
+  </script>
 </body>
 </html>

@@ -12,31 +12,33 @@
     .merch-item{position:relative;overflow:hidden;}
     .merch-item img{transition:opacity .3s ease-in-out;}
     .merch-item .back{position:absolute;inset:0;opacity:0;}
-    .merch-item:hover .back{opacity:1;}
-    .merch-item:hover .front{opacity:0;}
+    @media(hover:hover){.merch-item:hover .back{opacity:1;}.merch-item:hover .front{opacity:0;}}
+    @media(hover:none){.merch-item:active .back{opacity:1;}.merch-item:active .front{opacity:0;}}
+    #sidePanel{transition:transform .3s ease-in-out;}
   </style>
 </head>
-<body class="bg-gray-900 text-gray-100 font-sans">
-  <!-- Header: hamburger + centered logo -->
-  <header class="fixed inset-x-0 top-0 z-20 bg-gray-900/30 backdrop-blur-md">
-    <div class="container mx-auto flex items-center justify-between p-4">
+<body class="bg-gray-900 text-gray-100 font-sans overflow-x-hidden">
+  <!-- Header with hamburger left & big centered logo -->
+  <header class="fixed inset-x-0 top-0 z-30 bg-gray-900/30 backdrop-blur-md">
+    <div class="flex items-center p-4 w-full max-w-7xl mx-auto">
       <button id="menuBtn" class="text-gray-200 hover:text-indigo-400"><i data-feather="menu" class="w-7 h-7"></i></button>
-      <a href="/" class="mx-auto"><img src="images/logo.png" alt="Stormen logo" class="h-12"/></a>
-      <div class="w-7 h-7"></div>
-    </div>
-    <!-- Mobile dropdown -->
-    <div id="menuPanel" class="hidden bg-gray-800/90 backdrop-blur-md p-4 space-y-4 text-center lg:hidden">
-      <a href="/" class="block hover:text-indigo-400">About</a>
-      <a href="/watch" class="block hover:text-indigo-400">Watch Me</a>
-      <a href="/merch" class="block hover:text-indigo-400">Merch</a>
+      <a href="/" class="mx-auto"><img src="images/logo.png" alt="Stormen logo" class="h-36"/></a>
     </div>
   </header>
 
-  <!-- Hero with video background & centered about overlay -->
-  <section class="relative h-screen overflow-hidden flex items-center justify-center">
-      <!-- Video background -->
+  <!-- Slide‑out side panel -->
+  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 transform -translate-x-full z-40 shadow-xl p-6 space-y-6 font-semibold">
+    <button id="closeBtn" class="absolute top-4 right-4 text-gray-700 hover:text-indigo-500"><i data-feather="x" class="w-6 h-6"></i></button>
+    <nav class="mt-14 space-y-6">
+      <a href="/" class="block hover:text-indigo-500">About</a>
+      <a href="/watch" class="block hover:text-indigo-500">Watch Me</a>
+      <a href="/merch" class="block hover:text-indigo-500">Merch</a>
+    </nav>
+  </aside>
+
+  <!-- Hero -->
+  <section class="relative h-screen overflow-hidden flex items-center justify-center pt-40">
       <video class="absolute inset-0 w-full h-full object-cover" src="media/stormen_bg.mp4" autoplay loop muted playsinline></video>
-      <!-- Dark overlay -->
       <div class="absolute inset-0 bg-black bg-opacity-60"></div>
 
       <!-- About card overlay -->
@@ -51,7 +53,7 @@
             <a href="https://twitter.com/stormentv" target="_blank" class="hover:text-indigo-400" aria-label="twitter"><i data-feather="x"></i></a>
             <a href="https://twitch.tv/stormen" target="_blank" class="hover:text-indigo-400" aria-label="twitch"><i data-feather="tv"></i></a>
          </div>
-         <p class="leading-relaxed text-sm">
+         <p class="leading-relaxed text-sm max-w-md">
             Hey, I'm <strong>Stormen</strong> — competitive gamer turned content creator. I’ve spent the past decade battling through the top tiers of esports. These days you’ll catch me shredding lobbies in <em>Apex Legends</em>, building a positive, hype‑fuelled community along the way.
          </p>
       </div>
@@ -85,6 +87,11 @@
      </div>
   </footer>
 
-  <script>feather.replace();</script>
+  <script>
+    feather.replace();
+    const panel=document.getElementById('sidePanel');
+    document.getElementById('menuBtn').addEventListener('click',()=>panel.classList.remove('-translate-x-full'));
+    document.getElementById('closeBtn').addEventListener('click',()=>panel.classList.add('-translate-x-full'));
+  </script>
 </body>
 </html>
