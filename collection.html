@@ -4,48 +4,63 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Collection | Stormen</title>
-  <!-- Roboto Condensed font -->
+  <!-- Load Roboto Condensed from Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    body { font-family: 'Roboto Condensed', sans-serif; }
-  </style>
-  <!-- Tailwind CSS -->
+  <!-- Tailwind CSS (after fonts) -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
   <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
+
+  <!-- Custom Styles -->
   <style>
-/* Burger animation */
-    .burger-line { display:block; width:48px; height:2px; /* background-color controlled via utility classes */ margin:6px 0; transition: transform .3s ease, background-color .3s ease; }
+    /* Apply Roboto Condensed globally */
+    body { font-family: 'Roboto Condensed', sans-serif; }
+
+    /* Burger animation and positioning */
+    .burger-line { display:block; width:48px; height:2px; margin:6px 0; transition: transform .3s, background-color .3s; }
     .burger-line.lower { height:1px; }
-    #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
-    #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
-    /* Slide to panel and position */
+    #menuBtn.open .burger-line:first-child { transform: rotate(45deg); }
+    #menuBtn.open .burger-line.lower { transform: rotate(-45deg) translateY(-1px); }
     #menuBtn.open {
       /* slide right and position over panel close corner */
-      left: calc(4rem + 18rem - 3rem); /* moved further left to avoid hiding under panel */
+      left: calc(4rem + 18rem - 3rem);
       top: 1.25rem;
     }
-    /* Panel transition */
-    #sidePanel { transition:transform .3s ease-in-out; }
-    #backdrop { transition:opacity .3s ease-in-out; }
-    /* Merch items */
+
+    /* Panel & backdrop transitions */
+    #sidePanel { transition: transform .3s ease-in-out; }
+    #backdrop { transition: opacity .3s ease-in-out; }
+
+    /* TikTok icon nudge */
+    a[href*="tiktok.com"] img { position: relative; top: 2px; }
+
+    /* Merch hover effect */
     .merch-item { position: relative; overflow: hidden; }
     .merch-item img { transition: opacity .3s ease-in-out; }
     .merch-item .back { position: absolute; inset: 0; opacity: 0; }
-    @media (hover:hover) { .merch-item:hover .back { opacity: 1; } .merch-item:hover .front { opacity:0; } }
-    @media (hover:none) { .merch-item:active .back { opacity:1; } .merch-item:active .front { opacity:0; } }
-    /* bump TikTok icon down 2px */
-    a[href*="tiktok.com"] img { position: relative; top: 2px; } .merch-item:active .front { opacity:0; } }
+    @media (hover:hover) {
+      .merch-item:hover .back { opacity: 1; }
+      .merch-item:hover .front { opacity: 0; }
+    }
+    @media (hover:none) {
+      .merch-item:active .back { opacity: 1; }
+      .merch-item:active .front { opacity: 0; }
+    }
+
+    /* Footer social icon hover to gray */
+    .social-link img { transition: filter .3s ease; }
+    .social-link:hover img { filter: brightness(0) invert(0.4); }
   </style>
 </head>
 <body class="bg-black text-gray-100 flex flex-col min-h-screen">
+
   <!-- Header -->
   <header id="siteHeader" class="fixed inset-x-0 top-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
     <button id="menuBtn" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 focus:outline-none">
       <span class="burger-line bg-white"></span>
       <span class="burger-line lower bg-white"></span>
     </button>
-    <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
+    <a href="/" class="mx-auto flex items-center justify-center h-36 relative">
       <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
       <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
     </a>
@@ -64,10 +79,6 @@
 
   <!-- Collection Grid -->
   <main class="flex-grow container mx-auto px-4 py-16 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-      <img src="images/tshirt_front.jpg" alt="Stormen Tee front" class="rounded-lg shadow-md front" />
-      <img src="images/tshirt_back.jpg" alt="Stormen Tee back" class="rounded-lg shadow-md back" />
-    </a>
     <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
       <img src="images/hoodie_front.png" alt="Stormen Hoodie front" class="rounded-lg shadow-md front" />
       <img src="images/hoodie_back.png" alt="Stormen Hoodie back" class="rounded-lg shadow-md back" />
@@ -105,7 +116,6 @@
   <!-- Footer -->
   <footer class="bg-white py-10 text-gray-900">
     <div class="container mx-auto flex flex-col items-center space-y-6">
-      <!-- Social Links -->
       <div class="flex space-x-6">
         <a href="https://instagram.com/stormentwitch"   target="_blank" class="social-link">
           <img src="images/instagram.png" alt="Instagram" class="w-8 h-8" />
@@ -123,10 +133,8 @@
           <img src="images/twitch.png" alt="Twitch" class="w-8 h-8" />
         </a>
       </div>
-      <!-- Divider -->
       <div class="w-full border-t border-gray-300"></div>
-      <!-- Copyright -->
-      <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
+      <div class="text-sm">© 2025 Stormen. All rightsreserved.</div>
     </div>
   </footer>
 
