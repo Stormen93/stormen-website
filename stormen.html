@@ -15,14 +15,16 @@
     body { font-family: 'Roboto Condensed', sans-serif; }
 
     /* Burger icon styling */
-    .burger-line { display: block; width: 48px; height: 2px; background: #1a202c; margin: 6px 0; transition: transform .3s ease, background-color .3s ease; }
+    .burger-line {
+      display: block;
+      width: 48px;
+      height: 2px;
+      background: #1a202c !important;
+      margin: 6px 0;
+      transition: transform .3s ease, background-color .3s ease;
+    }
     .burger-line.lower { height: 1px; }
-    #menuBtn.open .burger-line:first-child { transform: rotate(45deg); }
-    #menuBtn.open .burger-line.lower { transform: rotate(-45deg) translateY(-1px); }
-    /* Open-state position */
-    #menuBtn.open { left: calc(4rem + 18rem - 3rem); top: 1.25rem; }
-
-    /* Panel and backdrop transitions */
+    /* Panel and backdrop transitions *//
     #sidePanel { transition: transform .3s ease-in-out; }
     #backdrop { transition: opacity .3s ease-in-out; }
 
@@ -34,12 +36,12 @@
   <!-- Header -->
   <header id="siteHeader" class="fixed inset-x-0 top-0 z-50 h-20 flex items-center bg-transparent">
     <button id="menuBtn" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 focus:outline-none">
-      <span class="burger-line bg-gray-900"></span>
-      <span class="burger-line lower bg-gray-900"></span>
+      <span class="burger-line"></span>
+      <span class="burger-line lower"></span>
     </button>
     <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
-      <img src="images/logo_yellow.png" alt="Stormen logo white" class="h-36 logo-white transition-opacity duration-300" />
-      <img src="images/logo_yellow.png" alt="Stormen logo yellow" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
+      <img src="images/logo_yellow.png" alt="Stormen logo yellow" class="h-36 logo-yellow transition-opacity duration-300" />
+      <img src="images/logo_white.png" alt="Stormen logo white" class="h-36 logo-white opacity-0 absolute inset-0 transition-opacity duration-300" />
     </a>
   </header>
 
@@ -56,7 +58,7 @@
 
   <!-- About Section -->
   <main class="flex-grow bg-white py-20 flex flex-col md:flex-row items-center justify-center">
-    <img src="images/avatar.jpg" alt="Stormen avatar" class="w-[32rem] h-[32rem] rounded-full object-cover border-4 border-black shadow-md mr-12 mb-8 md:mb-0" />
+    <img src="images/avatar.jpg" alt="Stormen avatar" class="w-64 h-64 rounded-full object-cover border-4 border-black shadow-md mr-12 mb-8 md:mb-0" />
     <div class="max-w-lg text-gray-900 text-lg leading-relaxed">
       <h1 class="text-5xl font-extrabold mb-4">Stormen</h1>
       <p>
