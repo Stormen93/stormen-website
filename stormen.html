@@ -4,52 +4,49 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stormen | About</title>
+  <!-- Roboto Condensed font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
   <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
-  <!-- Roboto Condensed font -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
-  <style>body { font-family: 'Roboto Condensed', sans-serif; }</style>
-  <!-- Roboto Condensed font -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
-  <style>body { font-family: 'Roboto Condensed', sans-serif; }</style>
   <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
+    /* Global font override */
+    body { font-family: 'Roboto Condensed', sans-serif; }
+
     /* Burger icon styling */
-    .burger-line { display:block; width:48px; height:2px; background:#fff; margin:6px 0; transition:transform .3s ease, background-color .3s ease; }
-    .burger-line.lower { height:1px; }
-    #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
-    #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
-    /* Position shifted when open */
-    #menuBtn.open {
-      /* slide right and position over panel close corner */
-      left: calc(4rem + 18rem - 3rem);
-      top: 1.25rem;
-    }
-    /* Panel animation */
-    #sidePanel { transition:transform .3s ease-in-out; }
-    #backdrop { transition:opacity .3s ease-in-out; }
-    /* bump TikTok icon down 2px */
+    .burger-line { display: block; width: 48px; height: 2px; background: #1a202c; margin: 6px 0; transition: transform .3s ease, background-color .3s ease; }
+    .burger-line.lower { height: 1px; }
+    #menuBtn.open .burger-line:first-child { transform: rotate(45deg); }
+    #menuBtn.open .burger-line.lower { transform: rotate(-45deg) translateY(-1px); }
+    /* Open-state position */
+    #menuBtn.open { left: calc(4rem + 18rem - 3rem); top: 1.25rem; }
+
+    /* Panel and backdrop transitions */
+    #sidePanel { transition: transform .3s ease-in-out; }
+    #backdrop { transition: opacity .3s ease-in-out; }
+
+    /* TikTok icon adjust */
     a[href*="tiktok.com"] img { position: relative; top: 2px; }
   </style>
 </head>
 <body class="bg-white text-gray-900 overflow-x-hidden flex flex-col min-h-screen">
   <!-- Header -->
-  <header id="siteHeader" class="fixed inset-x-0 top-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
+  <header id="siteHeader" class="fixed inset-x-0 top-0 z-50 h-20 flex items-center bg-transparent">
     <button id="menuBtn" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 focus:outline-none">
       <span class="burger-line bg-gray-900"></span>
       <span class="burger-line lower bg-gray-900"></span>
     </button>
     <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
-      <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
-      <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
+      <img src="images/logo_white.png" alt="Stormen logo white" class="h-36 logo-white transition-opacity duration-300" />
+      <img src="images/logo_yellow.png" alt="Stormen logo yellow" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
     </a>
   </header>
 
   <!-- Backdrop & Side Panel -->
   <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 opacity-0 pointer-events-none z-40"></div>
   <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 transform -translate-x-full z-50 shadow-xl p-6 font-semibold uppercase">
-    <nav class="mt-14 space-y-6">
+    <nav class="mt-14 space-y-6 uppercase">
       <a href="/"                class="block hover:text-indigo-500">HOME</a>
       <a href="/stormen.html"    class="block hover:text-indigo-500">STORMEN</a>
       <a href="/watch.html"      class="block hover:text-indigo-500">WATCH</a>
@@ -57,27 +54,20 @@
     </nav>
   </aside>
 
-  <!-- About Section: White Background -->
-  <main class="flex-grow bg-white py-20 flex items-center justify-center">
-    <div class="flex flex-col md:flex-row items-center text-left gap-12 mx-auto max-w-4xl">
-      <!-- Profile Photo -->
-      <img src="images/avatar.jpg" alt="Stormen avatar" class="w-[32rem] h-[32rem] rounded-full object-cover border-4 border-black shadow-md mb-8 md:mb-0" />
-      <!-- About Text -->
-      <div class="text-gray-900 text-lg leading-relaxed">
-        <h1 class="text-5xl font-extrabold mb-4">Stormen</h1>
-        <p>
-          Hey there, I’m <strong>Stormen</strong>! I’ve been streaming full-time for almost a decade, mostly focusing on FPS games where I balance a high-skill approach with a laid-back, welcoming vibe. My channel is all about having fun, showcasing solid gameplay, and keeping the interaction with my community front and center. After nearly 10 years, we’ve grown into an awesome, supportive group that loves to share laughs, tips, and good times.
-        </p>
-      </div>
+  <!-- About Section -->
+  <main class="flex-grow bg-white py-20 flex flex-col md:flex-row items-center justify-center">
+    <img src="images/avatar.jpg" alt="Stormen avatar" class="w-[32rem] h-[32rem] rounded-full object-cover border-4 border-black shadow-md mr-12 mb-8 md:mb-0" />
+    <div class="max-w-lg text-gray-900 text-lg leading-relaxed">
+      <h1 class="text-5xl font-extrabold mb-4">Stormen</h1>
+      <p>
+        Hey there, I’m <strong>Stormen</strong>! I’ve been streaming full-time for almost a decade, mostly focusing on FPS games where I balance a high-skill approach with a laid-back, welcoming vibe. My channel is all about having fun, showcasing solid gameplay, and keeping the interaction with my community front and center. After nearly 10 years, we’ve grown into an awesome, supportive group that loves to share laughs, tips, and good times.
+      </p>
     </div>
-  </section>
-
-  <!-- Footer -->
   </main>
 
-  <footer class="bg-white py-10 text-gray-900">
+  <!-- Footer -->
+  <footer class="bg-white py-10 text-gray-900 mt-auto">
     <div class="container mx-auto flex flex-col items-center space-y-6">
-      <!-- Social Links -->
       <div class="flex space-x-6">
         <a href="https://instagram.com/stormentwitch"   target="_blank" class="social-link">
           <img src="images/instagram.png" alt="Instagram" class="w-8 h-8" />
@@ -95,9 +85,7 @@
           <img src="images/twitch.png" alt="Twitch" class="w-8 h-8" />
         </a>
       </div>
-      <!-- Divider -->
-      <div class="w-full border-t border-gray-700"></div>
-      <!-- Copyright -->
+      <div class="w-full border-t border-gray-300"></div>
       <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
     </div>
   </footer>
@@ -106,38 +94,22 @@
   <script>
     feather.replace();
     const menuBtn = document.getElementById('menuBtn');
-    const panel = document.getElementById('sidePanel');
-    const backdrop = document.getElementById('backdrop');
+    const panel   = document.getElementById('sidePanel');
+    const backdrop= document.getElementById('backdrop');
 
-    // Toggle panel & animate icon
     menuBtn.addEventListener('click', () => {
-      const open = panel.classList.toggle('-translate-x-full') === false;
-      backdrop.classList.toggle('pointer-events-none', !open);
-      backdrop.classList.toggle('opacity-0', !open);
-      backdrop.classList.toggle('opacity-100', open);
-      menuBtn.classList.toggle('open', open);
+      const open = !panel.classList.contains('-translate-x-full');
+      panel.classList.toggle('-translate-x-full');
+      backdrop.classList.toggle('pointer-events-none', panel.classList.contains('-translate-x-full'));
+      backdrop.classList.toggle('opacity-0', panel.classList.contains('-translate-x-full'));
+      backdrop.classList.toggle('opacity-100', !panel.classList.contains('-translate-x-full'));
+      menuBtn.classList.toggle('open', !panel.classList.contains('-translate-x-full'));
     });
 
-    // Close on backdrop click
     backdrop.addEventListener('click', () => {
       panel.classList.add('-translate-x-full');
       backdrop.classList.add('pointer-events-none', 'opacity-0');
       menuBtn.classList.remove('open');
-    });
-
-    // Header scroll effect
-    window.addEventListener('scroll', () => {
-      const hdr = document.getElementById('siteHeader');
-      const lines = hdr.querySelectorAll('.burger-line');
-      const whiteLogo = document.querySelector('.logo-white');
-      const yellowLogo = document.querySelector('.logo-black');
-      const scrolled = window.scrollY > 10;
-      hdr.classList.toggle('bg-white', scrolled);
-      hdr.classList.toggle('shadow-sm', scrolled);
-      lines.forEach(l => l.classList.toggle('bg-white', !scrolled));
-      lines.forEach(l => l.classList.toggle('bg-gray-900', scrolled));
-      whiteLogo.classList.toggle('opacity-0', scrolled);
-      yellowLogo.classList.toggle('opacity-0', !scrolled);
     });
   </script>
 </body>
