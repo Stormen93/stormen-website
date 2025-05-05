@@ -1,110 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Watch | Stormen</title>
-  <!-- Roboto Condensed font -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
-  <style>body { font-family: 'Roboto Condensed', sans-serif; }</style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stormen | Watch</title>
+  <!-- Roboto Condensed -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet"/>
   <!-- Tailwind CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
-  <!-- Roboto Condensed font -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
-  <style>body { font-family: 'Roboto Condensed', sans-serif; }</style>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
   <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
- /* Burger animation */
-    .burger-line { display:block; width:48px; height:2px; /* background-color controlled via utility classes */ margin:6px 0; transition: transform .3s ease, background-color .3s ease; }
+    body { font-family: 'Roboto Condensed', sans-serif; }
+    .burger-line { display:block; width:48px; height:2px; background:#1a202c!important; margin:6px 0; transition:transform .3s, background-color .3s; }
     .burger-line.lower { height:1px; }
     #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
     #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
-    /* Slide to panel and position */
-    #menuBtn.open {
-      /* slide right and position over panel close corner */
-      left: calc(4rem + 18rem - 3rem); /* moved further left to avoid hiding under panel */
-      top: 1.25rem;
-    }
-    /* Panel transition */
+    #menuBtn.open { left:calc(4rem + 18rem - 3rem); top:1.25rem; }
     #sidePanel { transition:transform .3s ease-in-out; }
     #backdrop { transition:opacity .3s ease-in-out; }
-    /* bump TikTok icon down 2px */
-    a[href*="tiktok.com"] img { position: relative; top: 2px; }
-    /* Responsive embeds */
-    .responsive-iframe { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; }
-    .responsive-iframe iframe { position:absolute; top:0; left:0; width:100%; height:100%; }
+    /* Embed outline */
+    .embed-wrapper { border: 2px solid #e2e8f0; padding: 0.5rem; border-radius: 0.5rem; background: #ffffff; }
   </style>
 </head>
-<body class="bg-black text-gray-100 overflow-x-hidden">
+<body class="flex flex-col min-h-screen bg-white text-gray-900 overflow-x-hidden">
   <!-- Header -->
-  <header id="siteHeader" class="fixed inset-x-0 top-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
-    <button id="menuBtn" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 focus:outline-none">
-      <span class="burger-line bg-white"></span>
-      <span class="burger-line lower bg-white"></span>
+  <header class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent">
+    <button id="menuBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none">
+      <span class="burger-line"></span>
+      <span class="burger-line lower"></span>
     </button>
-    <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
-      <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
-      <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
+    <a href="/" class="mx-auto flex items-center justify-center h-36">
+      <img src="images/logo_yellow.png" alt="Stormen logo" class="h-36"/>
     </a>
   </header>
 
-  <!-- Backdrop & Side Panel -->
+  <!-- Backdrop & Panel -->
   <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 opacity-0 pointer-events-none z-40"></div>
-  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 transform -translate-x-full z-50 shadow-xl p-6 space-y-6 font-semibold uppercase">
+  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold">
     <nav class="mt-14 space-y-6">
-      <a href="/" class="block hover:text-indigo-500">HOME</a>
-      <a href="/stormen.html" class="block hover:text-indigo-500">STORMEN</a>
-      <a href="/watch.html" class="block hover:text-indigo-500">WATCH</a>
+      <a href="/"                class="block hover:text-indigo-500">HOME</a>
+      <a href="/stormen.html"    class="block hover:text-indigo-500">STORMEN</a>
+      <a href="/watch.html"      class="block hover:text-indigo-500">WATCH</a>
       <a href="/collection.html" class="block hover:text-indigo-500">COLLECTION</a>
     </nav>
   </aside>
 
-  <!-- Hero with video background and embeds -->
-  <section class="relative h-screen overflow-hidden pt-40">
-    <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline preload="auto" poster="images/video-poster.jpg">
-      <source src="media/stormen_bg.mp4" type="video/mp4">
-      <img src="images/video-poster.jpg" alt="Stormen background" class="w-full h-full object-cover">
-    </video>
-    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-    <div class="relative z-10 container mx-auto px-4 grid md:grid-cols-2 gap-10 items-start">
-      <div>
-        <h3 class="text-2xl font-semibold mb-2 text-white">Twitch.tv/Stormen</h3>
-        <div class="responsive-iframe mb-10 md:mb-0"><iframe src="https://player.twitch.tv/?channel=stormen&parent=stormen.tv" frameborder="0" allowfullscreen></iframe></div>
+  <!-- Main Content -->
+  <main class="flex-grow container mx-auto px-4 pt-32 pb-16">
+    <h1 class="text-4xl font-extrabold mb-8 text-center">Watch Me Live</h1>
+    <div class="grid md:grid-cols-2 gap-8">
+      <!-- Twitch Embed -->
+      <div class="embed-wrapper">
+        <iframe src="https://player.twitch.tv/?channel=stormen&parent=stormen.tv"
+                frameborder="0" allowfullscreen class="w-full h-64 md:h-80"></iframe>
       </div>
-      <div>
-        <h3 class="text-2xl font-semibold mb-2 text-white">Latest YouTube Video</h3>
-        <div class="responsive-iframe"><iframe src="https://www.youtube.com/embed/videoseries?si=3t-65oYSf1tSjdO8&list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J" frameborder="0" allowfullscreen></iframe></div>
+      <!-- YouTube Embed -->
+      <div class="embed-wrapper">
+        <iframe src="https://www.youtube.com/embed/videoseries?si=3t-65oYSf1tSjdO8&list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
+                frameborder="0" allowfullscreen class="w-full h-64 md:h-80"></iframe>
       </div>
     </div>
-  </section>
+  </main>
 
   <!-- Footer -->
-  <footer class="bg-white py-10 text-gray-900">
+  <footer class="bg-white py-10 text-gray-900 mt-auto">
     <div class="container mx-auto flex flex-col items-center space-y-6">
-      <!-- Social Links -->
       <div class="flex space-x-6">
-        <a href="https://instagram.com/stormentwitch"   target="_blank" class="social-link">
-          <img src="images/instagram.png" alt="Instagram" class="w-8 h-8" />
-        </a>
-        <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="social-link">
-          <img src="images/tiktok.png" alt="TikTok" class="w-7 h-7" />
-        </a>
-        <a href="https://twitter.com/stormentv"        target="_blank" class="social-link">
-          <img src="images/twitter.png" alt="Twitter" class="w-8 h-8" />
-        </a>
-        <a href="https://youtube.com/@stormentv"        target="_blank" class="social-link">
-          <img src="images/youtube.png" alt="YouTube" class="w-8 h-8" />
-        </a>
-        <a href="https://twitch.tv/stormen"             target="_blank" class="social-link">
-          <img src="images/twitch.png" alt="Twitch" class="w-8 h-8" />
-        </a>
-        <a href="https://discord.gg/8pgUDRT5Wv" class="social-link"><img src="images/discord.png" alt="Twitch" class="w-8 h-8"/></a>
+        <a href="https://instagram.com/stormentwitch" class="social-link"><img src="images/instagram.png" alt="Instagram" class="w-8 h-8"/></a>
+        <a href="https://www.tiktok.com/@stormentwitch" class="social-link"><img src="images/tiktok.png" alt="TikTok" class="w-7 h-7"/></a>
+        <a href="https://twitter.com/stormentv" class="social-link"><img src="images/twitter.png" alt="Twitter" class="w-8 h-8"/></a>
+        <a href="https://youtube.com/@stormentv" class="social-link"><img src="images/youtube.png" alt="YouTube" class="w-8 h-8"/></a>
+        <a href="https://twitch.tv/stormen" class="social-link"><img src="images/twitch.png" alt="Twitch" class="w-8 h-8"/></a>
+        <a href="https://discord.gg/8pgUDRT5Wv" class="social-link"><img src="images/discord.png" alt="Discord" class="w-8 h-8"/></a>
       </div>
-      <!-- Divider -->
-      <div class="w-full border-t border-gray-700"></div>
-      <!-- Copyright -->
-      <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
+      <div class="w-full border-t border-gray-300"></div>
+      <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
     </div>
   </footer>
 
@@ -114,34 +85,18 @@
     const menuBtn = document.getElementById('menuBtn');
     const panel = document.getElementById('sidePanel');
     const backdrop = document.getElementById('backdrop');
-
-    // Toggle panel & icon
     menuBtn.addEventListener('click', () => {
-      const isOpen = panel.classList.toggle('-translate-x-full') === false;
-      backdrop.classList.toggle('pointer-events-none', !isOpen);
-      backdrop.classList.toggle('opacity-0', !isOpen);
-      backdrop.classList.toggle('opacity-100', isOpen);
-      menuBtn.classList.toggle('open', isOpen);
+      const open = !panel.classList.contains('-translate-x-full');
+      panel.classList.toggle('-translate-x-full');
+      backdrop.classList.toggle('pointer-events-none', panel.classList.contains('-translate-x-full'));
+      backdrop.classList.toggle('opacity-0', panel.classList.contains('-translate-x-full'));
+      backdrop.classList.toggle('opacity-100', !panel.classList.contains('-translate-x-full'));
+      menuBtn.classList.toggle('open', !panel.classList.contains('-translate-x-full'));
     });
     backdrop.addEventListener('click', () => {
       panel.classList.add('-translate-x-full');
-      backdrop.classList.add('pointer-events-none', 'opacity-0');
+      backdrop.classList.add('pointer-events-none','opacity-0');
       menuBtn.classList.remove('open');
-    });
-
-    // Scroll effects
-    window.addEventListener('scroll', () => {
-      const hdr = document.getElementById('siteHeader');
-      const lines = hdr.querySelectorAll('.burger-line');
-      const whiteLogo = document.querySelector('.logo-white');
-      const yellowLogo = document.querySelector('.logo-black');
-      const scrolled = window.scrollY > 10;
-      hdr.classList.toggle('bg-white', scrolled);
-      hdr.classList.toggle('shadow-sm', scrolled);
-      lines.forEach(l => l.classList.toggle('bg-white', !scrolled));
-      lines.forEach(l => l.classList.toggle('bg-gray-900', scrolled));
-      whiteLogo.classList.toggle('opacity-0', scrolled);
-      yellowLogo.classList.toggle('opacity-0', !scrolled);
     });
   </script>
 </body>
