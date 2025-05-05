@@ -15,18 +15,18 @@
   <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-/* Burger animation */
-    .burger-line { display:block; width:48px; height:2px; /* background-color controlled via utility classes */ margin:6px 0; transition: transform .3s ease, background-color .3s ease; }
+    /* Burger icon styling */
+    .burger-line { display:block; width:48px; height:2px; background:#fff; margin:6px 0; transition:transform .3s ease, background-color .3s ease; }
     .burger-line.lower { height:1px; }
     #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
     #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
-    /* Slide to panel and position */
+    /* Position shifted when open */
     #menuBtn.open {
       /* slide right and position over panel close corner */
-      left: calc(4rem + 18rem - 3rem); /* moved further left to avoid hiding under panel */
+      left: calc(4rem + 18rem - 3rem);
       top: 1.25rem;
     }
-    /* Panel transition */
+    /* Panel animation */
     #sidePanel { transition:transform .3s ease-in-out; }
     #backdrop { transition:opacity .3s ease-in-out; }
     /* bump TikTok icon down 2px */
@@ -64,20 +64,16 @@
       <img src="images/video-poster.jpg" alt="Stormen background" class="w-full h-full object-cover">
     </video>
     <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-    <div class="relative z-10 flex flex-col items-center text-center gap-6 bg-gray-800 bg-opacity-70 p-8 rounded-2xl shadow-lg max-w-lg mx-auto mt-12">
+    <div class="relative z-10 flex flex-col md:flex-row items-start text-left gap-12 max-w-4xl mx-auto p-8">
+      <!-- Profile Photo -->
       <img src="images/avatar.jpg" alt="Stormen avatar" class="w-64 h-64 rounded-full object-cover border-4 border-gray-700 shadow-md" />
-      <h1 class="text-5xl font-extrabold text-white">Stormen</h1>
-      <div class="flex gap-4 text-2xl text-white">
-        <a href="mailto:contact@stormen@thenewgen.com" class="hover:text-indigo-400"><i data-feather="mail"></i></a>
-        <a href="https://instagram.com/stormentwitch" target="_blank" class="hover:text-indigo-400"><i data-feather="instagram"></i></a>
-        <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="hover:text-indigo-400"><i data-feather="music"></i></a>
-        <a href="https://youtube.com/@stormentv" target="_blank" class="hover:text-indigo-400"><i data-feather="youtube"></i></a>
-        <a href="https://twitter.com/stormentv" target="_blank" class="hover:text-indigo-400"><i data-feather="x"></i></a>
-        <a href="https://twitch.tv/stormen" target="_blank" class="hover:text-indigo-400"><i data-feather="tv"></i></a>
+      <!-- About Text -->
+      <div class="text-white text-lg leading-relaxed">
+        <h1 class="text-5xl font-extrabold mb-4">Stormen</h1>
+        <p>
+          Hey there, I’m <strong>Stormen</strong>! I’ve been streaming full-time for almost a decade, mostly focusing on FPS games where I balance a high-skill approach with a laid-back, welcoming vibe. My channel is all about having fun, showcasing solid gameplay, and keeping the interaction with my community front and center. After nearly 10 years, we’ve grown into an awesome, supportive group that loves to share laughs, tips, and good times.
+        </p>
       </div>
-      <p class="leading-relaxed text-sm text-white max-w-md">
-        Hey, I'm <strong>Stormen</strong> — competitive gamer turned content creator. I’ve spent the past decade battling through the top tiers of esports, from LAN arenas to online showdowns. These days you’ll catch me shredding lobbies in <em>Apex Legends</em>, building a positive, hype‑fuelled community along the way. Tune in for clutch plays, honest laughs, and the occasional cracked controller.
-      </p>
     </div>
   </section>
 
@@ -103,7 +99,7 @@
         </a>
       </div>
       <!-- Divider -->
-      <div class="w-full border-t border-gray-700"></div>
+      <div class="w-full border-t border-gray-300"></div>
       <!-- Copyright -->
       <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
     </div>
