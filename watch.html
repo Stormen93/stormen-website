@@ -25,6 +25,8 @@
     /* Panel transition */
     #sidePanel { transition:transform .3s ease-in-out; }
     #backdrop { transition:opacity .3s ease-in-out; }
+    /* bump TikTok icon down 2px */
+    a[href*="tiktok.com"] img { position: relative; top: 2px; }
     /* Responsive embeds */
     .responsive-iframe { position:relative; padding-bottom:56.25%; height:0; overflow:hidden; }
     .responsive-iframe iframe { position:absolute; top:0; left:0; width:100%; height:100%; }
@@ -77,24 +79,25 @@
   <footer class="bg-white py-10 text-gray-900">
     <div class="container mx-auto flex flex-col items-center space-y-6">
       <!-- Social Links -->
-      <div class="flex space-x-6 text-2xl">
-        <a href="https://instagram.com/stormentwitch" target="_blank" class="hover:text-gray-700 social-link">
+      <div class="flex space-x-6">
+        <a href="https://instagram.com/stormentwitch"   target="_blank" class="social-link">
           <img src="images/instagram.png" alt="Instagram" class="w-8 h-8" />
         </a>
-        <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="hover:text-gray-700 social-link">
-          <img src="images/tiktok.png" alt="TikTok" class="w-6 h-6" />
+        <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="social-link">
+          <img src="images/tiktok.png" alt="TikTok" class="w-8 h-8" />
         </a>
-        <a href="https://twitter.com/stormentv" target="_blank" class="hover:text-gray-700 social-link">
+        <a href="https://twitter.com/stormentv"        target="_blank" class="social-link">
           <img src="images/twitter.png" alt="Twitter" class="w-8 h-8" />
         </a>
-        <a href="https://youtube.com/@stormentv" target="_blank" class="hover:text-gray-700 social-link">
+        <a href="https://youtube.com/@stormentv"        target="_blank" class="social-link">
           <img src="images/youtube.png" alt="YouTube" class="w-8 h-8" />
         </a>
-        <a href="https://twitch.tv/stormen" target="_blank" class="hover:text-gray-700 social-link">
+        <a href="https://twitch.tv/stormen"             target="_blank" class="social-link">
           <img src="images/twitch.png" alt="Twitch" class="w-8 h-8" />
         </a>
       </div>
-      <div class="w-full border-t border-gray-700"></div>
+      <!-- Divider -->
+      <div class="w-full border-t border-gray-300"></div>
       <!-- Copyright -->
       <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
     </div>
