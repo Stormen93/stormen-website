@@ -15,14 +15,18 @@
   <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    /* Burger icon styling */
-    .burger-line { display:block; width:48px; height:2px; background:#fff; margin:6px 0; transition:transform .3s ease, background-color .3s ease; }
+/* Burger animation */
+    .burger-line { display:block; width:48px; height:2px; /* background-color controlled via utility classes */ margin:6px 0; transition: transform .3s ease, background-color .3s ease; }
     .burger-line.lower { height:1px; }
     #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
     #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
-    /* Position shifted when open */
-    #menuBtn.open { left:calc(1rem + 18rem - 3rem); top:1.25rem; }
-    /* Panel animation */
+    /* Slide to panel and position */
+    #menuBtn.open {
+      /* slide right and position over panel close corner */
+      left: calc(1rem + 18rem - 4rem); /* moved further left to avoid hiding under panel */
+      top: 1.25rem;
+    }
+    /* Panel transition */
     #sidePanel { transition:transform .3s ease-in-out; }
     #backdrop { transition:opacity .3s ease-in-out; }
     /* bump TikTok icon down 2px */
