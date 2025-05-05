@@ -19,8 +19,20 @@
     #menuBtn.open { left:calc(4rem + 18rem - 3rem); top:1.25rem; }
     #sidePanel { transition:transform .3s ease-in-out; }
     #backdrop { transition:opacity .3s ease-in-out; }
-    /* Embed outline */
-    .embed-wrapper { border: 2px solid #e2e8f0; padding: 0.5rem; border-radius: 0.5rem; background: #ffffff; }
+    /* Embed outline: customizable via --outline-color */
+    .embed-wrapper {
+      --outline-color: #ff9f3a;
+      border: 4px solid var(--outline-color);
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      background: #ffffff;
+      /* subtle shadow backdrop */
+      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    }
+
+    /* Usage: override per-wrapper like:
+       <div class="embed-wrapper" style="--outline-color: #10b981">
+    */
   </style>
 </head>
 <body class="flex flex-col min-h-screen bg-white text-gray-900 overflow-x-hidden">
@@ -74,7 +86,7 @@
         <a href="https://twitch.tv/stormen" class="social-link"><img src="images/twitch.png" alt="Twitch" class="w-8 h-8"/></a>
         <a href="https://discord.gg/8pgUDRT5Wv" class="social-link"><img src="images/discord.png" alt="Discord" class="w-8 h-8"/></a>
       </div>
-      <div class="w-full border-t border-gray-300"></div>
+      <div class="w-full border-t border-gray-700"></div>
       <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
     </div>
   </footer>
