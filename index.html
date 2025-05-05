@@ -17,24 +17,19 @@
   </style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans">
-  <!-- Header with centered nav -->
+  <!-- Header: hamburger + centered logo -->
   <header class="fixed inset-x-0 top-0 z-20 bg-gray-900/30 backdrop-blur-md">
-     <div class="container mx-auto flex justify-center p-4">
-        <nav class="flex gap-10 text-sm font-semibold uppercase tracking-wider">
-           <a href="#about" class="group relative hover:text-indigo-400">
-             About
-             <span class="absolute left-0 -bottom-1 w-full h-0.5 bg-indigo-400 transform scale-x-0 group-hover:scale-x-100 transition-origin-left duration-300"></span>
-           </a>
-           <a href="watch.html" class="group relative hover:text-indigo-400">
-             Watch&nbsp;Me
-             <span class="absolute left-0 -bottom-1 w-full h-0.5 bg-indigo-400 transform scale-x-0 group-hover:scale-x-100 transition-origin-left duration-300"></span>
-           </a>
-           <a href="#merch" class="group relative hover:text-indigo-400">
-             Merch
-             <span class="absolute left-0 -bottom-1 w-full h-0.5 bg-indigo-400 transform scale-x-0 group-hover:scale-x-100 transition-origin-left duration-300"></span>
-           </a>
-        </nav>
-     </div>
+    <div class="container mx-auto flex items-center justify-between p-4">
+      <button id="menuBtn" class="text-gray-200 hover:text-indigo-400"><i data-feather="menu" class="w-7 h-7"></i></button>
+      <a href="/" class="mx-auto"><img src="images/logo.png" alt="Stormen logo" class="h-12"/></a>
+      <div class="w-7 h-7"></div>
+    </div>
+    <!-- Mobile dropdown -->
+    <div id="menuPanel" class="hidden bg-gray-800/90 backdrop-blur-md p-4 space-y-4 text-center lg:hidden">
+      <a href="/" class="block hover:text-indigo-400">About</a>
+      <a href="/watch" class="block hover:text-indigo-400">Watch Me</a>
+      <a href="/merch" class="block hover:text-indigo-400">Merch</a>
+    </div>
   </header>
 
   <!-- Hero with video background & centered about overlay -->
