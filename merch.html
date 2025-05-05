@@ -3,62 +3,54 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Merch | Stormen</title>
+  <title>Watch | Stormen</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
   <script src="https://unpkg.com/feather-icons"></script>
   <style>
-    .merch-item{position:relative;overflow:hidden;}
-    .merch-item img{transition:opacity .3s ease-in-out;}
-    .merch-item .back{position:absolute;inset:0;opacity:0;}
-    .merch-item:hover .back{opacity:1;}
-    .merch-item:hover .front{opacity:0;}
+    .responsive-iframe{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;}
+    .responsive-iframe iframe{position:absolute;top:0;left:0;width:100%;height:100%;}
   </style>
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans">
-  <!-- Header -->
+  <!-- Header with logo center and dropdown -->
   <header class="fixed inset-x-0 top-0 z-20 bg-gray-900/30 backdrop-blur-md">
-     <div class="container mx-auto flex justify-center p-4">
-        <nav class="flex gap-10 text-sm font-semibold uppercase tracking-wider">
-           <a href="/" class="group relative hover:text-indigo-400">Home</a></span>
-           <a href="/watch" class="group relative hover:text-indigo-400">Watch&nbsp;Me <span class="absolute left-0 -bottom-1 w-full h-0.5 bg-indigo-400 transform scale-x-0 group-hover:scale-x-100 transition-origin-left duration-300"></span>
-           </a>
-           <a href="/merch" class="group relative hover:text-indigo-400">Collection 
-            <span class="absolute left-0 -bottom-1 w-full h-0.5 bg-indigo-400 transform scale-x-0 group-hover:scale-x-100 transition-origin-left duration-300"></span>
-          </a>
-        </nav>
-     </div>
+    <div class="container mx-auto flex items-center justify-between p-4">
+      <button id="menuBtn" class="text-gray-200 hover:text-indigo-400 focus:outline-none lg:hidden"><i data-feather="menu" class="w-6 h-6"></i></button>
+      <a href="/" class="mx-auto"><img src="images/logo.png" alt="Stormen logo" class="h-10"/></a>
+      <div class="w-6 h-6 lg:hidden"></div>
+      <nav class="hidden lg:flex gap-10 text-sm font-semibold uppercase tracking-wider">
+        <a href="/" class="group relative hover:text-indigo-400">About<span class="absolute left-0 -bottom-1 w-full h-0.5 bg-indigo-400 transform scale-x-0 group-hover:scale-x-100 transition origin-left duration-300"></span></a>
+        <span class="group relative text-indigo-400">Watch&nbsp;Me<span class="absolute left-0 -bottom-1 w-full h-0.5 bg-indigo-400"></span></span>
+        <a href="/merch" class="group relative hover:text-indigo-400">Merch<span class="absolute left-0 -bottom-1 w-full h-0.5 bg-indigo-400 transform scale-x-0 group-hover:scale-x-100 transition origin-left duration-300"></span></a>
+      </nav>
+    </div>
+    <div id="menuPanel" class="hidden lg:hidden bg-gray-800/90 backdrop-blur-md p-4 pb-6 space-y-4 text-center">
+      <a href="/" class="block hover:text-indigo-400">About</a>
+      <a href="/watch" class="block hover:text-indigo-400">Watch Me</a>
+      <a href="/merch" class="block hover:text-indigo-400">Merch</a>
+    </div>
   </header>
 
-  <!-- Hero background -->
+  <!-- Video background with embeds -->
   <section class="relative h-screen overflow-hidden flex items-center pt-24">
-      <video class="absolute inset-0 w-full h-full object-cover" src="media/stormen_bg.mp4" autoplay loop muted playsinline></video>
-      <div class="absolute inset-0 bg-black bg-opacity-60"></div>
-
-      <div class="relative z-10 w-full">
-        <h1 class="text-center text-4xl md:text-5xl font-extrabold mb-10">Moustache Club Merch</h1>
-        <div class="container mx-auto px-4 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-           <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-             <img src="images/tshirt_front.jpg" alt="Stormen Tee front" class="rounded-lg shadow-md front" />
-             <img src="images/tshirt_back.jpg" alt="Stormen Tee back" class="rounded-lg shadow-md back" />
-           </a>
-           <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-             <img src="images/hoodie_front.png" alt="Stormen Hoodie front" class="rounded-lg shadow-md front" />
-             <img src="images/hoodie_back.png" alt="Stormen Hoodie back" class="rounded-lg shadow-md back" />
-           </a>
-           <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-             <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
-             <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
-           </a>
+    <video class="absolute inset-0 w-full h-full object-cover" src="media/stormen_bg.mp4" autoplay loop muted playsinline></video>
+    <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+    <div class="relative z-10 w-full">
+      <h1 class="text-center text-4xl md:text-5xl font-extrabold mb-10">Watch Me Live</h1>
+      <div class="container mx-auto px-4 grid md:grid-cols-2 gap-10 items-start">
+        <div>
+          <h3 class="text-2xl font-semibold mb-2"><a href="https://twitch.tv/stormen" target="_blank" class="hover:text-indigo-400">Twitch.tv/Stormen</a></h3>
+          <div class="responsive-iframe mb-10 md:mb-0"><iframe src="https://player.twitch.tv/?channel=stormen&parent=stormen.tv" frameborder="0" allowfullscreen></iframe></div>
+        </div>
+        <div>
+          <h3 class="text-2xl font-semibold mb-2"><a href="https://youtube.com/@stormentv" target="_blank" class="hover:text-indigo-400">Latest YouTube Video</a></h3>
+          <div class="responsive-iframe"><iframe src="https://www.youtube.com/embed/videoseries?si=3t-65oYSf1tSjdO8&amp;list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J" frameborder="0" allowfullscreen></iframe></div>
         </div>
       </div>
+    </div>
   </section>
 
-  <footer class="bg-gray-800 py-6">
-     <div class="container mx-auto text-center text-sm text-gray-400">
-        © 2025 Stormen. All rights reserved.
-     </div>
-  </footer>
-
-<script>feather.replace();</script>
+  <footer class="bg-gray-800 py-6"><div class="container mx-auto text-center text-sm text-gray-400">© 2025 Stormen. All rights reserved.</div></footer>
+  <script>feather.replace();document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('menuPanel').classList.toggle('hidden'));</script>
 </body>
 </html>
