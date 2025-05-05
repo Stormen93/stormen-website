@@ -16,7 +16,11 @@
     .burger-line.lower { height:1px; }
     #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
     #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
-    #menuBtn.open { left:calc(4rem + 18rem - 3rem); top:1.25rem; }
+    #menuBtn.open {
+      /* slide right and position over panel close corner */
+      left: calc(4rem + 18rem - 4rem);
+      top: 0.75rem;
+    }
     #sidePanel { transition:transform .3s ease-in-out; }
     #backdrop { transition:opacity .3s ease-in-out; }
     /* Embed outline */
@@ -69,7 +73,7 @@
 <body class="flex flex-col min-h-screen bg-white text-gray-900 overflow-x-hidden">
   <!-- Header -->
   <header class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent">
-    <button id="menuBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none">
+    <button id="menuBtn" class="absolute left-4 top-4 p-3 focus:outline-none">
       <span class="burger-line"></span>
       <span class="burger-line lower"></span>
     </button>

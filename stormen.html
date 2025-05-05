@@ -16,7 +16,11 @@
     .burger-line.lower { height:1px; }
     #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
     #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
-    #menuBtn.open { left:calc(2rem + 18rem - 3rem); top:1.25rem; }
+    #menuBtn.open {
+      /* slide right and position over panel close corner */
+      left: calc(4rem + 18rem - 4rem);
+      top: 1.25rem;
+    }
     #sidePanel { transition:transform .3s ease-in-out; }
     #backdrop { transition:opacity .3s ease-in-out; }
     a[href*="tiktok.com"] img { position:relative; top:2px; }
@@ -45,9 +49,9 @@
   </aside>
   <!-- About Content -->
   <main class="flex-grow flex flex-col md:flex-row items-center justify-center py-20 px-4">
-    <img src="images/avatar.jpg" alt="Stormen avatar" class="w-96 h-96 rounded-full object-cover border-4 border-black shadow-md mr-12 mb-8 md:mb-0"/>
+    <img src="images/avatar.jpg" alt="Stormen avatar" class="w-96 h-96 rounded-full object-cover border-4 border-black shadow-md mr-12 mb-8 md:mb-0"/>/>
     <div class="max-w-lg">
-      <h1 class="text-5xl font-extrabold mb-4">Meet Stormen</h1>
+      <h1 class="text-5xl font-extrabold mb-4">Stormen</h1>
       <p>
         Hey there, I’m <strong>Stormen</strong>! I’ve been streaming full-time for almost a decade, mostly focusing on FPS games where I balance a high-skill approach with a laid-back, welcoming vibe.
       </p>
@@ -65,7 +69,6 @@
         <a href="https://twitter.com/stormentv" class="social-link"><img src="images/twitter.png" alt="Twitter" class="w-8 h-8"/></a>
         <a href="https://youtube.com/@stormentv" class="social-link"><img src="images/youtube.png" alt="YouTube" class="w-8 h-8"/></a>
         <a href="https://twitch.tv/stormen" class="social-link"><img src="images/twitch.png" alt="Twitch" class="w-8 h-8"/></a>
-        <a href="https://discord.gg/8pgUDRT5Wv" class="social-link"><img src="images/discord.png" alt="Twitch" class="w-8 h-8"/></a>
       </div>
       <div class="w-full border-t border-gray-700"></div>
       <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
