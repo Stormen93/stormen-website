@@ -12,7 +12,10 @@
   <!-- Header with hamburger left & big centered logo -->
   <header class="fixed inset-x-0 top-0 z-30 bg-gray-900/30 backdrop-blur-md">
     <div class="flex items-center p-4 w-full max-w-7xl mx-auto">
-      <button id="menuBtn" class="text-gray-200 hover:text-indigo-400"><i data-feather="menu" class="w-7 h-7"></i></button>
+     <button id="menuBtn" class="absolute left-4 top-1/2 -translate-y-1/2 focus:outline-none">
+        <span class="block w-10 h-0.5 bg-white mb-1"></span>
+        <span class="block w-10 h-0.5 bg-white"></span>
+      </button>
       <a href="/" class="mx-auto"><img src="images/logo.png" alt="Stormen logo" class="h-36"/></a>
     </div>
   </header>
