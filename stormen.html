@@ -19,7 +19,7 @@
     #menuBtn.open {
       /* slide right and position over panel close corner */
       left: calc(4rem + 18rem - 4rem);
-      top: 1.5rem;
+      top: 1.25rem;
     }
     #sidePanel { transition:transform .3s ease-in-out; }
     #backdrop { transition:opacity .3s ease-in-out; }
@@ -79,21 +79,29 @@
   <script>
     feather.replace();
     const menuBtn = document.getElementById('menuBtn');
-    const panel = document.getElementById('sidePanel');
-    const backdrop = document.getElementById('backdrop');
-    menuBtn.addEventListener('click', () => {
-      const open = !panel.classList.contains('-translate-x-full');
-      panel.classList.toggle('-translate-x-full');
-      backdrop.classList.toggle('pointer-events-none', panel.classList.contains('-translate-x-full'));
-      backdrop.classList.toggle('opacity-0', panel.classList.contains('-translate-x-full'));
-      backdrop.classList.toggle('opacity-100', !panel.classList.contains('-translate-x-full'));
-      menuBtn.classList.toggle('open', !panel.classList.contains('-translate-x-full'));
-    });
-    backdrop.addEventListener('click', () => {
+    const panel   = document.getElementById('sidePanel');
+    const backdrop= document.getElementById('backdrop');
+
+    function openPanel() {
+      panel.classList.remove('-translate-x-full');
+      backdrop.classList.remove('pointer-events-none', 'opacity-0');
+      backdrop.classList.add('opacity-100');
+      menuBtn.classList.add('open');
+    }
+
+    function closePanel() {
       panel.classList.add('-translate-x-full');
-      backdrop.classList.add('pointer-events-none','opacity-0');
+      backdrop.classList.add('pointer-events-none', 'opacity-0');
+      backdrop.classList.remove('opacity-100');
       menuBtn.classList.remove('open');
+    }
+
+    menuBtn.addEventListener('click', () => {
+      if (panel.classList.contains('-translate-x-full')) openPanel();
+      else closePanel();
     });
+
+    backdrop.addEventListener('click', closePanel);
   </script>
 </body>
 </html>
