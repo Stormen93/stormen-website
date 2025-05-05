@@ -19,23 +19,52 @@
     #menuBtn.open { left:calc(4rem + 18rem - 3rem); top:1.25rem; }
     #sidePanel { transition:transform .3s ease-in-out; }
     #backdrop { transition:opacity .3s ease-in-out; }
-    /* Embed outline: customizable via --outline-color */
+    /* Embed outline */
     .embed-wrapper {
       --outline-color: #ff9f3a;
       border: 4px solid var(--outline-color);
-      padding: 0; /* remove gap so border hugs the iframe */
+      padding: 0;
       border-radius: 0.5rem;
       background: #ffffff;
-      /* offset shadow to the right for more pop */
       box-shadow: 8px 12px 24px rgba(0, 0, 0, 0.4);
-
-
     }
 
-    /* Usage: override per-wrapper like:
-       <div class="embed-wrapper" style="--outline-color: #10b981">
-    */
-  </style>
+    /* animated strikethrough on hover (applied to span) */
+    .strike-hover {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      overflow: visible;
+    }
+    .strike-hover img {
+      position: relative;
+      margin-left: 0.5rem;
+      top: auto;
+      transform: none;
+      z-index: 2;
+    }
+      /* strikethrough underline on text span */
+    .strike-hover span {
+      position: relative;
+      z-index: 2;
+    }
+    .strike-hover span::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--outline-color, #ff9f3a);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
+      z-index: 1;
+    }
+    .strike-hover:hover span::after {
+      transform: scaleX(1);
+    }
+</style>
 </head>
 <body class="flex flex-col min-h-screen bg-white text-gray-900 overflow-x-hidden">
   <!-- Header -->
@@ -68,9 +97,9 @@
               frameborder="0" allowfullscreen class="w-full h-96"></iframe>
     </div>
     <!-- Twitch Link -->
-    <a href="https://twitch.tv/stormen" target="_blank" class="inline-flex items-center space-x-3 text-2xl font-bold text-gray-900 hover:text-indigo-500">
+    <a href="https://twitch.tv/stormen" target="_blank" class="strike-hover mt-4 inline-block">
+      <span class="text-2xl font-bold text-gray-900">WATCH STORMEN&#x27;S STREAM</span>
       <img src="images/twitch.png" alt="Twitch icon" class="w-8 h-8" />
-      <span>WATCH STORMEN'S STREAM</span>
     </a>
   </main>
 
