@@ -23,11 +23,13 @@
     .embed-wrapper {
       --outline-color: #ff9f3a;
       border: 4px solid var(--outline-color);
-      padding: 0.5rem;
+      padding: 0; /* remove gap so border hugs the iframe */
       border-radius: 0.5rem;
       background: #ffffff;
-      /* subtle shadow backdrop */
-      filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+      /* offset shadow to the right for more pop */
+      box-shadow: 8px 12px 24px rgba(0, 0, 0, 0.4);
+
+
     }
 
     /* Usage: override per-wrapper like:
@@ -65,12 +67,12 @@
       <!-- Twitch Embed -->
       <div class="embed-wrapper">
         <iframe src="https://player.twitch.tv/?channel=stormen&parent=stormen.tv"
-                frameborder="0" allowfullscreen class="w-full h-64 md:h-80"></iframe>
+                frameborder="0" allowfullscreen class="w-full h-80 md:h-96"></iframe>
       </div>
       <!-- YouTube Embed -->
       <div class="embed-wrapper">
         <iframe src="https://www.youtube.com/embed/videoseries?si=3t-65oYSf1tSjdO8&list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
-                frameborder="0" allowfullscreen class="w-full h-64 md:h-80"></iframe>
+                frameborder="0" allowfullscreen class="w-full h-80 md:h-96"></iframe>
       </div>
     </div>
   </main>
@@ -86,7 +88,7 @@
         <a href="https://twitch.tv/stormen" class="social-link"><img src="images/twitch.png" alt="Twitch" class="w-8 h-8"/></a>
         <a href="https://discord.gg/8pgUDRT5Wv" class="social-link"><img src="images/discord.png" alt="Discord" class="w-8 h-8"/></a>
       </div>
-      <div class="w-full border-t border-gray-700"></div>
+      <div class="w-full border-t border-gray-300"></div>
       <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
     </div>
   </footer>
