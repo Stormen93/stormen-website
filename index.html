@@ -32,12 +32,15 @@
     <!-- Dual logos -->
     <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
       <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
-      <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-yellow opacity-0 absolute inset-0 transition-opacity duration-300" />
+      <img src="images/logo_black.png" alt="Stormen black logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
     </a>
   </header>
 
   <!-- SIDE PANEL -->
-  <aside id="sidePanel" class="$1z-60" shadow-xl p-6 space-y-6 font-semibold">
+  <!-- Overlay backdrop -->
+  <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+  <!-- Slide-Out Side Panel -->
+  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 transform -translate-x-full z-50 shadow-xl p-6 space-y-6 font-semibold">
     <button id="closeBtn" class="absolute top-4 right-4 text-gray-700 hover:text-indigo-500"><i data-feather="x" class="w-6 h-6"></i></button>
     <nav class="mt-14 space-y-6">
       <a href="/" class="block hover:text-indigo-500">About</a>
