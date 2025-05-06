@@ -22,6 +22,8 @@
     #closeMenuBtn.open .burger-line:first-child { transform: rotate(45deg); }
     #closeMenuBtn.open .burger-line.lower { transform: rotate(-45deg) translateY(-1px); }
     #closeMenuBtn { z-index: 60; }
+    #closeMenuBtn.hidden { display: none !important; }
+    #openMenuBtn.hidden { display: none !important; }
 
     /* Panel & backdrop transitions */
     #sidePanel { transition: transform .3s ease-in-out; }
@@ -88,7 +90,7 @@
   <!-- Backdrop & Side Panel -->
   <div id="backdrop" class="fixed inset-0 bg-gray-900 opacity-0 pointer-events-none z-40 transition-opacity"></div>
   <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold" style="visibility: hidden;">
-    <button id="closeMenuBtn" class="absolute right-3 top-3 p-3 focus:outline-none">
+    <button id="closeMenuBtn" class="absolute right-3 top-3 p-3 focus:outline-none hidden">
       <span class="burger-line"></span>
       <span class="burger-line lower"></span>
     </button>
@@ -216,6 +218,8 @@
         backdrop.classList.add('opacity-50');
         closeMenuBtn.classList.add('open');
         console.log('openPanel: closeMenuBtn open?', closeMenuBtn.classList.contains('open'));
+        openMenuBtn.classList.add('hidden');
+        closeMenuBtn.classList.remove('hidden');
         // Re-run feather.replace() as a fallback
         if (typeof feather !== 'undefined') {
           feather.replace();
@@ -233,6 +237,8 @@
         backdrop.classList.add('pointer-events-none', 'opacity-0');
         backdrop.classList.remove('opacity-50');
         closeMenuBtn.classList.remove('open');
+        openMenuBtn.classList.remove('hidden');
+        closeMenuBtn.classList.add('hidden');
       }
 
       // Open the panel when clicking the openMenuBtn
