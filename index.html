@@ -15,7 +15,19 @@
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.1/dist/feather.min.js"></script>
   <style>
     body { font-family: 'Roboto Condensed', sans-serif; }
+    
     .burger-line { display: block; width: 48px; height: 2px; margin: 6px 0; background: #ffffff;; transition: transform 0.3s, background-color 0.3s; }
+/* force the burger lines to start white */
+#siteHeader .burger-line {
+  background-color: #ffffff !important;
+  /* ensure white logo is visible by default */
+#siteHeader .logo-white {
+  opacity: 1 !important;
+}
+/* ensure yellow logo is hidden by default */
+#siteHeader .logo-black {
+  opacity: 0 !important;
+}
     #openMenuBtn .burger-line { background: #000000; }
     #closeMenuBtn .burger-line { background: #000000; }
     .burger-line.lower { height: 1px; }
