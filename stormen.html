@@ -1,66 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Stormen | About</title>
   <!-- Roboto Condensed -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- Roboto Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
   <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
-  <style>
-    body { font-family: 'Roboto Condensed', sans-serif; }
-    .burger-line { display:block; width:48px; height:2px; background:#1a202c!important; margin:6px 0; transition:transform .3s, background-color .3s; }
-    .burger-line.lower { height:1px; }
-    #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
-    #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
-    #menuBtn.open {
-      /* slide right and position over panel close corner */
-      left: calc(4rem + 18rem - 4rem);
-      top: 1.25rem;
-    }
-    #sidePanel { transition:transform .3s ease-in-out; }
-    #backdrop { transition:opacity .3s ease-in-out; }
-    a[href*="tiktok.com"] img { position:relative; top:2px; }
-  </style>
+<style>
+  body { font-family: 'Roboto Condensed', sans-serif; }
+  .burger-line { display:block; width:48px; height:2px; background:#000000!important; margin:6px 0; transition:transform .3s, background-color .3s; }
+  .burger-line.lower { height:1px; }
+  #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
+  #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
+  #sidePanel { transition:transform .3s ease-in-out; }
+  #backdrop { transition:opacity .3s ease-in-out; }
+  a[href*="tiktok.com"] img { position:relative; top:2px; }
+  .watch-button:hover {
+    background-color: #e68a2e;
+  }
+  .watch-button:hover span span {
+    width: 100%;
+  }
+  main p,
+  .watch-button {
+    font-family: 'Roboto Mono', monospace;
+  }
+  main h1 {
+    font-family: 'Roboto Mono', monospace;
+    color: #ff9f3a;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  #sidePanel a {
+    position: relative;
+    display: inline-block;
+  }
+  #sidePanel a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: black;
+    transition: width 0.3s ease-in-out;
+  }
+  #sidePanel a:hover::after {
+    width: 100%;
+  }
+</style>
 </head>
 <body class="flex flex-col min-h-screen bg-white text-gray-900 overflow-x-hidden">
   <!-- Header -->
   <header class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent">
-    <button id="menuBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none">
-      <span class="burger-line"></span>
-      <span class="burger-line lower"></span>
-    </button>
-    <a href="/" class="mx-auto flex items-center justify-center h-36">
-      <img src="images/logo_yellow.png" alt="Stormen logo" class="h-36"/>
-    </a>
-  </header>
+  <button id="openMenuBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none">
+    <span class="burger-line"></span>
+    <span class="burger-line lower"></span>
+  </button>
+  <a href="/" class="mx-auto flex items-center justify-center h-36">
+    <img src="images/logo_yellow.png" alt="Stormen logo" class="h-36"/>
+  </a>
+</header>
   <!-- Backdrop & Panel -->
   <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 opacity-0 pointer-events-none z-40"></div>
-  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold">
-    <nav class="mt-14 space-y-6">
-      <a href="/"                class="block hover:text-indigo-500">HOME</a>
-      <a href="/stormen.html"    class="block hover:text-indigo-500">STORMEN</a>
-      <a href="/watch.html"      class="block hover:text-indigo-500">WATCH</a>
-      <a href="/collection.html" class="block hover:text-indigo-500">COLLECTION</a>
-      <a href="mailto:stormen@thenewgen.com" class="block hover:text-indigo-500">CONTACT</a>
-    </nav>
-  </aside>
+<aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold">
+  <button id="menuBtn" class="absolute right-3 top-3 p-3 focus:outline-none">
+    <span class="burger-line"></span>
+    <span class="burger-line lower"></span>
+  </button>
+  <nav class="mt-14 space-y-6">
+    <div><a href="/">HOME</a></div>
+    <div><a href="/stormen.html">STORMEN</a></div>
+    <div><a href="/watch.html">WATCH</a></div>
+    <div><a href="/collection.html">COLLECTION</a></div>
+    <div><a href="mailto:stormen@thenewgen.com">CONTACT</a></div>
+  </nav>
+</aside>
   <!-- About Content -->
   <main class="flex-grow flex flex-col md:flex-row items-center justify-center py-20 px-4">
-    <img src="images/avatar.jpg" alt="Stormen avatar" class="w-96 h-96 rounded-full object-cover border-4 border-black shadow-md mr-12 mb-8 md:mb-0"/>
-    <div class="max-w-lg">
-      <h1 class="text-5xl font-extrabold mb-4">Stormen</h1>
-      <p>
-        Hey there, I’m <strong>Stormen</strong>! I’ve been streaming full-time for almost a decade, mostly focusing on FPS games where I balance a high-skill approach with a laid-back, welcoming vibe.
-      </p>
-      <p class="mt-4">
-        My channel is all about having fun, showcasing solid gameplay, and keeping the interaction with my community front and center. After nearly 10 years, we’ve grown into an awesome, supportive group that loves to share laughs, tips, and good times.
-      </p>
-    </div>
-  </main>
+  <img src="images/avatar.jpg" alt="Stormen avatar" class="w-96 h-96 rounded-full object-cover border-4 border-black shadow-md mr-12 mb-8 md:mb-0"/>
+  <div class="max-w-lg">
+    <h1 class="text-5xl font-extrabold mb-4">STORMEN</h1>
+    <p>
+      Hey there, I’m <strong>Stormen</strong>! I’ve been streaming full-time for almost a decade, mostly focusing on FPS games where I balance a high-skill approach with a laid-back, welcoming vibe.
+    </p>
+    <p class="mt-4">
+      My channel is all about having fun, showcasing solid gameplay, and keeping the interaction with my community front and center. After nearly 10 years, we’ve grown into an awesome, supportive group that loves to share laughs, tips, and good times.
+    </p>
+    <p class="mt-4">
+      Be sure to get connected and say hey!
+    </p>
+<div class="mt-6">
+  <a
+    href="https://twitch.tv/stormen"
+    target="_blank"
+    class="watch-button inline-block text-black font-bold px-6 py-3 rounded-full transition-colors duration-300 relative"
+    style="background-color: #ff9f3a;"
+  >
+    <span class="relative z-10 inline-block">
+      WATCH STORMEN LIVE
+      <span class="absolute left-0 top-1/2 h-1 bg-black transform -translate-y-1/2 w-0 transition-all duration-300"></span>
+    </span>
+  </a>
+</div>
+</main>
   <!-- Footer -->
   <footer class="bg-white py-10 text-gray-900 mt-auto">
     <div class="container mx-auto flex flex-col items-center space-y-6">
@@ -71,47 +120,49 @@
         <a href="https://youtube.com/@stormentv" class="social-link"><img src="images/youtube.png" alt="YouTube" class="w-8 h-8"/></a>
         <a href="https://twitch.tv/stormen" class="social-link"><img src="images/twitch.png" alt="Twitch" class="w-8 h-8"/></a>
         <a href="https://discord.gg/8pgUDRT5Wv" class="social-link"><img src="images/discord.png" alt="Discord" class="w-8 h-8"/></a>
-        <a href="mailto:stormen@thenewgen.com" class="social-link">
-          <i data-feather="mail" class="w-8 h-8"></i></a>
       </div>
       <div class="w-full border-t border-gray-700"></div>
       <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
     </div>
   </footer>
   <!-- Scripts -->
-  <script>
-    feather.replace();
-    const menuBtn = document.getElementById('menuBtn');
-    const panel   = document.getElementById('sidePanel');
-    const backdrop= document.getElementById('backdrop');
+ <script>
+  feather.replace();
+  const openMenuBtn = document.getElementById('openMenuBtn'); // Button to open the panel
+  const menuBtn = document.getElementById('menuBtn'); // Button to close the panel
+  const panel = document.getElementById('sidePanel');
+  const backdrop = document.getElementById('backdrop');
 
-    function openPanel() {
-      panel.classList.remove('-translate-x-full');
-      backdrop.classList.remove('pointer-events-none', 'opacity-0');
-      backdrop.classList.add('opacity-100');
-      menuBtn.classList.add('open');
+  function openPanel() {
+    panel.classList.remove('-translate-x-full');
+    backdrop.classList.remove('pointer-events-none', 'opacity-0');
+    backdrop.classList.add('opacity-100');
+    menuBtn.classList.add('open');
+  }
+
+  function closePanel() {
+    panel.classList.add('-translate-x-full');
+    backdrop.classList.add('pointer-events-none', 'opacity-0');
+    backdrop.classList.remove('opacity-100');
+    menuBtn.classList.remove('open');
+  }
+
+  // Open the panel when clicking the openMenuBtn
+  openMenuBtn.addEventListener('click', openPanel);
+
+  // Close the panel when clicking the menuBtn (the "X")
+  menuBtn.addEventListener('click', closePanel);
+
+  // Close the panel when clicking the backdrop
+  backdrop.addEventListener('click', closePanel);
+
+  // Close panel when clicking outside of it
+  document.addEventListener('click', (e) => {
+    const isClickInside = panel.contains(e.target) || openMenuBtn.contains(e.target);
+    if (!isClickInside && !panel.classList.contains('-translate-x-full')) {
+      closePanel();
     }
-
-    function closePanel() {
-      panel.classList.add('-translate-x-full');
-      backdrop.classList.add('pointer-events-none', 'opacity-0');
-      backdrop.classList.remove('opacity-100');
-      menuBtn.classList.remove('open');
-    }
-
-    menuBtn.addEventListener('click', () => {
-      if (panel.classList.contains('-translate-x-full')) openPanel();
-      else closePanel();
-    });
-
-    backdrop.addEventListener('click', closePanel);
-    // Close panel when clicking outside of it
-    document.addEventListener('click', (e) => {
-      const isClickInside = panel.contains(e.target) || menuBtn.contains(e.target);
-      if (!isClickInside && !panel.classList.contains('-translate-x-full')) {
-        closePanel();
-      }
-    });
-  </script>
+  });
+</script>
 </body>
 </html>
