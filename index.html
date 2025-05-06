@@ -4,195 +4,210 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stormen | Official Site</title>
-  <!-- Tailwind CDN -->
+  <!-- Roboto Condensed -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- Roboto Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- Feather Icons -->
   <script src="https://unpkg.com/feather-icons"></script>
-  <style>
-    /* Social icon hover filter */
-    .social-link img {
-      transition: filter .3s ease;
-    }
-    .social-link:hover img {
-      /* Grey hover instead of white */
-      filter: brightness(0) invert(0.4);
-    }
-    /* bump TikTok icon down 2px */
-    a[href*="tiktok.com"] img {
-      position: relative;
-      top: 2px;
-    }
-  </style>
-  <!-- Roboto Condensed font -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    body { font-family: 'Roboto Condensed', sans-serif; }
-  </style>
-  <style>
-    /* burger animation and slide */
-    .burger-line { display: block; width: 48px; height: 2px; margin: 6px 0; transition: transform 0.3s ease, background-color 0.3s ease;
-      margin: 6px 0;
-      transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-    .burger-line.lower {
-      height: 1px;
-    }
-    /* rotate into X */
-    #menuBtn.open .burger-line:first-child {
-      transform: rotate(45deg);
-    }
-    #menuBtn.open .burger-line.lower {
-      transform: rotate(-45deg) translateY(-1px);
-    }
-    /* slide to panel right */
-    #menuBtn.open {
-      /* slide right and position over panel close corner */
-      left: calc(4rem + 18rem - 3rem); /* moved further left by 1rem */
-      top: 1.25rem; /* lift up inside header */
-    }
-    /* styling */
-    .responsive-iframe { position: relative; padding-bottom: 56.25%; height:0; overflow:hidden; }
-    .responsive-iframe iframe { position:absolute; top:0; left:0; width:100%; height:100%; }
-    .merch-item { position: relative; overflow:hidden; }
-    .merch-item img { transition: opacity .3s ease-in-out; }
-    .merch-item .back { position:absolute; inset:0; opacity:0; }
-    @media(hover:hover) { .merch-item:hover .back { opacity:1; } .merch-item:hover .front { opacity:0; } }
-    @media(hover:none) { .merch-item:active .back { opacity:1; } .merch-item:active .front { opacity:0; } }
-    #sidePanel { transition: transform .3s ease-in-out; }
-  </style>
+<style>
+  body { font-family: 'Roboto Condensed', sans-serif; }
+  .burger-line { display:block; width:48px; height:2px; background:#000000!important; margin:6px 0; transition:transform .3s, background-color .3s; }
+  .burger-line.lower { height:1px; }
+  #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
+  #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
+  #sidePanel { transition:transform .3s ease-in-out; }
+  #backdrop { transition:opacity .3s ease-in-out; }
+  a[href*="tiktok.com"] img { position:relative; top:2px; }
+  .merch-item { position: relative; overflow:hidden; aspect-ratio: 1/1; } /* Ensure square aspect ratio */
+  .merch-item img { transition: opacity .3s ease-in-out; width: 100%; height: 100%; object-fit: cover; }
+  .merch-item .back { position:absolute; inset:0; opacity:0; }
+  @media(hover:hover) { .merch-item:hover .back { opacity:1; } .merch-item:hover .front { opacity:0; } }
+  @media(hover:none) { .merch-item:active .back { opacity:1; } .merch-item:active .front { opacity:0; } }
+  #sidePanel a {
+    display: inline-flex;
+    align-items: center;
+  }
+  #sidePanel a span {
+    position: relative;
+    display: inline-block;
+  }
+  #sidePanel a span::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: black;
+    transition: width 0.3s ease-in-out;
+  }
+  #sidePanel a:hover span::after {
+    width: 100%;
+  }
+</style>
 </head>
-<body class="bg-black text-gray-100 overflow-x-hidden""">
+<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col">
+  <!-- BACKDROP -->
+  <div id="backdrop" class="fixed inset-0 bg-black opacity-0 pointer-events-none z-40 transition-opacity"></div>
+
   <!-- HEADER -->
-  <header id="siteHeader" class="fixed inset-x-0 top-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
-    <!-- Hamburger becomes close -->
-    <button id="menuBtn" class="focus:outline-none p-3 absolute left-4 top-1/2 -translate-y-1/2">
-      <span class="burger-line bg-white"></span>
-      <span class="burger-line lower bg-white"></span>
+  <header id="siteHeader" class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
+    <button id="openMenuBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none">
+      <span class="burger-line"></span>
+      <span class="burger-line lower"></span>
     </button>
-    <!-- Dual logos -->
     <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
       <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
       <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
     </a>
   </header>
 
-  <!-- BACKDROP and PANEL -->
-  <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
-  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 transform -translate-x-full z-50 shadow-xl p-6 space-y-6 font-semibold">
-    <nav class="mt-14 space-y-6 uppercase">
-      <a href="/"                class="block hover:text-indigo-500">HOME</a>
-      <a href="/stormen.html"    class="block hover:text-indigo-500">STORMEN</a>
-      <a href="/watch.html"      class="block hover:text-indigo-500">WATCH</a>
-      <a href="/collection.html" class="block hover:text-indigo-500">COLLECTION</a>
-      <a href="mailto:stormen@thenewgen.com" class="block hover:text-indigo-500">CONTACT</a>
+  <!-- SIDE PANEL -->
+  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold">
+    <button id="menuBtn" class="absolute right-3 top-3 p-3 focus:outline-none">
+      <span class="burger-line"></span>
+      <span class="burger-line lower"></span>
+    </button>
+    <nav class="mt-14 space-y-6 pl-4">
+      <div>
+        <a href="/">
+          <i data-feather="home" class="inline-block w-5 h-5 mr-2"></i>
+          <span>HOME</span>
+        </a>
+      </div>
+      <div>
+        <a href="/stormen.html">
+          <i data-feather="zap" class="inline-block w-5 h-5 mr-2"></i>
+          <span>STORMEN</span>
+        </a>
+      </div>
+      <div>
+        <a href="/watch.html">
+          <i data-feather="play" class="inline-block w-5 h-5 mr-2"></i>
+          <span>WATCH</span>
+        </a>
+      </div>
+      <div>
+        <a href="/collection.html">
+          <i data-feather="shopping-cart" class="inline-block w-5 h-5 mr-2"></i>
+          <span>COLLECTION</span>
+        </a>
+      </div>
+      <div>
+        <a href="mailto:stormen@thenewgen.com">
+          <i data-feather="mail" class="inline-block w-5 h-5 mr-2"></i>
+          <span>CONTACT</span>
+        </a>
+      </div>
     </nav>
   </aside>
 
   <!-- HERO -->
-  <section class="relative h-screen overflow-hidden flex items-center justify-center pt-40">
-      <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline preload="auto" poster="images/video-poster.jpg">
-        <source src="media/stormen_bg.mp4" type="video/mp4">
-        <!-- Fallback image if video fails -->
-      </video>
-      <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+  <section class="relative min-h-screen overflow-hidden flex items-center justify-center bg-transparent">
+  <video class="absolute inset-0 w-full h-full object-cover" autoplay loop muted playsinline preload="auto" poster="images/video-poster.jpg">
+    <source src="media/stormen_bg.mp4" type="video/mp4">
+  </video>
+  <div class="absolute inset-0 bg-black bg-opacity-60"></div>
 </section>
 
   <!-- MERCH PREVIEW -->
-  <main class="container mx-auto px-4">
-      <section id="collection" class="py-16">
-        
-        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-            <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-      <img src="images/tshirt_front.jpg" alt="Stormen Tee front" class="rounded-lg shadow-md front" />
-      <img src="images/tshirt_back.jpg" alt="Stormen Tee back" class="rounded-lg shadow-md back" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-      <img src="images/hoodie_front.png" alt="Stormen Hoodie front" class="rounded-lg shadow-md front" />
-      <img src="images/hoodie_back.png" alt="Stormen Hoodie back" class="rounded-lg shadow-md back" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-      <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
-      <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-      <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
-      <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-      <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
-      <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-      <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
-      <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-      <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
-      <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-      <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
-      <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
-      <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
-      <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
-    </a>
-        </div>
-      </section>
-  </main>
+  <main class="flex-grow container mx-auto px-4">
+  <section id="collection" class="py-16">
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item">
+        <img src="images/tshirt_front.jpg" alt="Stormen Tee front" class="rounded-lg shadow-md front" />
+        <img src="images/tshirt_back.jpg" alt="Stormen Tee back" class="rounded-lg shadow-md back" />
+      </a>
+      <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item">
+        <img src="images/hoodie_front.png" alt="Stormen Hoodie front" class="rounded-lg shadow-md front" />
+        <img src="images/hoodie_back.png" alt="Stormen Hoodie back" class="rounded-lg shadow-md back" />
+      </a>
+      <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item">
+        <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
+        <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
+      </a>
+      <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item">
+        <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
+        <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
+      </a>
+      <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item">
+        <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
+        <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
+      </a>
+      <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item">
+        <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
+        <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
+      </a>
+      <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item">
+        <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
+        <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
+      </a>
+      <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item">
+        <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
+        <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
+      </a>
+      <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item">
+        <img src="images/dadhat_front.jpg" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
+        <img src="images/dadhat_back.jpg" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
+      </a>
+    </div>
+  </section>
+</main>
 
   <!-- Footer -->
-  <footer class="bg-white py-10 text-gray-900">
-    <div class="container mx-auto flex flex-col items-center space-y-6">
-      <!-- Social Links -->
-      <div class="flex space-x-6 text-2xl">
-        <a href="https://instagram.com/stormentwitch" target="_blank" class="hover:text-gray-700 social-link">
-          <img src="images/instagram.png" alt="Instagram" class="w-8 h-8" />
-        </a>
-        <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="hover:text-gray-700 social-link">
-          <img src="images/tiktok.png" alt="TikTok" class="w-7 h-7" />
-        </a>
-        <a href="https://twitter.com/stormentv" target="_blank" class="hover:text-gray-700 social-link">
-          <img src="images/twitter.png" alt="Twitter" class="w-8 h-8" />
-        </a>
-        <a href="https://youtube.com/@stormentv" target="_blank" class="hover:text-gray-700 social-link">
-          <img src="images/youtube.png" alt="YouTube" class="w-8 h-8" />
-        </a>
-        <a href="https://twitch.tv/stormen" target="_blank" class="hover:text-gray-700 social-link">
-          <img src="images/twitch.png" alt="Twitch" class="w-8 h-8" />
-        </a>
-        <a href="https://discord.gg/8pgUDRT5Wv" class="social-link"><img src="images/discord.png" alt="Twitch" class="w-8 h-8"/>
-          <a href="mailto:stormen@thenewgen.com" class="social-link">
-          <i data-feather="mail" class="w-8 h-8"></i></a>
+  <footer class="bg-gray-900 text-white py-12 px-4">
+    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
+      <div class="flex space-x-6 mb-6 md:mb-0">
+        <a href="https://twitch.tv/stormen" target="_blank"><i data-feather="twitch"></i></a>
+        <a href="https://youtube.com/@stormen" target="_blank"><i data-feather="youtube"></i></a>
+        <a href="https://tiktok.com/@stormen" target="_blank"><img src="images/tiktok-icon.svg" alt="TikTok"/></a>
+        <a href="https://instagram.com/stormentwitch" target="_blank"><i data-feather="instagram"></i></a>
+        <a href="https://twitter.com/stormentv" target="_blank"><i data-feather="twitter"></i></a>
+        <a href="https://discord.gg/8pgUDRT5Wv" target="_blank"><i data-feather="message-circle"></i></a>
+        <a href="mailto:stormen@thenewgen.com"><i data-feather="mail"></i></a>
       </div>
-      <div class="w-full border-t border-gray-700"></div>
-      <!-- Copyright -->
-      <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
+      <p class="text-sm">© 2025 Stormen. All rights reserved.</p>
     </div>
   </footer>
 
   <!-- SCRIPTS -->
   <script>
     feather.replace();
+    const openMenuBtn = document.getElementById('openMenuBtn');
     const menuBtn = document.getElementById('menuBtn');
     const panel = document.getElementById('sidePanel');
     const backdrop = document.getElementById('backdrop');
+    const hdr = document.getElementById('siteHeader');
 
-    // toggle panel + animate icon
-    menuBtn.addEventListener('click', () => {
-      const open = panel.classList.toggle('-translate-x-full') === false;
-      backdrop.classList.toggle('hidden', !open);
-      menuBtn.classList.toggle('open', open);
-    });
-    // close panel when clicking on backdrop
-    backdrop.addEventListener('click', () => {
+    function openPanel() {
+      panel.classList.remove('-translate-x-full');
+      backdrop.classList.remove('pointer-events-none', 'opacity-0');
+      backdrop.classList.add('opacity-100');
+      menuBtn.classList.add('open');
+    }
+
+    function closePanel() {
       panel.classList.add('-translate-x-full');
-      backdrop.classList.add('hidden');
+      backdrop.classList.add('pointer-events-none', 'opacity-0');
+      backdrop.classList.remove('opacity-100');
       menuBtn.classList.remove('open');
+    }
+
+    openMenuBtn.addEventListener('click', openPanel);
+    menuBtn.addEventListener('click', closePanel);
+    backdrop.addEventListener('click', closePanel);
+
+    document.addEventListener('click', (e) => {
+      const isClickInside = panel.contains(e.target) || openMenuBtn.contains(e.target);
+      if (!isClickInside && !panel.classList.contains('-translate-x-full')) {
+        closePanel();
+      }
     });
 
     window.addEventListener('scroll', () => {
-      const hdr = document.getElementById('siteHeader');
       const lines = hdr.querySelectorAll('.burger-line');
       const whiteLogo = document.querySelector('.logo-white');
       const yellowLogo = document.querySelector('.logo-black');
