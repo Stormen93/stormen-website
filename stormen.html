@@ -14,7 +14,9 @@
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.1/dist/feather.min.js"></script>
 <style>
   body { font-family: 'Roboto Condensed', sans-serif; }
-  .burger-line { display:block; width:48px; height:2px; background:#000000!important; margin:6px 0; transition:transform .3s, background-color .3s; }
+  .burger-line { display:block; width:48px; height:2px; margin:6px 0; transition: transform .3s, background-color .3s; }
+#openMenuBtn .burger-line { background: #ffffff !important; } /* White for hamburger icon */
+#closeMenuBtn .burger-line { background: #000000 !important; } /* Black for X button */
   .burger-line.lower { height:1px; }
   #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
   #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
