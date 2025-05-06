@@ -112,7 +112,7 @@
       <span class="burger-line lower"></span>
     </button>
     <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
-      <img src="images/logo_yellow.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
+      <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
       <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
     </a>
   </header>
@@ -155,7 +155,7 @@
         </a>
       </div>
       <div>
-        <a href="/cdn-cgi/l/email-protection#b0c3c4dfc2ddd5def0c4d8d5ded5c7d7d5de9ed3dfdd">
+        <a href="mailto:stormen@thenewgen.com">
           <i data-feather="mail" class="inline-block w-5 h-5 mr-2"></i>
           <span>CONTACT</span>
         </a>
@@ -165,20 +165,20 @@
 
   <!-- Watch Content -->
   <main class="flex-grow min-h-screen container mx-auto px-4 pt-32 pb-20 flex flex-col items-center justify-center">
-  <div class="embed-wrapper mx-auto">
-    <iframe
-      src="https://www.youtube.com/embed/videoseries?si=3t-65oYSf1tSjdO8&list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
-      class="w-full"
-      height="480"
-      frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      allowfullscreen
-    ></iframe>
-  </div>
-  <a href="https://twitch.tv/stormen" target="_blank" class="watch-link mt-8">
-    <span>WATCH STORMEN'S STREAM</span>
-  </a>
-</main>
+    <div class="embed-wrapper mx-auto">
+      <iframe
+        src="https://www.youtube.com/embed/videoseries?si=3t-65oYSf1tSjdO8&list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
+        class="w-full"
+        height="480"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <a href="https://twitch.tv/stormen" target="_blank" class="watch-link mt-8">
+      <span>WATCH STORMEN'S STREAM</span>
+    </a>
+  </main>
 
   <!-- Footer -->
   <footer class="bg-white py-10 text-gray-900">
@@ -202,7 +202,7 @@
         <a href="https://discord.gg/8pgUDRT5Wv" target="_blank" class="social-link">
           <img src="images/discord.png" alt="Discord" class="w-8 h-8"/>
         </a>
-        <a href="/cdn-cgi/l/email-protection#b0c3c4dfc2ddd5def0c4d8d5ded5c7d7d5de9ed3dfdd" target="_blank" class="social-link">
+        <a href="mailto:stormen@thenewgen.com" target="_blank" class="social-link">
           <i data-feather="mail" class="w-8 h-8"></i>
         </a>
       </div>
@@ -288,19 +288,17 @@
         }
       });
       window.addEventListener('scroll', () => {
-        const lines = hdr.querySelectorAll('.burger-line');
         const whiteLogo = document.querySelector('.logo-white');
         const yellowLogo = document.querySelector('.logo-black');
         const scrolled = window.scrollY > 10;
         hdr.classList.toggle('bg-white', scrolled);
         hdr.classList.toggle('shadow-sm', scrolled);
-        lines.forEach(l => l.style.backgroundColor = scrolled ? '#000000' : '#ffffff');
         whiteLogo.classList.toggle('opacity-0', scrolled);
         yellowLogo.classList.toggle('opacity-0', !scrolled);
       });
       console.log('Script setup complete');
     });
   </script>
-  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b70b17f9bab09a',t:'MTc0NjUxOTQ2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b874c978d8454e',t:'MTc0NjUzNDI4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
