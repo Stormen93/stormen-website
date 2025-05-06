@@ -25,7 +25,7 @@
     #backdrop { transition: opacity 0.3s ease-in-out; }
     #sidePanel a {
       display: inline-flex;
-      align-items: center;
+      align-items: center   align-items: center;
     }
     #sidePanel a span {
       position: relative;
@@ -121,7 +121,7 @@
         </a>
       </div>
       <div>
-        <a href="mailto:stormen@thenewgen.com">
+        <a href="/cdn-cgi/l/email-protection#b2c1c6ddc0dfd7dcf2c6dad7dcd7c5d5d7dc9cd1dddf">
           <i data-feather="mail" class="inline-block w-5 h-5 mr-2"></i>
           <span>CONTACT</span>
         </a>
@@ -130,37 +130,40 @@
   </aside>
 
   <!-- ~50vh-tall hero -->
-  <section class="relative h-[50vh] flex items-center justify-center bg-transparent">
+  <section class="relative h-[50vh] min-h-0 flex items-center justify-center bg-gray-200 overflow-hidden">
     <video
-      class="absolute inset-0 w-full h-full object-cover object-center z-0"
+      class="absolute inset-0 w-full h-full object-cover object-center z-10"
       autoplay loop muted playsinline preload="auto"
+      poster="images/video-poster.jpg"
     >
       <source src="media/chasethestormer.mp4" type="video/mp4">
+      <source src="media/chasethestorms.mp4" type="video/mp4">
+      Your browser does not support the video tag.
     </video>
-    <div class="absolute inset-0 bg-black bg-opacity-0 z-1"></div>
+    <div class="absolute inset-0 bg-black bg-opacity-0 z-20"></div>
   </section>
 
   <!-- Merch Preview -->
   <main class="flex-grow w-[90%] mx-auto px-2 pt-24 pb-16 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
     <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
-      <img src="images/heavy_front.png" alt="Stormen Heavyweight front" class="rounded-lg shadow-md front" />
-      <img src="images/heavy_back.png" alt="Stormen Heavyweight back" class="rounded-lg shadow-md back" />
+      <img src="images/tshirt_front.png" alt="Stormen Tee front" class="rounded-lg shadow-md front" />
+      <img src="images/tshirt_back.png" alt="Stormen Tee back" class="rounded-lg shadow-md back" />
     </a>
     <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
       <img src="images/hoodies_front.png" alt="Stormen Hoodie front" class="rounded-lg shadow-md front" />
       <img src="images/hoodies_back.png" alt="Stormen Hoodie back" class="rounded-lg shadow-md back" />
     </a>
     <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
-      <img src="images/dadhat_front.png" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
-      <img src="images/dadhat_back.png" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
+      <img src="images/stormen_dadhat.png" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
+      <img src="images/stormen_dadhatback.png" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
     </a>
     <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
       <img src="images/sweatshirt_front.png" alt="Stormen Sweatshirt front" class="rounded-lg shadow-md front" />
-      <img src="images/sweat_back.png" alt="Stormen Sweatshirt back" class="rounded-lg shadow-md back" />
+      <img src="images/sweatshirt_back.png" alt="Stormen Sweatshirt back" class="rounded-lg shadow-md back" />
     </a>
     <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
-      <img src="images/tshirt_front.png" alt="Stormen Tee front" class="rounded-lg shadow-md front" />
-      <img src="images/tshirt_back.png" alt="Stormen Tee back" class="rounded-lg shadow-md back" />
+      <img src="images/heavy_front.png" alt="Stormen Heavyweight front" class="rounded-lg shadow-md front" />
+      <img src="images/heavy_back.png" alt="Stormen Heavyweight back" class="rounded-lg shadow-md back" />
     </a>
     <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
       <img src="images/joggers_front.png" alt="Stormen Joggers front" class="rounded-lg shadow-md front" />
@@ -171,8 +174,8 @@
       <img src="images/stormen_mugblackback.png" alt="Stormen Black Mug back" class="rounded-lg shadow-md back" />
     </a>
     <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
-      <img src="images/whitemug_front.png" alt="Stormen White Mug front" class="rounded-lg shadow-md front" />
-      <img src="images/whitemug_back.png" alt="Stormen White Mug back" class="rounded-lg shadow-md back" />
+      <img src="images/stormen_mugwhite.png" alt="Stormen White Mug front" class="rounded-lg shadow-md front" />
+      <img src="images/stormen_mugwhite2.png" alt="Stormen White Mug back" class="rounded-lg shadow-md back" />
     </a>
     <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
       <img src="images/hype_sticker.png" alt="Stormen Hype Sticker front" class="rounded-lg shadow-md front" />
@@ -206,7 +209,7 @@
         <a href="https://discord.gg/8pgUDRT5Wv" target="_blank" class="social-link">
           <img src="images/discord.png" alt="Discord" class="w-8 h-8"/>
         </a>
-        <a href="mailto:stormen@thenewgen.com" target="_blank" class="social-link">
+        <a href="/cdn-cgi/l/email-protection#b2c1c6ddc0dfd7dcf2c6dad7dcd7c5d5d7dc9cd1dddf" target="_blank" class="social-link">
           <i data-feather="mail" class="w-8 h-8"></i>
         </a>
       </div>
@@ -230,6 +233,9 @@
       } catch (error) {
         console.error('Error initializing Feather Icons:', error.message);
       }
+      const video = document.querySelector('video');
+      video.addEventListener('loadeddata', () => console.log('Video loaded'));
+      video.addEventListener('error', (e) => console.error('Video error:', e));
       const openMenuBtn = document.getElementById('openMenuBtn');
       const closeMenuBtn = document.getElementById('closeMenuBtn');
       const panel = document.getElementById('sidePanel');
