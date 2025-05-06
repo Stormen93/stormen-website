@@ -65,6 +65,23 @@
       color: #ff9f3a;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
+    .watch-button span {
+      position: relative;
+      display: inline-block;
+    }
+    .watch-button span::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: black;
+      transition: width 0.3s ease-in-out;
+    }
+    .watch-button:hover span::after {
+      width: 100%;
+    }
   </style>
 </head>
 <body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col">
@@ -150,10 +167,7 @@
           class="watch-button inline-block text-black font-bold px-6 py-3 rounded-full transition-colors duration-300 relative"
           style="background-color: #ff9f3a;"
         >
-          <span class="relative z-10 inline-block">
-            WATCH STORMEN LIVE
-            <span class="absolute left-0 top-1/2 h-1 bg-black transform -translate-y-1/2 w-0 transition-all duration-300"></span>
-          </span>
+          <span>WATCH STORMEN LIVE</span>
         </a>
       </div>
     </div>
@@ -186,7 +200,7 @@
         </a>
       </div>
       <div class="w-full border-t border-gray-700"></div>
-      <div class="atrotext-sm">© 2025 Stormen. All rights reserved.</div>
+      <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
     </div>
   </footer>
 
@@ -280,6 +294,6 @@
       console.log('Script setup complete');
     });
   </script>
-  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b70b16ca70bcfb',t:'MTc0NjUxOTQ2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b863d30917ada0',t:'MTc0NjUzMzU4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
