@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stormen | Watch</title>
+  <title>Stormen | About</title>
   <!-- Roboto Condensed -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet"/>
   <!-- Roboto Mono -->
@@ -58,46 +58,12 @@
     }
     .social-link img { transition: filter 0.3s ease; }
     .social-link:hover img { filter: brightness(0) invert(0.4); }
-    .embed-wrapper {
-      --outline-color: #ff9f3a;
-      border: 4px solid var(--outline-color);
-      padding: 0;
-      border-radius: 0.5rem;
-      background: #ffffff;
-      box-shadow: 8px 12px 24px rgba(0, 0, 0, 0.4);
-      max-width: 854px;
-      width: 100%;
-    }
-    .watch-link {
+    .watch-button:hover { background-color: #e68a2e; }
+    main p, .watch-button { font-family: 'Roboto Mono', monospace; }
+    main h1 {
       font-family: 'Roboto Mono', monospace;
-      color: #000000;
-      background-color: #ff9f3a;
-      padding: 0.75rem 1.5rem;
-      border-radius: 9999px;
-      display: inline-block;
-      position: relative;
-      font-weight: bold;
-      text-decoration: none;
-    }
-    .watch-link span {
-      position: relative;
-      z-index: 2;
-      display: inline-block;
-    }
-    .watch-link span::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 50%;
-      width: 0;
-      height: 2px;
-      background-color: #000000;
-      transform: translateY(-50%);
-      transition: width 0.3s ease-in-out;
-      z-index: 1;
-    }
-    .watch-link:hover span::after {
-      width: 100%;
+      color: #ff9f3a;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     }
   </style>
 </head>
@@ -157,21 +123,34 @@
     </nav>
   </aside>
 
-  <!-- Watch Content -->
-  <main class="flex-grow container mx-auto px-4 py-20 flex flex-col items-center">
-    <div class="embed-wrapper mx-auto">
-      <iframe
-        src="https://www.youtube.com/embed/videoseries?si=3t-65oYSf1tSjdO8&list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
-        class="w-full"
-        height="480"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
+  <!-- About Content -->
+  <main class="flex-grow flex flex-col md:flex-row items-center justify-center py-20 px-4">
+    <img src="images/avatar.jpg" alt="Stormen avatar" class="w-96 h-96 rounded-full object-cover border-4 border-black shadow-md mr-12 mb-8 md:mb-0"/>
+    <div class="max-w-lg">
+      <h1 class="text-5xl font-extrabold mb-4">STORMEN</h1>
+      <p>
+        Hey there, I’m <strong>Stormen</strong>! I’ve been streaming full-time for almost a decade, mostly focusing on FPS games where I balance a high-skill approach with a laid-back, welcoming vibe.
+      </p>
+      <p class="mt-4">
+        My channel is all about having fun, showcasing solid gameplay, and keeping the interaction with my community front and center. After nearly 10 years, we’ve grown into an awesome, supportive group that loves to share laughs, tips, and good times.
+      </p>
+      <p class="mt-4">
+        Be sure to get connected and say hey!
+      </p>
+      <div class="mt-6">
+        <a
+          href="https://twitch.tv/stormen"
+          target="_blank"
+          class="watch-button inline-block text-black font-bold px-6 py-3 rounded-full transition-colors duration-300 relative"
+          style="background-color: #ff9f3a;"
+        >
+          <span class="relative z-10 inline-block">
+            WATCH STORMEN LIVE
+            <span class="absolute left-0 top-1/2 h-1 bg-black transform -translate-y-1/2 w-0 transition-all duration-300"></span>
+          </span>
+        </a>
+      </div>
     </div>
-    <a href="https://twitch.tv/stormen" target="_blank" class="watch-link mt-8">
-      <span>WATCH STORMEN'S STREAM</span>
-    </a>
   </main>
 
   <!-- Footer -->
@@ -201,7 +180,7 @@
         </a>
       </div>
       <div class="w-full border-t border-gray-700"></div>
-      <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
+      <div class="atrotext-sm">© 2025 Stormen. All rights reserved.</div>
     </div>
   </footer>
 
@@ -295,6 +274,6 @@
       console.log('Script setup complete');
     });
   </script>
-  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b70b17f9bab09a',t:'MTc0NjUxOTQ2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b70b16ca70bcfb',t:'MTc0NjUxOTQ2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>

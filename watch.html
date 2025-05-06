@@ -1,29 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stormen | Watch</title>
   <!-- Roboto Condensed -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- Roboto Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <!-- Tailwind CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
   <!-- Feather Icons -->
-  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.1/dist/feather.min.js"></script>
   <style>
     body { font-family: 'Roboto Condensed', sans-serif; }
-    .burger-line { display:block; width:48px; height:2px; background:#1a202c!important; margin:6px 0; transition:transform .3s, background-color .3s; }
-    .burger-line.lower { height:1px; }
-    #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
-    #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
-    #menuBtn.open {
-      /* slide right and position over panel close corner */
-      left: calc(4rem + 18rem - 4rem);
-      top: 0.75rem;
+    .burger-line { display: block; width: 48px; height: 2px; margin: 6px 0; transition: transform 0.3s, background-color 0.3s; }
+    #openMenuBtn .burger-line { background: #000000; }
+    #closeMenuBtn .burger-line { background: #000000; }
+    .burger-line.lower { height: 1px; }
+    #closeMenuBtn.open .burger-line:first-child { transform: rotate(45deg); }
+    #closeMenuBtn.open .burger-line.lower { transform: rotate(-45deg) translateY(-1px); }
+    #closeMenuBtn { z-index: 60; }
+    #sidePanel { transition: transform 0.3s ease-in-out; }
+    #backdrop { transition: opacity 0.3s ease-in-out; }
+    #sidePanel a {
+      display: inline-flex;
+      align-items: center;
     }
-    #sidePanel { transition:transform .3s ease-in-out; }
-    #backdrop { transition:opacity .3s ease-in-out; }
-    /* Embed outline */
+    #sidePanel a span {
+      position: relative;
+      display: inline-block;
+    }
+    #sidePanel a span::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: black;
+      transition: width 0.3s ease-in-out;
+    }
+    #sidePanel a:hover span::after {
+      width: 100%;
+    }
+    a[href*="tiktok.com"] img { position: relative; top: 2px; }
+    .merch-item { position: relative; overflow: hidden; aspect-ratio: 1/1; }
+    .merch-item img { transition: opacity 0.3s ease-in-out; width: 100%; height: 100%; object-fit: cover; }
+    .merch-item .back { position: absolute; inset: 0; opacity: 0; }
+    @media (hover:hover) {
+      .merch-item:hover .back { opacity: 1; }
+      .merch-item:hover .front { opacity: 0; }
+    }
+    @media (hover:none) {
+      .merch-item:active .back { opacity: 1; }
+      .merch-item:active .front { opacity: 0; }
+    }
+    .social-link img { transition: filter 0.3s ease; }
+    .social-link:hover img { filter: brightness(0) invert(0.4); }
     .embed-wrapper {
       --outline-color: #ff9f3a;
       border: 4px solid var(--outline-color);
@@ -31,57 +65,63 @@
       border-radius: 0.5rem;
       background: #ffffff;
       box-shadow: 8px 12px 24px rgba(0, 0, 0, 0.4);
+      max-width: 854px;
+      width: 100%;
     }
-
-    /* animated circle outline on hover */
-    .strike-hover {
+    .watch-link {
+      font-family: 'Roboto Mono', monospace;
+      color: #000000;
+      background-color: #ff9f3a;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      display: inline-block;
       position: relative;
-      display: inline-flex;
-      align-items: center;
-      padding: 0.5rem 1rem;
-      z-index: 0;
+      font-weight: bold;
+      text-decoration: none;
     }
-    .strike-hover::before {
+    .watch-link span {
+      position: relative;
+      z-index: 2;
+      display: inline-block;
+    }
+    .watch-link span::after {
       content: '';
       position: absolute;
-      inset: 0;
-      border: 2px solid var(--outline-color, #ff9f3a);
-      border-radius: 9999px;
-      transform: scale(0);
-      transition: transform 0.3s ease;
+      left: 0;
+      top: 50%;
+      width: 0;
+      height: 2px;
+      background-color: #000000;
+      transform: translateY(-50%);
+      transition: width 0.3s ease-in-out;
       z-index: 1;
     }
-    .strike-hover:hover::before {
-      transform: scale(1);
+    .watch-link:hover span::after {
+      width: 100%;
     }
-
-.strike-hover img {
-      position: relative;
-      margin-left: 0.5rem;
-      top: auto;
-      transform: none;
-      z-index: 2;
-    }
-      </style>
+  </style>
 </head>
-<body class="flex flex-col min-h-screen bg-white text-gray-900 overflow-x-hidden">
+<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col">
+  <!-- Backdrop -->
+  <div id="backdrop" class="fixed inset-0 bg-gray-900 opacity-0 pointer-events-none z-40 transition-opacity"></div>
+
   <!-- Header -->
-  <header class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent">
-    <button id="menuBtn" class="absolute left-4 top-4 p-3 focus:outline-none">
+  <header id="siteHeader" class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
+    <button id="openMenuBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none">
       <span class="burger-line"></span>
       <span class="burger-line lower"></span>
     </button>
-    <a href="/" class="mx-auto flex items-center justify-center h-36">
-      <img src="images/logo_yellow.png" alt="Stormen logo" class="h-36"/>
+    <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
+      <img src="images/logo_yellow.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
+      <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
     </a>
   </header>
 
-  <!-- Backdrop & Panel -->
-  <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 opacity-0 pointer-events-none z-40"></div>
-   <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold">
-    <button id="menuBtn" class="absolute right-3 top-3 p-3 focus:outline-none hidden">
-      <span class="burger-line bg-white"></span>
-      <span class="burger-line lower bg-white"></span>
+  <!-- Side Panel -->
+  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold" style="visibility: hidden;">
+    <button id="closeMenuBtn" class="absolute right-3 top-3 p-3 focus:outline-none">
+      <span class="burger-line"></span>
+      <span class="burger-line lower"></span>
     </button>
     <nav class="mt-14 space-y-6 pl-4">
       <div>
@@ -109,7 +149,7 @@
         </a>
       </div>
       <div>
-        <a href="mailto:stormen@thenewgen.com">
+        <a href="/cdn-cgi/l/email-protection#b0c3c4dfc2ddd5def0c4d8d5ded5c7d7d5de9ed3dfdd">
           <i data-feather="mail" class="inline-block w-5 h-5 mr-2"></i>
           <span>CONTACT</span>
         </a>
@@ -117,72 +157,144 @@
     </nav>
   </aside>
 
-
-  <!-- Main Content -->
-  <main class="flex-grow flex flex-col items-center justify-center bg-white py-24 px-4">
-    <!-- YouTube Embed Centered -->
-    <div class="embed-wrapper w-full max-w-4xl mx-auto mb-12">
-      <iframe src="https://www.youtube.com/embed/videoseries?si=3t-65oYSf1tSjdO8&list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
-              frameborder="0" allowfullscreen class="w-full h-96"></iframe>
+  <!-- Watch Content -->
+  <main class="flex-grow container mx-auto px-4 py-20 flex flex-col items-center">
+    <div class="embed-wrapper mx-auto">
+      <iframe
+        src="https://www.youtube.com/embed/videoseries?si=3t-65oYSf1tSjdO8&list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
+        class="w-full"
+        height="480"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
     </div>
-    <!-- Twitch Link -->
-    <a href="https://twitch.tv/stormen" target="_blank" class="strike-hover mt-4 inline-block">
-      <span class="text-2xl font-bold text-gray-900">WATCH STORMEN&#x27;S STREAM</span>
-      <img src="images/twitch.png" alt="Twitch icon" class="w-8 h-8" />
+    <a href="https://twitch.tv/stormen" target="_blank" class="watch-link mt-8">
+      <span>WATCH STORMEN'S STREAM</span>
     </a>
   </main>
 
   <!-- Footer -->
-   <!-- Footer -->
-  <footer class="bg-white py-10 text-gray-900 mt-auto">
+  <footer class="bg-white py-10 text-gray-900">
     <div class="container mx-auto flex flex-col items-center space-y-6">
       <div class="flex space-x-6">
-        <a href="https://instagram.com/stormentwitch" class="social-link"><img src="images/instagram.png" alt="Instagram" class="w-8 h-8"/></a>
-        <a href="https://www.tiktok.com/@stormentwitch" class="social-link"><img src="images/tiktok.png" alt="TikTok" class="w-7 h-7"/></a>
-        <a href="https://twitter.com/stormentv" class="social-link"><img src="images/twitter.png" alt="Twitter" class="w-8 h-8"/></a>
-        <a href="https://youtube.com/@stormentv" class="social-link"><img src="images/youtube.png" alt="YouTube" class="w-8 h-8"/></a>
-        <a href="https://twitch.tv/stormen" class="social-link"><img src="images/twitch.png" alt="Twitch" class="w-8 h-8"/></a>
-        <a href="https://discord.gg/8pgUDRT5Wv" class="social-link"><img src="images/discord.png" alt="Discord" class="w-8 h-8"/></a>
+        <a href="https://instagram.com/stormentwitch" target="_blank" class="social-link">
+          <img src="images/instagram.png" alt="Instagram" class="w-8 h-8" />
+        </a>
+        <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="social-link">
+          <img src="images/tiktok.png" alt="TikTok" class="w-7 h-7" />
+        </a>
+        <a href="https://twitter.com/stormentv" target="_blank" class="social-link">
+          <img src="images/twitter.png" alt="Twitter" class="w-8 h-8" />
+        </a>
+        <a href="https://youtube.com/@stormentv" target="_blank" class="social-link">
+          <img src="images/youtube.png" alt="YouTube" class="w-8 h-8" />
+        </a>
+        <a href="https://twitch.tv/stormen" target="_blank" class="social-link">
+          <img src="images/twitch.png" alt="Twitch" class="w-8 h-8" />
+        </a>
+        <a href="https://discord.gg/8pgUDRT5Wv" target="_blank" class="social-link">
+          <img src="images/discord.png" alt="Discord" class="w-8 h-8"/>
+        </a>
+        <a href="/cdn-cgi/l/email-protection#b0c3c4dfc2ddd5def0c4d8d5ded5c7d7d5de9ed3dfdd" target="_blank" class="social-link">
+          <i data-feather="mail" class="w-8 h-8"></i>
+        </a>
       </div>
       <div class="w-full border-t border-gray-700"></div>
-      <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
+      <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
     </div>
   </footer>
 
   <!-- Scripts -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
-    feather.replace();
-    const menuBtn = document.getElementById('menuBtn');
-    const panel   = document.getElementById('sidePanel');
-    const backdrop= document.getElementById('backdrop');
-    const closeBtn= document.getElementById('closeBtn');
-
-    function openPanel() {
-      panel.classList.remove('-translate-x-full');
-      backdrop.classList.remove('pointer-events-none', 'opacity-0');
-      backdrop.classList.add('opacity-100');
-      menuBtn.classList.add('open');
-    }
-    function closePanel() {
-      panel.classList.add('-translate-x-full');
-      backdrop.classList.add('pointer-events-none', 'opacity-0');
-      backdrop.classList.remove('opacity-100');
-      menuBtn.classList.remove('open');
-    }
-
-    menuBtn.addEventListener('click', () => {
-      if (panel.classList.contains('-translate-x-full')) openPanel();
-      else closePanel();
-    });
-    backdrop.addEventListener('click', closePanel);
-    closeBtn.addEventListener('click', closePanel);
-    // Close panel when clicking anywhere outside of it
-    document.addEventListener('click', (e) => {
-      const isClickInsidePanel = panel.contains(e.target) || menuBtn.contains(e.target);
-      if (!isClickInsidePanel && !panel.classList.contains('-translate-x-full')) {
-        closePanel();
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('DOM fully loaded');
+      try {
+        if (typeof feather !== 'undefined') {
+          feather.replace();
+          console.log('Feather Icons initialized');
+        } else {
+          console.warn('Feather Icons library not loaded');
+        }
+      } catch (error) {
+        console.error('Error initializing Feather Icons:', error.message);
       }
+      const openMenuBtn = document.getElementById('openMenuBtn');
+      const closeMenuBtn = document.getElementById('closeMenuBtn');
+      const panel = document.getElementById('sidePanel');
+      const backdrop = document.getElementById('backdrop');
+      const hdr = document.getElementById('siteHeader');
+      if (!openMenuBtn || !closeMenuBtn || !panel || !backdrop || !hdr) {
+        console.error('One or more required elements not found:');
+        if (!openMenuBtn) console.error('openMenuBtn not found');
+        if (!closeMenuBtn) console.error('closeMenuBtn not found');
+        if (!panel) console.error('sidePanel not found');
+        if (!backdrop) console.error('backdrop not found');
+        if (!hdr) console.error('siteHeader not found');
+        return;
+      }
+      function openPanel() {
+        panel.style.visibility = 'visible';
+        panel.classList.remove('-translate-x-full');
+        console.log('openPanel: sidePanel classes:', panel.classList.toString());
+        backdrop.classList.remove('pointer-events-none', 'opacity-0');
+        backdrop.classList.add('opacity-50');
+        closeMenuBtn.classList.add('open');
+        console.log('openPanel: closeMenuBtn open?', closeMenuBtn.classList.contains('open'));
+        openMenuBtn.style.display = 'none';
+        closeMenuBtn.style.display = 'block';
+        if (typeof feather !== 'undefined') {
+          feather.replace();
+          console.log('Feather Icons re-initialized on panel open');
+        }
+      }
+      function closePanel() {
+        panel.classList.add('-translate-x-full');
+        console.log('closePanel: sidePanel classes:', panel.classList.toString());
+        setTimeout(() => {
+          panel.style.visibility = 'hidden';
+          console.log('closePanel: sidePanel visibility set to hidden after animation');
+        }, 300);
+        backdrop.classList.add('pointer-events-none', 'opacity-0');
+        backdrop.classList.remove('opacity-50');
+        closeMenuBtn.classList.remove('open');
+        openMenuBtn.style.display = 'block';
+        closeMenuBtn.style.display = 'none';
+      }
+      openMenuBtn.addEventListener('click', () => {
+        console.log('openMenuBtn clicked');
+        openPanel();
+      });
+      closeMenuBtn.addEventListener('click', () => {
+        console.log('closeMenuBtn clicked');
+        closePanel();
+      });
+      backdrop.addEventListener('click', () => {
+        console.log('backdrop clicked');
+        closePanel();
+      });
+      document.addEventListener('click', (e) => {
+        const isClickInside = panel.contains(e.target) || openMenuBtn.contains(e.target);
+        if (!isClickInside && !panel.classList.contains('-translate-x-full')) {
+          console.log('Clicked outside panel, closing');
+          closePanel();
+        }
+      });
+      window.addEventListener('scroll', () => {
+        const lines = hdr.querySelectorAll('.burger-line');
+        const whiteLogo = document.querySelector('.logo-white');
+        const yellowLogo = document.querySelector('.logo-black');
+        const scrolled = window.scrollY > 10;
+        hdr.classList.toggle('bg-white', scrolled);
+        hdr.classList.toggle('shadow-sm', scrolled);
+        lines.forEach(l => l.style.backgroundColor = scrolled ? '#000000' : '#ffffff');
+        whiteLogo.classList.toggle('opacity-0', scrolled);
+        yellowLogo.classList.toggle('opacity-0', !scrolled);
+      });
+      console.log('Script setup complete');
     });
   </script>
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b70b17f9bab09a',t:'MTc0NjUxOTQ2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
