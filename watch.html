@@ -111,9 +111,8 @@
       <span class="burger-line"></span>
       <span class="burger-line lower"></span>
     </button>
-    <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
-      <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
-      <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
+    <a href="/" class="mx-auto h-36 flex items-center justify-center">
+      <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36" />
     </a>
   </header>
 
@@ -288,13 +287,9 @@
         }
       });
       window.addEventListener('scroll', () => {
-        const whiteLogo = document.querySelector('.logo-white');
-        const yellowLogo = document.querySelector('.logo-black');
         const scrolled = window.scrollY > 10;
         hdr.classList.toggle('bg-white', scrolled);
         hdr.classList.toggle('shadow-sm', scrolled);
-        whiteLogo.classList.toggle('opacity-0', scrolled);
-        yellowLogo.classList.toggle('opacity-0', !scrolled);
       });
       console.log('Script setup complete');
     });
