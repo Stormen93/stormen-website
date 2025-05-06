@@ -9,7 +9,7 @@
   <!-- Tailwind CSS (after fonts) -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
   <!-- Feather Icons -->
-  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.1/dist/feather.min.js"></script>
 
   <!-- Custom Styles -->
   <style>
@@ -17,26 +17,45 @@
     body { font-family: 'Roboto Condensed', sans-serif; }
 
     /* Burger animation and positioning */
-    .burger-line { display:block; width:48px; height:2px; margin:6px 0; transition: transform .3s, background-color .3s; }
+    .burger-line { display:block; width:48px; height:2px; background:#000000 !important; margin:6px 0; transition: transform .3s, background-color .3s; }
     .burger-line.lower { height:1px; }
-    #menuBtn.open .burger-line:first-child { transform: rotate(45deg); }
-    #menuBtn.open .burger-line.lower { transform: rotate(-45deg) translateY(-1px); }
-    #menuBtn.open {
-      /* slide right and position over panel close corner */
-      left: calc(4rem + 18rem - 4rem);
-      top: 0.75rem;
-    }
+    #closeMenuBtn.open .burger-line:first-child { transform: rotate(45deg); }
+    #closeMenuBtn.open .burger-line.lower { transform: rotate(-45deg) translateY(-1px); }
+    #closeMenuBtn { z-index: 60; }
 
     /* Panel & backdrop transitions */
     #sidePanel { transition: transform .3s ease-in-out; }
     #backdrop { transition: opacity .3s ease-in-out; }
 
+    /* Side panel link hover effect */
+    #sidePanel a {
+      display: inline-flex;
+      align-items: center;
+    }
+    #sidePanel a span {
+      position: relative;
+      display: inline-block;
+    }
+    #sidePanel a span::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: black;
+      transition: width 0.3s ease-in-out;
+    }
+    #sidePanel a:hover span::after {
+      width: 100%;
+    }
+
     /* TikTok icon nudge */
     a[href*="tiktok.com"] img { position: relative; top: 2px; }
 
     /* Merch hover effect */
-    .merch-item { position: relative; overflow: hidden; }
-    .merch-item img { transition: opacity .3s ease-in-out; }
+    .merch-item { position: relative; overflow: hidden; aspect-ratio: 1/1; }
+    .merch-item img { transition: opacity .3s ease-in-out; width: 100%; height: 100%; object-fit: cover; }
     .merch-item .back { position: absolute; inset: 0; opacity: 0; }
     @media (hover:hover) {
       .merch-item:hover .back { opacity: 1; }
@@ -56,7 +75,7 @@
 
   <!-- Header -->
   <header id="siteHeader" class="fixed inset-x-0 top-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
-    <button id="menuBtn" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 focus:outline-none">
+    <button id="openMenuBtn" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 focus:outline-none">
       <span class="burger-line bg-white"></span>
       <span class="burger-line lower bg-white"></span>
     </button>
@@ -67,11 +86,11 @@
   </header>
 
   <!-- Backdrop & Side Panel -->
-  <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 opacity-0 pointer-events-none z-40"></div>
-    <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold">
-    <button id="menuBtn" class="absolute right-3 top-3 p-3 focus:outline-none hidden">
-      <span class="burger-line bg-white"></span>
-      <span class="burger-line lower bg-white"></span>
+  <div id="backdrop" class="fixed inset-0 bg-gray-900 opacity-0 pointer-events-none z-40 transition-opacity"></div>
+  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold" style="visibility: hidden;">
+    <button id="closeMenuBtn" class="absolute right-3 top-3 p-3 focus:outline-none">
+      <span class="burger-line"></span>
+      <span class="burger-line lower"></span>
     </button>
     <nav class="mt-14 space-y-6 pl-4">
       <div>
@@ -107,7 +126,6 @@
     </nav>
   </aside>
 
-
   <!-- Collection Grid -->
   <main class="flex-grow container mx-auto px-4 pt-24 pb-16 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
     <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item group">
@@ -128,24 +146,27 @@
   <footer class="bg-white py-10 text-gray-900">
     <div class="container mx-auto flex flex-col items-center space-y-6">
       <div class="flex space-x-6">
-        <a href="https://instagram.com/stormentwitch"   target="_blank" class="social-link">
+        <a href="https://instagram.com/stormentwitch" target="_blank" class="social-link">
           <img src="images/instagram.png" alt="Instagram" class="w-8 h-8" />
         </a>
         <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="social-link">
           <img src="images/tiktok.png" alt="TikTok" class="w-7 h-7" />
         </a>
-        <a href="https://twitter.com/stormentv"        target="_blank" class="social-link">
+        <a href="https://twitter.com/stormentv" target="_blank" class="social-link">
           <img src="images/twitter.png" alt="Twitter" class="w-8 h-8" />
         </a>
-        <a href="https://youtube.com/@stormentv"        target="_blank" class="social-link">
+        <a href="https://youtube.com/@stormentv" target="_blank" class="social-link">
           <img src="images/youtube.png" alt="YouTube" class="w-8 h-8" />
         </a>
-        <a href="https://twitch.tv/stormen"             target="_blank" class="social-link">
+        <a href="https://twitch.tv/stormen" target="_blank" class="social-link">
           <img src="images/twitch.png" alt="Twitch" class="w-8 h-8" />
         </a>
-        <a href="https://discord.gg/8pgUDRT5Wv" class="social-link"><img src="images/discord.png" alt="Discord" class="w-8 h-8"/></a>
-        <a href="mailto:stormen@thenewgen.com" class="social-link">
-          <i data-feather="mail" class="w-8 h-8"></i></a>
+        <a href="https://discord.gg/8pgUDRT5Wv" target="_blank" class="social-link">
+          <img src="images/discord.png" alt="Discord" class="w-8 h-8"/>
+        </a>
+        <a href="mailto:stormen@thenewgen.com" target="_blank" class="social-link">
+          <i data-feather="mail" class="w-8 h-8"></i>
+        </a>
       </div>
       <div class="w-full border-t border-gray-700"></div>
       <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
@@ -154,31 +175,109 @@
 
   <!-- Scripts -->
   <script>
-    feather.replace();
-    const menuBtn = document.getElementById('menuBtn');
-    const closeBtn = document.getElementById('closeBtn');
-    const panel = document.getElementById('sidePanel');
-    const backdrop = document.getElementById('backdrop');
+    document.addEventListener('DOMContentLoaded', () => {
+      console.log('DOM fully loaded');
 
-    function openPanel() {
-      panel.classList.remove('-translate-x-full');
-      backdrop.classList.remove('pointer-events-none', 'opacity-0');
-      backdrop.classList.add('opacity-100');
-      menuBtn.classList.add('open');
-    }
-    function closePanel() {
-      panel.classList.add('-translate-x-full');
-      backdrop.classList.add('pointer-events-none', 'opacity-0');
-      backdrop.classList.remove('opacity-100');
-      menuBtn.classList.remove('open');
-    }
+      // Safely initialize Feather Icons
+      try {
+        if (typeof feather !== 'undefined') {
+          feather.replace();
+          console.log('Feather Icons initialized');
+        } else {
+          console.warn('Feather Icons library not loaded');
+        }
+      } catch (error) {
+        console.error('Error initializing Feather Icons:', error.message);
+      }
 
-    menuBtn.addEventListener('click', () => {
-      if (panel.classList.contains('-translate-x-full')) openPanel();
-      else closePanel();
+      // Get DOM elements
+      const openMenuBtn = document.getElementById('openMenuBtn');
+      const closeMenuBtn = document.getElementById('closeMenuBtn');
+      const panel = document.getElementById('sidePanel');
+      const backdrop = document.getElementById('backdrop');
+      const hdr = document.getElementById('siteHeader');
+
+      // Check if all required elements are found
+      if (!openMenuBtn || !closeMenuBtn || !panel || !backdrop || !hdr) {
+        console.error('One or more required elements not found:');
+        if (!openMenuBtn) console.error('openMenuBtn not found');
+        if (!closeMenuBtn) console.error('closeMenuBtn not found');
+        if (!panel) console.error('sidePanel not found');
+        if (!backdrop) console.error('backdrop not found');
+        if (!hdr) console.error('siteHeader not found');
+        return;
+      }
+
+      function openPanel() {
+        panel.style.visibility = 'visible';
+        panel.classList.remove('-translate-x-full');
+        console.log('openPanel: sidePanel classes:', panel.classList.toString());
+        backdrop.classList.remove('pointer-events-none', 'opacity-0');
+        backdrop.classList.add('opacity-50');
+        closeMenuBtn.classList.add('open');
+        console.log('openPanel: closeMenuBtn open?', closeMenuBtn.classList.contains('open'));
+        // Re-run feather.replace() as a fallback
+        if (typeof feather !== 'undefined') {
+          feather.replace();
+          console.log('Feather Icons re-initialized on panel open');
+        }
+      }
+
+      function closePanel() {
+        panel.classList.add('-translate-x-full');
+        console.log('closePanel: sidePanel classes:', panel.classList.toString());
+        setTimeout(() => {
+          panel.style.visibility = 'hidden';
+          console.log('closePanel: sidePanel visibility set to hidden after animation');
+        }, 300);
+        backdrop.classList.add('pointer-events-none', 'opacity-0');
+        backdrop.classList.remove('opacity-50');
+        closeMenuBtn.classList.remove('open');
+      }
+
+      // Open the panel when clicking the openMenuBtn
+      openMenuBtn.addEventListener('click', () => {
+        console.log('openMenuBtn clicked');
+        openPanel();
+      });
+
+      // Close the panel when clicking the closeMenuBtn (the "X")
+      closeMenuBtn.addEventListener('click', () => {
+        console.log('closeMenuBtn clicked');
+        closePanel();
+      });
+
+      // Close the panel when clicking the backdrop
+      backdrop.addEventListener('click', () => {
+        console.log('backdrop clicked');
+        closePanel();
+      });
+
+      // Close panel when clicking outside of it
+      document.addEventListener('click', (e) => {
+        const isClickInside = panel.contains(e.target) || openMenuBtn.contains(e.target);
+        if (!isClickInside && !panel.classList.contains('-translate-x-full')) {
+          console.log('Clicked outside panel, closing');
+          closePanel();
+        }
+      });
+
+      // Header scroll effect
+      window.addEventListener('scroll', () => {
+        const lines = hdr.querySelectorAll('.burger-line');
+        const whiteLogo = document.querySelector('.logo-white');
+        const yellowLogo = document.querySelector('.logo-black');
+        const scrolled = window.scrollY > 10;
+        hdr.classList.toggle('bg-white', scrolled);
+        hdr.classList.toggle('shadow-sm', scrolled);
+        lines.forEach(l => l.classList.toggle('bg-white', !scrolled));
+        lines.forEach(l => l.classList.toggle('bg-black', scrolled));
+        whiteLogo.classList.toggle('opacity-0', scrolled);
+        yellowLogo.classList.toggle('opacity-0', !scrolled);
+      });
+
+      console.log('Script setup complete');
     });
-    backdrop.addEventListener('click', closePanel);
-    closeBtn.addEventListener('click', closePanel);
   </script>
 </body>
 </html>
