@@ -4,34 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Collection | Stormen</title>
-  <!-- Load Roboto Condensed from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
-  <!-- Tailwind CSS (after fonts) -->
+  <!-- Roboto Condensed -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
   <!-- Feather Icons -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.1/dist/feather.min.js"></script>
-
-  <!-- Custom Styles -->
   <style>
-    /* Apply Roboto Condensed globally */
     body { font-family: 'Roboto Condensed', sans-serif; }
-
-    /* Burger animation and positioning */
-  .burger-line { display:block; width:48px; height:2px; margin:6px 0; transition: transform .3s, background-color .3s; }
-#openMenuBtn .burger-line { background: #ffffff !important; } /* White for hamburger icon */
-#closeMenuBtn .burger-line { background: #000000 !important; } /* Black for X button */
-    .burger-line.lower { height:1px; }
+    .burger-line { display: block; width: 48px; height: 2px; margin: 6px 0; transition: transform 0.3s, background-color 0.3s; }
+    #openMenuBtn .burger-line { background: #000000; }
+    #closeMenuBtn .burger-line { background: #000000; }
+    .burger-line.lower { height: 1px; }
     #closeMenuBtn.open .burger-line:first-child { transform: rotate(45deg); }
     #closeMenuBtn.open .burger-line.lower { transform: rotate(-45deg) translateY(-1px); }
     #closeMenuBtn { z-index: 60; }
-    #closeMenuBtn.hidden { display: none !important; }
-    #openMenuBtn.hidden { display: none !important; }
-
-    /* Panel & backdrop transitions */
-    #sidePanel { transition: transform .3s ease-in-out; }
-    #backdrop { transition: opacity .3s ease-in-out; }
-
-    /* Side panel link hover effect */
+    #sidePanel { transition: transform 0.3s ease-in-out; }
+    #backdrop { transition: opacity 0.3s ease-in-out; }
     #sidePanel a {
       display: inline-flex;
       align-items: center;
@@ -53,13 +42,9 @@
     #sidePanel a:hover span::after {
       width: 100%;
     }
-
-    /* TikTok icon nudge */
     a[href*="tiktok.com"] img { position: relative; top: 2px; }
-
-    /* Merch hover effect */
     .merch-item { position: relative; overflow: hidden; aspect-ratio: 1/1; }
-    .merch-item img { transition: opacity .3s ease-in-out; width: 100%; height: 100%; object-fit: cover; }
+    .merch-item img { transition: opacity 0.3s ease-in-out; width: 100%; height: 100%; object-fit: cover; }
     .merch-item .back { position: absolute; inset: 0; opacity: 0; }
     @media (hover:hover) {
       .merch-item:hover .back { opacity: 1; }
@@ -69,30 +54,29 @@
       .merch-item:active .back { opacity: 1; }
       .merch-item:active .front { opacity: 0; }
     }
-
-    /* Footer social icon hover to gray */
-    .social-link img { transition: filter .3s ease; }
+    .social-link img { transition: filter 0.3s ease; }
     .social-link:hover img { filter: brightness(0) invert(0.4); }
   </style>
 </head>
-<body class="bg-black text-gray-100 flex flex-col min-h-screen">
+<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col">
+  <!-- Backdrop -->
+  <div id="backdrop" class="fixed inset-0 bg-gray-900 opacity-0 pointer-events-none z-40 transition-opacity"></div>
 
   <!-- Header -->
-  <header id="siteHeader" class="fixed inset-x-0 top-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
-    <button id="openMenuBtn" class="absolute left-4 top-1/2 -translate-y-1/2 p-3 focus:outline-none">
-      <span class="burger-line bg-white"></span>
-      <span class="burger-line lower bg-white"></span>
+  <header id="siteHeader" class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
+    <button id="openMenuBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none">
+      <span class="burger-line"></span>
+      <span class="burger-line lower"></span>
     </button>
-    <a href="/" class="mx-auto flex items-center justify-center h-36 relative">
+    <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
       <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
       <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
     </a>
   </header>
 
-  <!-- Backdrop & Side Panel -->
-  <div id="backdrop" class="fixed inset-0 bg-gray-900 opacity-0 pointer-events-none z-40 transition-opacity"></div>
+  <!-- Side Panel -->
   <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold" style="visibility: hidden;">
-    <button id="closeMenuBtn" class="absolute right-3 top-3 p-3 focus:outline-none hidden">
+    <button id="closeMenuBtn" class="absolute right-3 top-3 p-3 focus:outline-none">
       <span class="burger-line"></span>
       <span class="burger-line lower"></span>
     </button>
@@ -122,7 +106,7 @@
         </a>
       </div>
       <div>
-        <a href="mailto:stormen@thenewgen.com">
+        <a href="/cdn-cgi/l/email-protection#b0c3c4dfc2ddd5def0c4d8d5ded5c7d7d5de9ed3dfdd">
           <i data-feather="mail" class="inline-block w-5 h-5 mr-2"></i>
           <span>CONTACT</span>
         </a>
@@ -168,7 +152,7 @@
         <a href="https://discord.gg/8pgUDRT5Wv" target="_blank" class="social-link">
           <img src="images/discord.png" alt="Discord" class="w-8 h-8"/>
         </a>
-        <a href="mailto:stormen@thenewgen.com" target="_blank" class="social-link">
+        <a href="/cdn-cgi/l/email-protection#b0c3c4dfc2ddd5def0c4d8d5ded5c7d7d5de9ed3dfdd" target="_blank" class="social-link">
           <i data-feather="mail" class="w-8 h-8"></i>
         </a>
       </div>
@@ -178,11 +162,10 @@
   </footer>
 
   <!-- Scripts -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       console.log('DOM fully loaded');
-
-      // Safely initialize Feather Icons
       try {
         if (typeof feather !== 'undefined') {
           feather.replace();
@@ -193,15 +176,11 @@
       } catch (error) {
         console.error('Error initializing Feather Icons:', error.message);
       }
-
-      // Get DOM elements
       const openMenuBtn = document.getElementById('openMenuBtn');
       const closeMenuBtn = document.getElementById('closeMenuBtn');
       const panel = document.getElementById('sidePanel');
       const backdrop = document.getElementById('backdrop');
       const hdr = document.getElementById('siteHeader');
-
-      // Check if all required elements are found
       if (!openMenuBtn || !closeMenuBtn || !panel || !backdrop || !hdr) {
         console.error('One or more required elements not found:');
         if (!openMenuBtn) console.error('openMenuBtn not found');
@@ -211,7 +190,6 @@
         if (!hdr) console.error('siteHeader not found');
         return;
       }
-
       function openPanel() {
         panel.style.visibility = 'visible';
         panel.classList.remove('-translate-x-full');
@@ -220,15 +198,13 @@
         backdrop.classList.add('opacity-50');
         closeMenuBtn.classList.add('open');
         console.log('openPanel: closeMenuBtn open?', closeMenuBtn.classList.contains('open'));
-        openMenuBtn.classList.add('hidden');
-        closeMenuBtn.classList.remove('hidden');
-        // Re-run feather.replace() as a fallback
+        openMenuBtn.style.display = 'none';
+        closeMenuBtn.style.display = 'block';
         if (typeof feather !== 'undefined') {
           feather.replace();
           console.log('Feather Icons re-initialized on panel open');
         }
       }
-
       function closePanel() {
         panel.classList.add('-translate-x-full');
         console.log('closePanel: sidePanel classes:', panel.classList.toString());
@@ -239,29 +215,21 @@
         backdrop.classList.add('pointer-events-none', 'opacity-0');
         backdrop.classList.remove('opacity-50');
         closeMenuBtn.classList.remove('open');
-        openMenuBtn.classList.remove('hidden');
-        closeMenuBtn.classList.add('hidden');
+        openMenuBtn.style.display = 'block';
+        closeMenuBtn.style.display = 'none';
       }
-
-      // Open the panel when clicking the openMenuBtn
       openMenuBtn.addEventListener('click', () => {
         console.log('openMenuBtn clicked');
         openPanel();
       });
-
-      // Close the panel when clicking the closeMenuBtn (the "X")
       closeMenuBtn.addEventListener('click', () => {
         console.log('closeMenuBtn clicked');
         closePanel();
       });
-
-      // Close the panel when clicking the backdrop
       backdrop.addEventListener('click', () => {
         console.log('backdrop clicked');
         closePanel();
       });
-
-      // Close panel when clicking outside of it
       document.addEventListener('click', (e) => {
         const isClickInside = panel.contains(e.target) || openMenuBtn.contains(e.target);
         if (!isClickInside && !panel.classList.contains('-translate-x-full')) {
@@ -269,8 +237,6 @@
           closePanel();
         }
       });
-
-      // Header scroll effect
       window.addEventListener('scroll', () => {
         const lines = hdr.querySelectorAll('.burger-line');
         const whiteLogo = document.querySelector('.logo-white');
@@ -278,14 +244,13 @@
         const scrolled = window.scrollY > 10;
         hdr.classList.toggle('bg-white', scrolled);
         hdr.classList.toggle('shadow-sm', scrolled);
-        lines.forEach(l => l.classList.toggle('bg-white', !scrolled));
-        lines.forEach(l => l.classList.toggle('bg-black', scrolled));
+        lines.forEach(l => l.style.backgroundColor = scrolled ? '#000000' : '#ffffff');
         whiteLogo.classList.toggle('opacity-0', scrolled);
         yellowLogo.classList.toggle('opacity-0', !scrolled);
       });
-
       console.log('Script setup complete');
     });
   </script>
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b70b17ff3d53c7',t:'MTc0NjUxOTQ2OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
