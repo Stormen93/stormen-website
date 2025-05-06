@@ -12,11 +12,10 @@
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
   <!-- Feather Icons -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.1/dist/feather.min.js"></script>
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { font-family: 'Roboto Condensed', sans-serif; }
-    .burger-line { display: block; width: 48px; height: 2px; margin: 6px 0; background: #ffffff; transition: transform 0.3s, background-color 0.3s; }
+    .burger-line { display: block; width: 48px; height: 2px; margin: 6px 0; background: #000000; transition: transform 0.3s, background-color 0.3s; }
+    #openMenuBtn .burger-line { background: #000000; }
     #closeMenuBtn .burger-line { background: #000000; }
     .burger-line.lower { height: 1px; }
     #closeMenuBtn.open .burger-line:first-child { transform: rotate(45deg); }
@@ -46,7 +45,7 @@
       width: 100%;
     }
     a[href*="tiktok.com"] img { position: relative; top: 2px; }
-    .merch-item { position: relative; overflow: hidden; aspect-ratio: 1/1; }
+    .merch-item { position: relative; overflow: hidden; aspect-ratio: 1/1; touch-action: pan-y; }
     .merch-item img { transition: opacity 0.3s ease-in-out; width: 100%; height: 100%; object-fit: cover; }
     .merch-item .back { position: absolute; inset: 0; opacity: 0; }
     @media (hover:hover) {
@@ -54,9 +53,17 @@
       .merch-item:hover .front { opacity: 0; }
     }
     @media (hover:none) {
-      .merch-item:active .back { opacity: 1; }
-      .merch-item:active .front { opacity: 0; }
+      .merch-item:active .back { opacity: unset; }
+      .merch-item:active .front { opacity: unset; }
+      .merch-item[data-showing="back"] .back { opacity: 1; }
+      .merch-item[data-showing="back"] .front { opacity: 0; }
+      .merch-item[data-showing="front"] .back { opacity: 0; }
+      .merch-item[data-showing="front"] .front { opacity: 1; }
     }
+    .dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: none; z-index: 10; }
+    @media (hover:none) { .dots { display: flex; gap: 8px; } }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #d1d5db; transition: background 0.3s; }
+    .dot-active { background: #000000; }
     .social-link img { transition: filter 0.3s ease; }
     .social-link:hover img { filter: brightness(0) invert(0.4); }
   </style>
@@ -71,9 +78,8 @@
       <span class="burger-line"></span>
       <span class="burger-line lower"></span>
     </button>
-    <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
-      <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
-      <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
+    <a href="/" class="mx-auto h-36 flex items-center justify-center">
+      <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36" />
     </a>
   </header>
 
@@ -115,7 +121,7 @@
         </a>
       </div>
       <div>
-        <a href="mailto:stormen@thenewgen.com">
+        <a href="/cdn-cgi/l/email-protection#3a494e5548575f547a4e525f545f4d5d5f5414595557">
           <i data-feather="mail" class="inline-block w-5 h-5 mr-2"></i>
           <span>CONTACT</span>
         </a>
@@ -123,60 +129,60 @@
     </nav>
   </aside>
 
-<!-- ~50vh-tall hero -->
-<section class="relative h-[50vh] overflow-hidden flex items-center justify-center bg-transparent">
-  <video
-    class="absolute inset-0 w-full h-full object-cover object-center"
-    autoplay loop muted playsinline preload="auto"
-    poster="images/video-poster.jpg"
-  >
-    <source src="media/chasethestorm.mp4" type="video/mp4">
-  </video>
-  <div class="absolute inset-0 bg-black bg-opacity-0"></div>
-</section>
+  <!-- ~50vh-tall hero -->
+  <section class="relative h-[50vh] overflow-hidden flex items-center justify-center bg-transparent">
+    <video
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      autoplay loop muted playsinline preload="auto"
+      poster="images/video-poster.jpg"
+    >
+      <source src="media/chasethestorms.mp4" type="video/mp4">
+    </video>
+    <div class="absolute inset-0 bg-black bg-opacity-0"></div>
+  </section>
 
   <!-- Merch Preview -->
   <main class="flex-grow w-[90%] mx-auto px-2 pt-24 pb-16 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-  <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
-    <img src="images/heavyweight_front.png" alt="Stormen Heavyweight front" class="rounded-lg shadow-md front" />
-    <img src="images/heavyweight_back.png" alt="Stormen Heavyweight back" class="rounded-lg shadow-md back" />
-  </a>
-  <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
-    <img src="images/hoodies_front.png" alt="Stormen Hoodie front" class="rounded-lg shadow-md front" />
-    <img src="images/hoodies_back.png" alt="Stormen Hoodie back" class="rounded-lg shadow-md back" />
-  </a>
-  <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
-    <img src="images/stormen_dadhat.png" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
-    <img src="images/stormen_dadhatback.png" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
-  </a>
-  <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
-    <img src="images/sweatshirt_front.png" alt="Stormen Sweatshirt front" class="rounded-lg shadow-md front" />
-    <img src="images/sweatshirt_back.png" alt="Stormen Sweatshirt back" class="rounded-lg shadow-md back" />
-  </a>
-  <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
-    <img src="images/tshirt_front.png" alt="Stormen Tee front" class="rounded-lg shadow-md front" />
-    <img src="images/tshirt_back.png" alt="Stormen Tee back" class="rounded-lg shadow-md back" />
-  </a>
     <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
-    <img src="images/joggers_front.png" alt="Stormen Joggers front" class="rounded-lg shadow-md front" />
-    <img src="images/joggers_back.png" alt="Stormen Joggers back" class="rounded-lg shadow-md back" />
-  </a>
-  <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
-    <img src="images/stormen_mugblackfront.png" alt="Stormen Black Mug front" class="rounded-lg shadow-md front" />
-    <img src="images/stormen_mugblackback.png" alt="Stormen Black Mug back" class="rounded-lg shadow-md back" />
-  </a>
-  <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
-    <img src="images/stormen_mugwhite.png" alt="Stormen White Mug front" class="rounded-lg shadow-md front" />
-    <img src="images/stormen_mugwhite2.png" alt="Stormen White Mug back" class="rounded-lg shadow-md back" />
-  </a>
-  <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
-    <img src="images/hype_sticker.png" alt="Stormen Hype Sticker front" class="rounded-lg shadow-md front" />
-    <img src="images/hype_sticker2.png" alt="Stormen Hype Sticker back" class="rounded-lg shadow-md back" />
-  </a>
-  <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
-    <img src="images/gasm_sticker.png" alt="Stormen Gasm Sticker front" class="rounded-lg shadow-md front" />
-    <img src="images/gasm_sticker2.png" alt="Stormen Gasm Sticker back" class="rounded-lg shadow-md back" />
-  </a>
+      <img src="images/heavyweight_front.png" alt="Stormen Heavyweight front" class="rounded-lg shadow-md front" />
+      <img src="images/heavyweight_back.png" alt="Stormen Heavyweight back" class="rounded-lg shadow-md back" />
+    </a>
+    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
+      <img src="images/hoodies_front.png" alt="Stormen Hoodie front" class="rounded-lg shadow-md front" />
+      <img src="images/hoodies_back.png" alt="Stormen Hoodie back" class="rounded-lg shadow-md back" />
+    </a>
+    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
+      <img src="images/stormen_dadhat.png" alt="Stormen Dad Hat front" class="rounded-lg shadow-md front" />
+      <img src="images/stormen_dadhatback.png" alt="Stormen Dad Hat back" class="rounded-lg shadow-md back" />
+    </a>
+    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
+      <img src="images/sweatshirt_front.png" alt="Stormen Sweatshirt front" class="rounded-lg shadow-md front" />
+      <img src="images/sweatshirt_back.png" alt="Stormen Sweatshirt back" class="rounded-lg shadow-md back" />
+    </a>
+    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
+      <img src="images/tshirt_front.png" alt="Stormen Tee front" class="rounded-lg shadow-md front" />
+      <img src="images/tshirt_back.png" alt="Stormen Tee back" class="rounded-lg shadow-md back" />
+    </a>
+    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
+      <img src="images/joggers_front.png" alt="Stormen Joggers front" class="rounded-lg shadow-md front" />
+      <img src="images/joggers_back.png" alt="Stormen Joggers back" class="rounded-lg shadow-md back" />
+    </a>
+    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
+      <img src="images/stormen_mugblackfront.png" alt="Stormen Black Mug front" class="rounded-lg shadow-md front" />
+      <img src="images/stormen_mugblackback.png" alt="Stormen Black Mug back" class="rounded-lg shadow-md back" />
+    </a>
+    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
+      <img src="images/stormen_mugwhite.png" alt="Stormen White Mug front" class="rounded-lg shadow-md front" />
+      <img src="images/stormen_mugwhite2.png" alt="Stormen White Mug back" class="rounded-lg shadow-md back" />
+    </a>
+    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
+      <img src="images/hype_sticker.png" alt="Stormen Hype Sticker front" class="rounded-lg shadow-md front" />
+      <img src="images/hype_sticker2.png" alt="Stormen Hype Sticker back" class="rounded-lg shadow-md back" />
+    </a>
+    <a href="https://stormen-shop.fourthwall.com" target="_blank" class="block merch-item min-w-0 w-full">
+      <img src="images/gasm_sticker.png" alt="Stormen Gasm Sticker front" class="rounded-lg shadow-md front" />
+      <img src="images/gasm_sticker2.png" alt="Stormen Gasm Sticker back" class="rounded-lg shadow-md back" />
+    </a>
   </main>
 
   <!-- Footer -->
@@ -201,7 +207,7 @@
         <a href="https://discord.gg/8pgUDRT5Wv" target="_blank" class="social-link">
           <img src="images/discord.png" alt="Discord" class="w-8 h-8"/>
         </a>
-        <a href="mailto:stormen@thenewgen.com" target="_blank" class="social-link">
+        <a href="/cdn-cgi/l/email-protection#9fecebf0edf2faf1dfebf7faf1fae8f8faf1b1fcf0f2" target="_blank" class="social-link">
           <i data-feather="mail" class="w-8 h-8"></i>
         </a>
       </div>
@@ -287,19 +293,49 @@
         }
       });
       window.addEventListener('scroll', () => {
-        const lines = hdr.querySelectorAll('.burger-line');
-        const whiteLogo = document.querySelector('.logo-white');
-        const yellowLogo = document.querySelector('.logo-black');
         const scrolled = window.scrollY > 10;
         hdr.classList.toggle('bg-white', scrolled);
         hdr.classList.toggle('shadow-sm', scrolled);
-        lines.forEach(l => l.style.backgroundColor = scrolled ? '#000000' : '#ffffff');
-        whiteLogo.classList.toggle('opacity-0', scrolled);
-        yellowLogo.classList.toggle('opacity-0', !scrolled);
       });
+      // Swipe gesture and dots for merch items on mobile
+      if (window.matchMedia('(hover: none)').matches) {
+        document.querySelectorAll('.merch-item').forEach(item => {
+          item.setAttribute('data-showing', 'front');
+          const dots = document.createElement('div');
+          dots.className = 'dots';
+          dots.innerHTML = '<span class="dot dot-active" data-index="0"></span><span class="dot" data-index="1"></span>';
+          item.appendChild(dots);
+          let touchStartX = 0;
+          item.addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+          });
+          item.addEventListener('touchend', e => {
+            const touchEndX = e.changedTouches[0].clientX;
+            const swipeDistance = touchEndX - touchStartX;
+            const threshold = 50;
+            if (Math.abs(swipeDistance) > threshold) {
+              e.preventDefault();
+              const dots = item.querySelectorAll('.dot');
+              if (swipeDistance < -threshold && item.getAttribute('data-showing') === 'front') {
+                item.setAttribute('data-showing', 'back');
+                dots[0].classList.remove('dot-active');
+                dots[1].classList.add('dot-active');
+              } else if (swipeDistance > threshold && item.getAttribute('data-showing') === 'back') {
+                item.setAttribute('data-showing', 'front');
+                dots[1].classList.remove('dot-active');
+                dots[0].classList.add('dot-active');
+              }
+            }
+          });
+        });
+      } else {
+        document.querySelectorAll('.merch-item').forEach(item => {
+          item.setAttribute('data-showing', 'front');
+        });
+      }
       console.log('Script setup complete');
     });
   </script>
-  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b74aec1835b07f',t:'MTc0NjUyMjA4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+  <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b89325db7e4582',t:'MTc0NjUzNTUyNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 </body>
 </html>
