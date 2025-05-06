@@ -14,14 +14,14 @@
   <script src="https://unpkg.com/feather-icons"></script>
 <style>
   body { font-family: 'Roboto Condensed', sans-serif; }
-  .burger-line { display:block; width:48px; height:2px; background:#000000!important; margin:6px 0; transition:transform .3s, background-color .3s; }
+  .burger-line { display:block; width:48px; height:2px; bg-white; margin:6px 0; transition:transform .3s, background-color .3s; }
   .burger-line.lower { height:1px; }
   #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
   #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
   #sidePanel { transition:transform .3s ease-in-out; }
   #backdrop { transition:opacity .3s ease-in-out; }
   a[href*="tiktok.com"] img { position:relative; top:2px; }
-  .merch-item { position: relative; overflow:hidden; aspect-ratio: 1/1; } /* Ensure square aspect ratio */
+  .merch-item { position: relative; overflow:hidden; aspect-ratio: 1/1; }
   .merch-item img { transition: opacity .3s ease-in-out; width: 100%; height: 100%; object-fit: cover; }
   .merch-item .back { position:absolute; inset:0; opacity:0; }
   @media(hover:hover) { .merch-item:hover .back { opacity:1; } .merch-item:hover .front { opacity:0; } }
