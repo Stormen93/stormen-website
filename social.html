@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stormen | Social Media</title>
+  <!-- Roboto Condensed -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- Roboto Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
+  <!-- Feather Icons -->
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    body { font-family: 'Roboto Condensed', sans-serif; }
+    .burger-line { display:block; width:48px; height:2px; background:#000000!important; margin:6px 0; transition:transform .3s, background-color .3s; }
+    .burger-line.lower { height:1px; }
+    #menuBtn.open .burger-line:first-child { transform:rotate(45deg); }
+    #menuBtn.open .burger-line.lower { transform:rotate(-45deg) translateY(-1px); }
+    #sidePanel { transition:transform .3s ease-in-out; }
+    #backdrop { transition:opacity .3s ease-in-out; }
+    a[href*="tiktok.com"] img { position:relative; top:2px; }
+    .watch-button:hover {
+      background-color: #e68a2e;
+    }
+    .watch-button:hover span span {
+      width: 100%;
+    }
+    main p,
+    .watch-button {
+      font-family: 'Roboto Mono', monospace;
+    }
+    main h1 {
+      font-family: 'Roboto Mono', monospace;
+      color: #ff9f3a;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    #sidePanel a {
+      display: inline-flex;
+      align-items: center;
+    }
+    #sidePanel a span {
+      position: relative;
+      display: inline-block;
+    }
+    #sidePanel a span::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: black;
+      transition: width 0.3s ease-in-out;
+    }
+    #sidePanel a:hover span::after {
+      width: 100%;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col">
+  <div id="backdrop" class="fixed inset-0 bg-black opacity-0 pointer-events-none z-40 transition-opacity"></div>
+  <header class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent">
+    <button id="openMenuBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none">
+      <span class="burger-line"></span>
+      <span class="burger-line lower"></span>
+    </button>
+    <a href="/" class="mx-auto flex items-center justify-center h-36">
+      <img src="images/logo_yellow.png" alt="Stormen logo" class="h-36"/>
+    </a>
+  </header>
+  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold">
+    <button id="menuBtn" class="absolute right-3 top-3 p-3 focus:outline-none">
+      <span class="burger-line"></span>
+      <span class="burger-line lower"></span>
+    </button>
+    <nav class="mt-14 space-y-6 pl-4">
+      <div>
+        <a href="/">
+          <i data-feather="home" class="inline-block w-5 h-5 mr-2"></i>
+          <span>HOME</span>
+        </a>
+      </div>
+      <div>
+        <a href="/social.html">
+          <i data-feather="user" class="inline-block w-5 h-5 mr-2"></i>
+          <span>STORMEN</span>
+        </a>
+      </div>
+      <div>
+        <a href="/watch.html">
+          <i data-feather="play" class="inline-block w-5 h-5 mr-2"></i>
+          <span>WATCH</span>
+        </a>
+      </div>
+      <div>
+        <a href="/collection.html">
+          <i data-feather="archive" class="inline-block w-5 h-5 mr-2"></i>
+          <span>COLLECTION</span>
+        </a>
+      </div>
+      <div>
+        <a href="mailto:stormen@thenewgen.com">
+          <i data-feather="mail" class="inline-block w-5 h-5 mr-2"></i>
+          <span>CONTACT</span>
+        </a>
+      </div>
+    </nav>
+  </aside>
+  <main class="flex-grow flex flex-col items-center justify-center py-20 px-4">
+    <img src="images/logo_yellow.png" alt="Stormen logo" class="h-36 mb-8"/>
+    <div class="flex space-x-6">
+      <a href="https://twitch.tv/stormen" target="_blank"><i data-feather="twitch" class="w-8 h-8"></i></a>
+      <a href="https://youtube.com/@stormen" target="_blank"><i data-feather="youtube" class="w-8 h-8"></i></a>
+      <a href="https://tiktok.com/@stormen" target="_blank"><img src="images/tiktok-icon.svg" alt="TikTok" class="w-8 h-8"/></a>
+      <a href="https://instagram.com/stormen" target="_blank"><i data-feather="instagram" class="w-8 h-8"></i></a>
+      <a href="https://twitter.com/stormen" target="_blank"><i data-feather="twitter" class="w-8 h-8"></i></a>
+    </div>
+  </main>
+  <footer class="bg-gray-900 text-white py-12 px-4">
+    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
+      <div class="flex space-x-6 mb-6 md:mb-0">
+        <a href="https://twitch.tv/stormen" target="_blank"><i data-feather="twitch"></i></a>
+        <a href="https://youtube.com/@stormen" target="_blank"><i data-feather="youtube"></i></a>
+        <a href="https://tiktok.com/@stormen" target="_blank"><img src="images/tiktok-icon.svg" alt="TikTok"/></a>
+        <a href="https://instagram.com/stormen" target="_blank"><i data-feather="instagram"></i></a>
+        <a href="https://twitter.com/stormen" target="_blank"><i data-feather="twitter"></i></a>
+      </div>
+      <p class="text-sm">© 2025 Stormen. All rights reserved.</p>
+    </div>
+  </footer>
+  <script>
+    feather.replace();
+    const openMenuBtn = document.getElementById('openMenuBtn');
+    const menuBtn = document.getElementById('menuBtn');
+    const panel = document.getElementById('sidePanel');
+    const backdrop = document.getElementById('backdrop');
+
+    function openPanel() {
+      panel.classList.remove('-translate-x-full');
+      backdrop.classList.remove('pointer-events-none', 'opacity-0');
+      backdrop.classList.add('opacity-100');
+      menuBtn.classList.add('open');
+    }
+
+    function closePanel() {
+      panel.classList.add('-translate-x-full');
+      backdrop.classList.add('pointer-events-none', 'opacity-0');
+      backdrop.classList.remove('opacity-100');
+      menuBtn.classList.remove('open');
+    }
+
+    openMenuBtn.addEventListener('click', openPanel);
+    menuBtn.addEventListener('click', closePanel);
+    backdrop.addEventListener('click', closePanel);
+
+    document.addEventListener('click', (e) => {
+      const isClickInside = panel.contains(e.target) || openMenuBtn.contains(e.target);
+      if (!isClickInside && !panel.classList.contains('-translate-x-full')) {
+        closePanel();
+      }
+    });
+  </script>
+</body>
+</html>
