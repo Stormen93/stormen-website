@@ -33,6 +33,15 @@
   opacity: 0;
   transition: opacity .3s;
 }
+/* force default (top-of-page) burger color to white */
+#siteHeader .burger-line {
+  background-color: #ffffff !important;
+}
+
+/* when scrolled, switch to black */
+#siteHeader.scrolled .burger-line {
+  background-color: #000000 !important;
+}
 
 /* scrolled state */
 #siteHeader.scrolled {
