@@ -70,10 +70,10 @@
       <img src="images/logo_yellow.png" alt="Stormen logo" class="h-36"/>
     </a>
   </header>
-  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold">
-    <button id="menuBtn" class="absolute right-3 top-3 p-3 focus:outline-none">
-      <span class="burger-line"></span>
-      <span class="burger-line lower"></span>
+    <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold">
+    <button id="menuBtn" class="absolute right-3 top-3 p-3 focus:outline-none hidden">
+      <span class="burger-line bg-white"></span>
+      <span class="burger-line lower bg-white"></span>
     </button>
     <nav class="mt-14 space-y-6 pl-4">
       <div>
@@ -83,8 +83,8 @@
         </a>
       </div>
       <div>
-        <a href="/social.html">
-          <i data-feather="user" class="inline-block w-5 h-5 mr-2"></i>
+        <a href="/stormen.html">
+          <i data-feather="zap" class="inline-block w-5 h-5 mr-2"></i>
           <span>STORMEN</span>
         </a>
       </div>
@@ -96,7 +96,7 @@
       </div>
       <div>
         <a href="/collection.html">
-          <i data-feather="archive" class="inline-block w-5 h-5 mr-2"></i>
+          <i data-feather="shopping-cart" class="inline-block w-5 h-5 mr-2"></i>
           <span>COLLECTION</span>
         </a>
       </div>
@@ -108,6 +108,7 @@
       </div>
     </nav>
   </aside>
+
   <main class="flex-grow flex flex-col items-center justify-center py-20 px-4">
     <img src="images/logo_yellow.png" alt="Stormen logo" class="h-36 mb-8"/>
     <div class="flex space-x-6">
@@ -118,16 +119,19 @@
       <a href="https://twitter.com/stormen" target="_blank"><i data-feather="twitter" class="w-8 h-8"></i></a>
     </div>
   </main>
-  <footer class="bg-gray-900 text-white py-12 px-4">
-    <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
-      <div class="flex space-x-6 mb-6 md:mb-0">
-        <a href="https://twitch.tv/stormen" target="_blank"><i data-feather="twitch"></i></a>
-        <a href="https://youtube.com/@stormen" target="_blank"><i data-feather="youtube"></i></a>
-        <a href="https://tiktok.com/@stormen" target="_blank"><img src="images/tiktok-icon.svg" alt="TikTok"/></a>
-        <a href="https://instagram.com/stormen" target="_blank"><i data-feather="instagram"></i></a>
-        <a href="https://twitter.com/stormen" target="_blank"><i data-feather="twitter"></i></a>
+   <!-- Footer -->
+  <footer class="bg-white py-10 text-gray-900 mt-auto">
+    <div class="container mx-auto flex flex-col items-center space-y-6">
+      <div class="flex space-x-6">
+        <a href="https://instagram.com/stormentwitch" class="social-link"><img src="images/instagram.png" alt="Instagram" class="w-8 h-8"/></a>
+        <a href="https://www.tiktok.com/@stormentwitch" class="social-link"><img src="images/tiktok.png" alt="TikTok" class="w-7 h-7"/></a>
+        <a href="https://twitter.com/stormentv" class="social-link"><img src="images/twitter.png" alt="Twitter" class="w-8 h-8"/></a>
+        <a href="https://youtube.com/@stormentv" class="social-link"><img src="images/youtube.png" alt="YouTube" class="w-8 h-8"/></a>
+        <a href="https://twitch.tv/stormen" class="social-link"><img src="images/twitch.png" alt="Twitch" class="w-8 h-8"/></a>
+        <a href="https://discord.gg/8pgUDRT5Wv" class="social-link"><img src="images/discord.png" alt="Discord" class="w-8 h-8"/></a>
       </div>
-      <p class="text-sm">© 2025 Stormen. All rights reserved.</p>
+      <div class="w-full border-t border-gray-700"></div>
+      <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
     </div>
   </footer>
   <script>

@@ -78,19 +78,45 @@
 
   <!-- Backdrop & Panel -->
   <div id="backdrop" class="fixed inset-0 bg-black bg-opacity-50 opacity-0 pointer-events-none z-40"></div>
-  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold">
-    <!-- Close Button -->
-    <button id="closeBtn" class="absolute top-4 right-4 text-gray-700 hover:text-indigo-500 focus:outline-none">
-      <i data-feather="x" class="w-6 h-6"></i>
+   <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold">
+    <button id="menuBtn" class="absolute right-3 top-3 p-3 focus:outline-none hidden">
+      <span class="burger-line bg-white"></span>
+      <span class="burger-line lower bg-white"></span>
     </button>
-    <nav class="mt-14 space-y-6">
-      <a href="/"                class="block hover:text-indigo-500">HOME</a>
-      <a href="/stormen.html"    class="block hover:text-indigo-500">STORMEN</a>
-      <a href="/watch.html"      class="block hover:text-indigo-500">WATCH</a>
-      <a href="/collection.html" class="block hover:text-indigo-500">COLLECTION</a>
-      <a href="mailto:stormen@thenewgen.com" class="block hover:text-indigo-500">CONTACT</a>
+    <nav class="mt-14 space-y-6 pl-4">
+      <div>
+        <a href="/">
+          <i data-feather="home" class="inline-block w-5 h-5 mr-2"></i>
+          <span>HOME</span>
+        </a>
+      </div>
+      <div>
+        <a href="/stormen.html">
+          <i data-feather="zap" class="inline-block w-5 h-5 mr-2"></i>
+          <span>STORMEN</span>
+        </a>
+      </div>
+      <div>
+        <a href="/watch.html">
+          <i data-feather="play" class="inline-block w-5 h-5 mr-2"></i>
+          <span>WATCH</span>
+        </a>
+      </div>
+      <div>
+        <a href="/collection.html">
+          <i data-feather="shopping-cart" class="inline-block w-5 h-5 mr-2"></i>
+          <span>COLLECTION</span>
+        </a>
+      </div>
+      <div>
+        <a href="mailto:stormen@thenewgen.com">
+          <i data-feather="mail" class="inline-block w-5 h-5 mr-2"></i>
+          <span>CONTACT</span>
+        </a>
+      </div>
     </nav>
   </aside>
+
 
   <!-- Main Content -->
   <main class="flex-grow flex flex-col items-center justify-center bg-white py-24 px-4">
@@ -107,6 +133,7 @@
   </main>
 
   <!-- Footer -->
+   <!-- Footer -->
   <footer class="bg-white py-10 text-gray-900 mt-auto">
     <div class="container mx-auto flex flex-col items-center space-y-6">
       <div class="flex space-x-6">
@@ -116,9 +143,6 @@
         <a href="https://youtube.com/@stormentv" class="social-link"><img src="images/youtube.png" alt="YouTube" class="w-8 h-8"/></a>
         <a href="https://twitch.tv/stormen" class="social-link"><img src="images/twitch.png" alt="Twitch" class="w-8 h-8"/></a>
         <a href="https://discord.gg/8pgUDRT5Wv" class="social-link"><img src="images/discord.png" alt="Discord" class="w-8 h-8"/></a>
-        <a href="mailto:stormen@thenewgen.com" class="social-link">
-          <i data-feather="mail" class="w-8 h-8"></i></a>
-</a>
       </div>
       <div class="w-full border-t border-gray-700"></div>
       <div class="text-sm">© 2025 Stormen. All rights reserved.</div>

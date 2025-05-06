@@ -85,7 +85,7 @@
       </div>
       <div>
         <a href="/stormen.html">
-          <i data-feather="user" class="inline-block w-5 h-5 mr-2"></i>
+          <i data-feather="zap" class="inline-block w-5 h-5 mr-2"></i>
           <span>STORMEN</span>
         </a>
       </div>
@@ -97,7 +97,7 @@
       </div>
       <div>
         <a href="/collection.html">
-          <i data-feather="archive" class="inline-block w-5 h-5 mr-2"></i>
+          <i data-feather="shopping-cart" class="inline-block w-5 h-5 mr-2"></i>
           <span>COLLECTION</span>
         </a>
       </div>
@@ -163,7 +163,7 @@
   </main>
 
   <!-- Footer -->
-  <footer class="bg-white py-10 text-gray-900 mt-auto">
+ <footer class="bg-white py-10 text-gray-900 mt-auto">
     <div class="container mx-auto flex flex-col items-center space-y-6">
       <div class="flex space-x-6">
         <a href="https://instagram.com/stormentwitch" class="social-link"><img src="images/instagram.png" alt="Instagram" class="w-8 h-8"/></a>
@@ -190,23 +190,33 @@
     const backdrop = document.getElementById('backdrop');
     const hdr = document.getElementById('siteHeader');
 
-    function openPanel() {
-      panel.classList.remove('-translate-x-full');
-      backdrop.classList.remove('pointer-events-none', 'opacity-0');
-      backdrop.classList.add('opacity-100');
-      menuBtn.classList.add('open');
-      openMenuBtn.classList.add('hidden');
-      menuBtn.classList.remove('hidden');
-    }
+   function openPanel() {
+  panel.style.visibility = 'visible';
+  panel.classList.remove('-translate-x-full');
+  console.log('openPanel: sidePanel classes:', panel.classList.toString());
+  backdrop.classList.remove('pointer-events-none', 'opacity-0');
+  backdrop.classList.add('opacity-50'); // Changed from opacity-100 to opacity-50
+  menuBtn.classList.add('open');
+  console.log('openPanel: menuBtn open?', menuBtn.classList.contains('open'));
+  openMenuBtn.classList.add('hidden');
+  menuBtn.classList.remove('hidden');
+  console.log('openPanel: menuBtn hidden?', menuBtn.classList.contains('hidden'));
+}
 
-    function closePanel() {
-      panel.classList.add('-translate-x-full');
-      backdrop.classList.add('pointer-events-none', 'opacity-0');
-      backdrop.classList.remove('opacity-100');
-      menuBtn.classList.remove('open');
-      openMenuBtn.classList.remove('hidden');
-      menuBtn.classList.add('hidden');
-    }
+function closePanel() {
+  panel.classList.add('-translate-x-full');
+  console.log('closePanel: sidePanel classes:', panel.classList.toString());
+  setTimeout(() => {
+    panel.style.visibility = 'hidden';
+    console.log('closePanel: sidePanel visibility set to hidden after animation');
+  }, 300);
+  backdrop.classList.add('pointer-events-none', 'opacity-0');
+  backdrop.classList.remove('opacity-50'); // Changed from opacity-100 to opacity-50
+  menuBtn.classList.remove('open');
+  openMenuBtn.classList.remove('hidden');
+  menuBtn.classList.add('hidden');
+  console.log('closePanel: menuBtn hidden?', menuBtn.classList.contains('hidden'));
+}
 
     openMenuBtn.addEventListener('click', openPanel);
     menuBtn.addEventListener('click', closePanel);
