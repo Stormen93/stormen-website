@@ -62,7 +62,10 @@
     .burger-line.lower { height: 1px; }
     #closeMenuBtn.open .burger-line:first-child { transform: rotate(45deg); }
     #closeMenuBtn.open .burger-line.lower { transform: rotate(-45deg) translateY(-1px); }
-    #closeMenuBtn { z-index: 60; }
+    #closeMenuBtn {
+      z-index: 60;
+      display: none;
+    }
     #sidePanel { transition: transform 0.3s ease-in-out; }
     #backdrop { transition: opacity 0.3s ease-in-out; }
     #sidePanel a {
@@ -294,6 +297,9 @@ main
     document.addEventListener('DOMContentLoaded', () => {
       console.log('DOM fully loaded');
       try {
+      } else {
+        document.body.classList.remove('dark');
+        themeIcon.setAttribute('data-feather', 'moon');
         if (typeof feather !== 'undefined') {
           feather.replace();
           console.log('Feather Icons initialized');

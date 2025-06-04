@@ -20,7 +20,10 @@
     .burger-line.lower { height: 1px; }
     #closeMenuBtn.open .burger-line:first-child { transform: rotate(45deg); }
     #closeMenuBtn.open .burger-line.lower { transform: rotate(-45deg) translateY(-1px); }
-    #closeMenuBtn { z-index: 60; }
+    #closeMenuBtn {
+      z-index: 60;
+      display: none;
+    }
     #sidePanel { transition: transform 0.3s ease-in-out; }
     #backdrop { transition: opacity 0.3s ease-in-out; }
     #sidePanel a {
@@ -240,6 +243,9 @@ main
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      } else {
+        document.body.classList.remove('dark');
+        themeIcon.setAttribute('data-feather', 'moon');
       console.log('DOM fully loaded');
       try {
         if (typeof feather !== 'undefined') {
