@@ -109,8 +109,10 @@
     @media (hover:none) { .dots { display: flex; gap: 8px; } }
     .dot { width: 8px; height: 8px; border-radius: 50%; background: #d1d5db; transition: background 0.3s; }
     .dot-active { background: #000000; }
+
     .social-link img, .social-link svg { transition: filter 0.3s ease; }
     .social-link:hover img, .social-link:hover svg { filter: brightness(0) invert(0.4); }
+
     #themeToggle { z-index: 60; }
     body.dark {
       background-color: #1a202c;
@@ -149,7 +151,9 @@
       <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
     </a>
     <button id="themeToggle" class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none" aria-label="Toggle dark mode">
+
       <i id="themeIcon" data-feather="moon"></i>
+
     </button>
   </header>
 
@@ -311,6 +315,7 @@
       const backdrop = document.getElementById('backdrop');
       const hdr = document.getElementById('siteHeader');
       const themeToggle = document.getElementById('themeToggle');
+main
       let themeIcon = themeToggle.querySelector('i');
       let storedTheme = null;
       try {
@@ -321,14 +326,18 @@
       if (storedTheme === 'dark') {
         document.body.classList.add('dark');
         themeIcon.setAttribute('data-feather', 'sun');
+
       } else {
         document.body.classList.remove('dark');
         themeIcon.setAttribute('data-feather', 'moon');
+main
       }
       if (typeof feather !== 'undefined') {
         feather.replace();
         themeIcon = themeToggle.querySelector('svg');
       }
+
+main
       if (!openMenuBtn || !closeMenuBtn || !panel || !backdrop || !hdr) {
         console.error('One or more required elements not found:');
         if (!openMenuBtn) console.error('openMenuBtn not found');
@@ -388,16 +397,19 @@
       });
       themeToggle.addEventListener('click', () => {
         const isDark = document.body.classList.toggle('dark');
+main
         try {
           localStorage.setItem('theme', isDark ? 'dark' : 'light');
         } catch (err) {
           console.warn('Failed to save theme', err);
         }
+main
         themeIcon.setAttribute('data-feather', isDark ? 'sun' : 'moon');
         if (typeof feather !== 'undefined') {
           feather.replace();
           themeIcon = themeToggle.querySelector('svg');
         }
+main
       });
       window.addEventListener('scroll', () => {
   const hdr = document.getElementById('siteHeader');
