@@ -205,8 +205,12 @@ main
       const themeToggle = document.getElementById('themeToggle');
 
       let themeIcon = themeToggle.querySelector('i');
-main
-      const storedTheme = localStorage.getItem('theme');
+      let storedTheme = null;
+      try {
+        storedTheme = localStorage.getItem('theme');
+      } catch (err) {
+        console.warn('LocalStorage unavailable', err);
+      }
       if (storedTheme === 'dark') {
         document.body.classList.add('dark');
         themeIcon.setAttribute('data-feather', 'sun');
@@ -276,7 +280,12 @@ main
       });
       themeToggle.addEventListener('click', () => {
         const isDark = document.body.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+        try {
+          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        } catch (err) {
+          console.warn('Failed to save theme', err);
+        }
 main
         themeIcon.setAttribute('data-feather', isDark ? 'sun' : 'moon');
         if (typeof feather !== 'undefined') {
