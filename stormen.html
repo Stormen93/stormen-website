@@ -20,7 +20,10 @@
     .burger-line.lower { height: 1px; }
     #closeMenuBtn.open .burger-line:first-child { transform: rotate(45deg); }
     #closeMenuBtn.open .burger-line.lower { transform: rotate(-45deg) translateY(-1px); }
-    #closeMenuBtn { z-index: 60; }
+    #closeMenuBtn {
+      z-index: 60;
+      display: none;
+    }
     #sidePanel { transition: transform 0.3s ease-in-out; }
     #backdrop { transition: opacity 0.3s ease-in-out; }
     #sidePanel a {
@@ -122,7 +125,7 @@
     <button id="themeToggle" class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none" aria-label="Toggle dark mode">
 
       <i id="themeIcon" data-feather="moon"></i>
-main
+
     </button>
   </header>
 
@@ -251,7 +254,7 @@ main
       const backdrop = document.getElementById('backdrop');
       const hdr = document.getElementById('siteHeader');
       const themeToggle = document.getElementById('themeToggle');
-
+main
       let themeIcon = themeToggle.querySelector('i');
       let storedTheme = null;
       try {
@@ -262,6 +265,10 @@ main
       if (storedTheme === 'dark') {
         document.body.classList.add('dark');
         themeIcon.setAttribute('data-feather', 'sun');
+
+      } else {
+        document.body.classList.remove('dark');
+        themeIcon.setAttribute('data-feather', 'moon');
 main
       }
       if (typeof feather !== 'undefined') {
@@ -328,7 +335,7 @@ main
       });
       themeToggle.addEventListener('click', () => {
         const isDark = document.body.classList.toggle('dark');
-
+main
         try {
           localStorage.setItem('theme', isDark ? 'dark' : 'light');
         } catch (err) {
