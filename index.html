@@ -112,7 +112,6 @@
 
     .social-link img, .social-link svg { transition: filter 0.3s ease; }
     .social-link:hover img, .social-link:hover svg { filter: brightness(0) invert(0.4); }
-main
     #themeToggle { z-index: 60; }
     body.dark {
       background-color: #1a202c;
@@ -315,7 +314,6 @@ main
       const backdrop = document.getElementById('backdrop');
       const hdr = document.getElementById('siteHeader');
       const themeToggle = document.getElementById('themeToggle');
-main
       let themeIcon = themeToggle.querySelector('i');
       let storedTheme = null;
       try {
@@ -330,13 +328,11 @@ main
       } else {
         document.body.classList.remove('dark');
         themeIcon.setAttribute('data-feather', 'moon');
-main
       }
       if (typeof feather !== 'undefined') {
         feather.replace();
         themeIcon = themeToggle.querySelector('svg');
       }
-main
       if (!openMenuBtn || !closeMenuBtn || !panel || !backdrop || !hdr) {
         console.error('One or more required elements not found:');
         if (!openMenuBtn) console.error('openMenuBtn not found');
@@ -396,19 +392,16 @@ main
       });
       themeToggle.addEventListener('click', () => {
         const isDark = document.body.classList.toggle('dark');
-main
         try {
           localStorage.setItem('theme', isDark ? 'dark' : 'light');
         } catch (err) {
           console.warn('Failed to save theme', err);
         }
-main
         themeIcon.setAttribute('data-feather', isDark ? 'sun' : 'moon');
         if (typeof feather !== 'undefined') {
           feather.replace();
           themeIcon = themeToggle.querySelector('svg');
         }
-main
       });
       window.addEventListener('scroll', () => {
   const hdr = document.getElementById('siteHeader');
