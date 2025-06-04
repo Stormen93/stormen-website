@@ -226,7 +226,12 @@
         </a>
         <a href="mailto:stormen@thenewgen.com" target="_blank" class="social-link">
           <i data-feather="mail" class="w-8 h-8"></i>
-        </a>
+      let storedTheme = null;
+      try {
+        storedTheme = localStorage.getItem('theme');
+      } catch (err) {
+        console.warn('LocalStorage unavailable', err);
+      }
       </div>
       <div class="w-full border-t border-gray-700"></div>
       <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
@@ -300,7 +305,11 @@
       function closePanel() {
         panel.classList.add('-translate-x-full');
         console.log('closePanel: sidePanel classes:', panel.classList.toString());
-        setTimeout(() => {
+        try {
+          localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        } catch (err) {
+          console.warn('Failed to save theme', err);
+        }
           panel.style.visibility = 'hidden';
           console.log('closePanel: sidePanel visibility set to hidden after animation');
         }, 300);
