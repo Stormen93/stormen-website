@@ -82,6 +82,27 @@
     .watch-button:hover span::after {
       width: 100%;
     }
+    #themeToggle { z-index: 60; }
+    body.dark {
+      background-color: #1a202c;
+      color: #f7fafc;
+    }
+    body.dark #sidePanel {
+      background-color: #1a202c;
+      color: #f7fafc;
+    }
+    body.dark footer {
+      background-color: #1a202c;
+      color: #f7fafc;
+    }
+    body.dark #siteHeader.scrolled {
+      background-color: #1a202c;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+    body.dark #siteHeader .burger-line {
+      background-color: #ffffff !important;
+    }
+    body.dark #sidePanel a span::after { background-color: #ffffff; }
   </style>
 </head>
 <body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col">
@@ -98,6 +119,9 @@
       <img src="images/logo_yellow.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
       <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
     </a>
+    <button id="themeToggle" class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none" aria-label="Toggle dark mode">
+      <i data-feather="moon"></i>
+    </button>
   </header>
 
   <!-- Side Panel -->
@@ -224,6 +248,13 @@
       const panel = document.getElementById('sidePanel');
       const backdrop = document.getElementById('backdrop');
       const hdr = document.getElementById('siteHeader');
+      const themeToggle = document.getElementById('themeToggle');
+      const storedTheme = localStorage.getItem('theme');
+      if (storedTheme === 'dark') {
+        document.body.classList.add('dark');
+        themeToggle.setAttribute('data-feather', 'sun');
+      }
+      if (typeof feather !== 'undefined') feather.replace();
       if (!openMenuBtn || !closeMenuBtn || !panel || !backdrop || !hdr) {
         console.error('One or more required elements not found:');
         if (!openMenuBtn) console.error('openMenuBtn not found');
@@ -279,6 +310,12 @@
           console.log('Clicked outside panel, closing');
           closePanel();
         }
+      });
+      themeToggle.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        themeToggle.setAttribute('data-feather', isDark ? 'sun' : 'moon');
+        if (typeof feather !== 'undefined') feather.replace();
       });
       window.addEventListener('scroll', () => {
         const lines = hdr.querySelectorAll('.burger-line');
