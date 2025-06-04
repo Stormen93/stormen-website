@@ -1,0 +1,10 @@
+{
+  "name": "stormen-website",
+  "version": "1.0.0",
+  "description": "Static website for Stormen community",
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "author": "",
+  "license": "MIT"
+}
