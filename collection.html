@@ -207,7 +207,7 @@ main
     <div class="container mx-auto flex flex-col items-center space-y-6">
       <div class="flex space-x-6">
         <a href="https://instagram.com/stormentwitch" target="_blank" class="social-link">
-          <img src="images/instagram.png" alt="Instagram" class="w-8 h-8" />
+    (() => {
         </a>
         <a href="https://www.tiktok.com/@stormentwitch" target="_blank" class="social-link">
           <img src="images/tiktok.png" alt="TikTok" class="w-7 h-7" />
@@ -355,7 +355,7 @@ main
         hdr.classList.toggle('shadow-sm', scrolled);
       });
       // Swipe gesture and dots for merch items on mobile
-      if (window.matchMedia('(hover: none)').matches) {
+    })();
         document.querySelectorAll('.merch-item').forEach(item => {
           item.setAttribute('data-showing', 'front');
           const dots = document.createElement('div');
