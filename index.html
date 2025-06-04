@@ -283,8 +283,11 @@ main
         </a>
         <a href="https://discord.gg/8pgUDRT5Wv" target="_blank" class="social-link">
           <img src="images/discord.png" alt="Discord" class="w-8 h-8"/>
-        </a>
-        <a href="mailto:stormen@thenewgen.com" target="_blank" class="social-link">
+      let themeIcon = themeToggle.querySelector('i');
+      if (typeof feather !== 'undefined') {
+        feather.replace();
+        themeIcon = themeToggle.querySelector('svg');
+      }
           <i data-feather="mail" class="w-8 h-8"></i>
         </a>
       </div>
@@ -351,6 +354,9 @@ main
         openMenuBtn.style.display = 'none';
         closeMenuBtn.style.display = 'block';
         if (typeof feather !== 'undefined') {
+          feather.replace();
+          themeIcon = themeToggle.querySelector('svg');
+        }
           feather.replace();
           console.log('Feather Icons re-initialized on panel open');
         }

@@ -224,8 +224,11 @@ main
           <img src="images/discord.png" alt="Discord" class="w-8 h-8"/>
         </a>
         <a href="mailto:stormen@thenewgen.com" target="_blank" class="social-link">
-          <i data-feather="mail" class="w-8 h-8"></i>
-        </a>
+      let themeIcon = themeToggle.querySelector('i');
+      if (typeof feather !== 'undefined') {
+        feather.replace();
+        themeIcon = themeToggle.querySelector('svg');
+      }
       </div>
       <div class="w-full border-t border-gray-700"></div>
       <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
@@ -291,7 +294,10 @@ main
           console.log('Feather Icons re-initialized on panel open');
         }
       }
-      function closePanel() {
+        if (typeof feather !== 'undefined') {
+          feather.replace();
+          themeIcon = themeToggle.querySelector('svg');
+        }
         panel.classList.add('-translate-x-full');
         console.log('closePanel: sidePanel classes:', panel.classList.toString());
         setTimeout(() => {

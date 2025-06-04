@@ -176,8 +176,11 @@
   <!-- Footer -->
   <footer class="bg-white py-10 text-gray-900 mt-auto">
     <div class="container mx-auto flex flex-col items-center space-y-6">
-      <div class="flex space-x-6">
-       
+      let themeIcon = themeToggle.querySelector('i');
+      if (typeof feather !== 'undefined') {
+        feather.replace();
+        themeIcon = themeToggle.querySelector('svg');
+      }
       </div>
       <div class="w-full border-t border-gray-700"></div>
       <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
@@ -243,7 +246,10 @@
           console.log('Feather Icons re-initialized on panel open');
         }
       }
-      function closePanel() {
+        if (typeof feather !== 'undefined') {
+          feather.replace();
+          themeIcon = themeToggle.querySelector('svg');
+        }
         panel.classList.add('-translate-x-full');
         console.log('closePanel: sidePanel classes:', panel.classList.toString());
         setTimeout(() => {
