@@ -138,8 +138,6 @@
     <button id="themeToggle" class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none" aria-label="Toggle dark mode">
 
       <i id="themeIcon" data-feather="moon"></i>
-
-      <i data-feather="moon"></i>
 main
     </button>
   </header>
@@ -260,19 +258,19 @@ main
       const hdr = document.getElementById('siteHeader');
       const themeToggle = document.getElementById('themeToggle');
 
-      const themeIcon = themeToggle.querySelector('i');
+      let themeIcon = themeToggle.querySelector('i');
+main
       const storedTheme = localStorage.getItem('theme');
       if (storedTheme === 'dark') {
         document.body.classList.add('dark');
         themeIcon.setAttribute('data-feather', 'sun');
 
-      const storedTheme = localStorage.getItem('theme');
-      if (storedTheme === 'dark') {
-        document.body.classList.add('dark');
-        themeToggle.setAttribute('data-feather', 'sun');
-main
       }
-      if (typeof feather !== 'undefined') feather.replace();
+      if (typeof feather !== 'undefined') {
+        feather.replace();
+        themeIcon = themeToggle.querySelector('svg');
+      }
+main
       if (!openMenuBtn || !closeMenuBtn || !panel || !backdrop || !hdr) {
         console.error('One or more required elements not found:');
         if (!openMenuBtn) console.error('openMenuBtn not found');
@@ -334,10 +332,11 @@ main
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
 
         themeIcon.setAttribute('data-feather', isDark ? 'sun' : 'moon');
-
-        themeToggle.setAttribute('data-feather', isDark ? 'sun' : 'moon');
+        if (typeof feather !== 'undefined') {
+          feather.replace();
+          themeIcon = themeToggle.querySelector('svg');
+        }
 main
-        if (typeof feather !== 'undefined') feather.replace();
       });
       window.addEventListener('scroll', () => {
         const scrolled = window.scrollY > 10;
