@@ -207,6 +207,7 @@ main
       let themeIcon = themeToggle.querySelector('i');
 main
       const storedTheme = localStorage.getItem('theme');
+          themeIcon = themeToggle.querySelector('svg');
       if (storedTheme === 'dark') {
         document.body.classList.add('dark');
         themeIcon.setAttribute('data-feather', 'sun');
