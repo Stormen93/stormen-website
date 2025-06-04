@@ -106,8 +106,29 @@
     @media (hover:none) { .dots { display: flex; gap: 8px; } }
     .dot { width: 8px; height: 8px; border-radius: 50%; background: #d1d5db; transition: background 0.3s; }
     .dot-active { background: #000000; }
-    .social-link img { transition: filter 0.3s ease; }
-    .social-link:hover img { filter: brightness(0) invert(0.4); }
+    .social-link img, .social-link svg { transition: filter 0.3s ease; }
+    .social-link:hover img, .social-link:hover svg { filter: brightness(0) invert(0.4); }
+    #themeToggle { z-index: 60; }
+    body.dark {
+      background-color: #1a202c;
+      color: #f7fafc;
+    }
+    body.dark #sidePanel {
+      background-color: #1a202c;
+      color: #f7fafc;
+    }
+    body.dark footer {
+      background-color: #1a202c;
+      color: #f7fafc;
+    }
+    body.dark #siteHeader.scrolled {
+      background-color: #1a202c;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+    }
+    body.dark #siteHeader .burger-line {
+      background-color: #ffffff !important;
+    }
+    body.dark #sidePanel a span::after { background-color: #ffffff; }
   </style>
 </head>
 <body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col">
@@ -124,6 +145,9 @@
       <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
       <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
     </a>
+    <button id="themeToggle" class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none" aria-label="Toggle dark mode">
+      <i id="themeIcon" data-feather="moon"></i>
+    </button>
   </header>
 
   <!-- Side Panel -->
@@ -283,6 +307,17 @@
       const panel = document.getElementById('sidePanel');
       const backdrop = document.getElementById('backdrop');
       const hdr = document.getElementById('siteHeader');
+      const themeToggle = document.getElementById('themeToggle');
+      let themeIcon = themeToggle.querySelector('i');
+      const storedTheme = localStorage.getItem('theme');
+      if (storedTheme === 'dark') {
+        document.body.classList.add('dark');
+        themeIcon.setAttribute('data-feather', 'sun');
+      }
+      if (typeof feather !== 'undefined') {
+        feather.replace();
+        themeIcon = themeToggle.querySelector('svg');
+      }
       if (!openMenuBtn || !closeMenuBtn || !panel || !backdrop || !hdr) {
         console.error('One or more required elements not found:');
         if (!openMenuBtn) console.error('openMenuBtn not found');
@@ -304,6 +339,7 @@
         closeMenuBtn.style.display = 'block';
         if (typeof feather !== 'undefined') {
           feather.replace();
+          themeIcon = themeToggle.querySelector('svg');
           console.log('Feather Icons re-initialized on panel open');
         }
       }
@@ -337,6 +373,15 @@
         if (!isClickInside && !panel.classList.contains('-translate-x-full')) {
           console.log('Clicked outside panel, closing');
           closePanel();
+        }
+      });
+      themeToggle.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        themeIcon.setAttribute('data-feather', isDark ? 'sun' : 'moon');
+        if (typeof feather !== 'undefined') {
+          feather.replace();
+          themeIcon = themeToggle.querySelector('svg');
         }
       });
       window.addEventListener('scroll', () => {
