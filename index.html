@@ -172,31 +172,39 @@
     </nav>
   </aside>
 
-  <!-- ~50vh-tall hero -->
-  <section class="relative h-[100vh] min-h-0 flex items-center justify-center bg-gray-200 overflow-hidden">
-    
-  <div class="hero-copy">
-    <h1 class="hero-title">CHASE THE STORM</h1>
-    <!-- Optional primary call-to-action -->
-    <a href="/collection" class="hero-cta">Shop Official Merch ⚡</a>
+
+<section class="relative h-screen overflow-hidden">
+
+  <!-- ⚡ Background video -->
+  <video
+    class="absolute inset-0 w-full h-full object-cover object-center"
+    autoplay loop muted playsinline preload="auto"
+    poster="/images/video-poster.jpg">
+      <source src="/media/LightningVideos.mp4" type="video/mp4" />
+  </video>
+
+  <!-- Dark overlay to pop the copy -->
+  <div class="absolute inset-0 bg-black/40"></div>
+
+  <!-- HEADLINE + CTA  -->
+  <div class="relative z-20 flex flex-col items-center justify-center h-full text-center px-6">
+    <h1 class="font-extralight uppercase tracking-[0.2em] text-white
+               text-4xl sm:text-6xl lg:text-8xl whitespace-nowrap
+               drop-shadow-[0_4px_6px_rgba(0,0,0,0.55)]">
+      Chase&nbsp;the&nbsp;Storm
+    </h1>
+
+    <a href="/collection"
+       class="mt-8 inline-block px-8 py-3 border border-white/40
+              bg-white/10 backdrop-blur-md text-sm tracking-widest
+              text-white uppercase transition
+              hover:bg-white/20 hover:shadow-lg focus:outline-none
+              focus:ring-2 focus:ring-white/50">
+       Shop Official Merch ⚡
+    </a>
   </div>
 
-    <video
-      class="absolute inset-0 w-full h-full object-cover object-center z-10"
-      autoplay loop muted playsinline preload="auto"
-      poster="images/video-poster.jpg"
-    >
-      <source src="media/LightningVideos.mp4" type="video/mp4">
-    </video> 
-    <div class="absolute inset-0 bg-black bg-opacity-0 z-20"></div>
-
-    <div class="hero-copy">
-    <h1 class="hero-title">CHASE THE STORM</h1>
-    <!-- Optional primary call-to-action -->
-    <a href="/collection" class="hero-cta">Shop Official Merch ⚡</a>
-  </div>
-
-  </section>
+</section>
 
  
   <!-- Merch Preview -->
