@@ -109,6 +109,38 @@
     .dot-active { background: #000000; }
     .social-link img { transition: filter 0.3s ease; }
     .social-link:hover img { filter: brightness(0) invert(0.4); }
+
+    .watch-link {
+  font-family: 'Roboto Mono', monospace;
+  color: #000000;
+  background-color: #ff9f3a;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  display: inline-block;
+  position: relative;
+  font-weight: bold;
+  text-decoration: none;
+}
+.watch-link span {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+}
+.watch-link span::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 2px;
+  background-color: #000000;
+  transform: translateY(-50%);
+  transition: width 0.3s ease-in-out;
+  z-index: 1;
+}
+.watch-link:hover span::after {
+  width: 100%;
+}
   </style>
 </head>
 <body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col">
@@ -189,9 +221,6 @@
 </section>
 <!-- LATEST VIDEO / STREAM CTA -->
 <section class="bg-gray-100 py-16 flex flex-col items-center" id="latest">
-<h2 class="text-3xl md:text-4xl font-bold tracking-wider uppercase mb-10">
-    Latest from YouTube
-  </h2>
 <!-- YouTube Embed -->
 <div class="w-full max-w-5xl px-4">
 <div class="relative pb-[56.25%] h-0 overflow-hidden rounded-lg shadow-lg">
@@ -200,9 +229,8 @@
 </div>
 </div>
 <!-- WATCH STREAM Button -->
-<a class="group mt-12 inline-block px-10 py-3 rounded-full border border-black/40 text-black uppercase tracking-widest text-sm whitespace-nowrap transition-all duration-300 relative overflow-hidden" href="https://twitch.tv/stormen" target="_blank">
-<span class="relative z-10">WATCH STORMEN’S STREAM</span>
-<span class="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all duration-300 group-hover:w-full"></span>
+<a href="https://twitch.tv/stormen" target="_blank" class="watch-link mt-8">
+  <span>WATCH STORMEN'S STREAM</span>
 </a>
 </section>
 <!-- Footer -->
