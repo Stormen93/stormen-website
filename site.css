@@ -95,21 +95,24 @@
 }
 
 /*──────────────────────────────────────────────
-  Perfect 16 : 9 video frame + generous spacing
-  (works in all modern browsers, with a fallback
-   for the odd old engine that lacks aspect-ratio)
+  Universal 16 : 9 wrapper  (no aspect-ratio prop)
   ──────────────────────────────────────────────*/
 #latest .embed-wrapper{
   position:relative;
   width:100%;
-  max-width:854px;         /* desktop cap   */
-  margin:2rem auto 5rem;   /* ↑2rem  ↓5rem  */
+  max-width:854px;       /* desktop cap                     */
+  margin:2rem auto 5rem; /* ↑2 rem gap ↑ , 5 rem to button  */
   border:4px solid #ff9f3a;
   border-radius:.5rem;
   box-shadow:8px 12px 24px rgba(0,0,0,.4);
+  overflow:hidden;
+}
 
-  /* modern browsers */
-  aspect-ratio:16/9;
+/* 16 : 9 spacer – works in every browser */
+#latest .embed-wrapper::before{
+  content:'';
+  display:block;
+  padding-top:56.25%;    /* 9 / 16 = .5625  */
 }
 
 /* fill the wrapper */
@@ -119,15 +122,6 @@
   width:100%;
   height:100%;
   border:0;
-}
-
-/* Fallback for very old engines that DON’T
-   understand aspect-ratio (kept just in case) */
-@supports not (aspect-ratio:16/9){
-  #latest .embed-wrapper{
-    height:0;
-    padding-bottom:56.25%;
-  }
 }
 
 /* orange pill CTA */
