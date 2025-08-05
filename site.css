@@ -26,6 +26,19 @@
   color: #000; /* black bars when scrolled */
 }
 
+/* ── dark-mode banner colour ─────────────────────────────── */
+html.dark #siteHeader.scrolled{
+  background-color:#0d1117;   /* ← whatever your page bg is in dark mode */
+  color:#fff;                 /* keep text/icons light                 */
+}
+
+/* swap the logos back (white logo on the dark banner) */
+html.dark #siteHeader.scrolled .logo-white { opacity:1; }
+html.dark #siteHeader.scrolled .logo-black { opacity:0; }
+
+#siteHeader.scrolled .logo-white { opacity: 0; }   /* hide white logo   */
+#siteHeader.scrolled .logo-black { opacity: 1; }   /* show yellow logo  */
+
 /* ── 2) Hamburger → X animation ── */
 #openMenuBtn .burger-line,
 #closeMenuBtn .burger-line {
@@ -94,37 +107,32 @@
   transition: filter 0.3s ease;
 }
 
-/* ──  universal 16:9 wrapper  ───────────────────────── */
-#latest .embed-wrapper{
+/* universal 16 : 9 wrapper ------------------------- */
+.embed-wrapper{
   position:relative;
   width:100%;
   max-width:1024px;
-  margin:2rem auto 5rem;     /* top  | sides | bottom gap ↙︎ */
-  height:1;                  /* ❶  let the ::before create the height   */
+  margin:2rem auto 5rem;   /* top | sides | bottom */
   border:4px solid #ff9f3a;
   border-radius:.5rem;
   box-shadow:8px 12px 24px rgba(0,0,0,.4);
   overflow:hidden;
 }
 
-/* 16 : 9 spacer */
-#latest .embed-wrapper::before{
+/* 16 : 9 spacer  (no #latest qualifier!) */
+.embed-wrapper::before{
   content:'';
   display:block;
-  padding-top:56.25%;
+  padding-top:56.25%;      /* 9 / 16 = 0.5625 */
 }
 
 /* make the iframe fill that wrapper */
-#latest .embed-wrapper iframe{
+.embed-wrapper iframe{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
   border:0;
-}
-/* CTA – bump the gap a bit more */
-.watch-link{
-  margin-top:2.5rem;          /* ❷  (40 px) */
 }
 
 /* orange pill CTA */
