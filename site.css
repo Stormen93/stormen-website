@@ -31,3 +31,39 @@
   filter: invert(100%);
   transition: filter 0.3s ease;
 }
+
+/* Disable clicks when the panel is off-screen */
+#sidePanel.-translate-x-full {
+  pointer-events: none;
+}
+/* Re-enable clicks when it’s visible */
+#sidePanel:not(.-translate-x-full) {
+  pointer-events: auto;
+}
+
+/* Sidebar links: normal case, stacked, normal font */
+#sidePanel nav a {
+  text-transform: none !important;
+  font-weight: normal !important;
+  font-family: inherit !important;
+  display: block !important;
+  margin-bottom: 1rem;
+  letter-spacing: normal !important;
+}
+#sidePanel nav a:last-child {
+  margin-bottom: 0;
+}
+
+/* Make burger lines inherit the header’s currentColor */
+#openMenuBtn .burger-line,
+#closeMenuBtn .burger-line {
+  background-color: currentColor !important;
+}
+
+/* Rotate into X when open */
+#closeMenuBtn.open .burger-line:first-child {
+  transform: rotate(45deg) translateY(2px);
+}
+#closeMenuBtn.open .burger-line.lower {
+  transform: rotate(-45deg) translateY(-2px);
+}
