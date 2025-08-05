@@ -63,7 +63,7 @@
   pointer-events: auto !important;
 }
 
-/* 5) Sidebar links & hover underline */
+/* 5) Sidebar links & hover underline on the span only */
 #sidePanel nav a {
   font-family: "Roboto Condensed", sans-serif !important;
   text-decoration: none;
@@ -92,7 +92,7 @@
   width: 100%;
 }
 
-/* Remove extra space after last link */
+/* No extra space after last link */
 #sidePanel nav a:last-child {
   margin-bottom: 0;
 }
