@@ -31,3 +31,29 @@
   filter: invert(100%);
   transition: filter 0.3s ease;
 }
+
+/* Make the burger lines visible and switch to black when scrolled */
+#openMenuBtn .burger-line,
+#closeMenuBtn .burger-line {
+  background-color: currentColor; /* inherit from the header (white or black) */
+}
+
+/* When the panel is open, rotate the lines into an X */
+#closeMenuBtn.open .burger-line:first-child {
+  transform: rotate(45deg) translateY(2px);
+}
+#closeMenuBtn.open .burger-line.lower {
+  transform: rotate(-45deg) translateY(-2px);
+}
+
+/* Tweak the side‐panel link text to normal case and add spacing */
+#sidePanel nav a {
+  text-transform: none;       /* turn off uppercase */
+  font-family: inherit;       /* use your page’s default font */
+  letter-spacing: normal;
+  display: block;             /* stack them with full clickable areas */
+  margin-bottom: 1rem;        /* add breathing room between links */
+}
+#sidePanel nav a:last-child {
+  margin-bottom: 0;
+}
