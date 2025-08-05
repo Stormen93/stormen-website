@@ -94,28 +94,40 @@
   transition: filter 0.3s ease;
 }
 
-/* 16:9 responsive wrapper with orange outline */
-.embed-wrapper{
+/*──────────────────────────────────────────────
+  Perfect 16 : 9 video frame + generous spacing
+  (works in all modern browsers, with a fallback
+   for the odd old engine that lacks aspect-ratio)
+  ──────────────────────────────────────────────*/
+#latest .embed-wrapper{
   position:relative;
   width:100%;
-  max-width:854px;      /* desktop width cap */
-  margin:2rem auto;     /* centre + top / bottom spacing */
-  height:0;
-  padding-bottom:56.25%;/* 16:9 aspect ratio */
-  overflow:hidden;
-
+  max-width:854px;         /* desktop cap   */
+  margin:2rem auto 5rem;   /* ↑2rem  ↓5rem  */
   border:4px solid #ff9f3a;
-  border-radius:0.5rem;
+  border-radius:.5rem;
   box-shadow:8px 12px 24px rgba(0,0,0,.4);
+
+  /* modern browsers */
+  aspect-ratio:16/9;
 }
 
-/* make the iframe fill that wrapper */
-.embed-wrapper iframe{
+/* fill the wrapper */
+#latest .embed-wrapper iframe{
   position:absolute;
-  inset:0;              /* shorthand for top:0; right:0; bottom:0; left:0 */
+  inset:0;
   width:100%;
   height:100%;
   border:0;
+}
+
+/* Fallback for very old engines that DON’T
+   understand aspect-ratio (kept just in case) */
+@supports not (aspect-ratio:16/9){
+  #latest .embed-wrapper{
+    height:0;
+    padding-bottom:56.25%;
+  }
 }
 
 /* orange pill CTA */
