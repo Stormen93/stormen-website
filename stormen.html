@@ -83,11 +83,7 @@
       width: 100%;
     }
   
-/* Always show black logo on this page */
-#siteHeader .logo-white { display: none !important; }
-#siteHeader .logo-black { opacity: 1 !important; }
-
-/* Theme toggle icon filter */
+/* Always white at top, black on scroll */
 #themeIcon {
   filter: invert(100%);
   transition: filter 0.3s ease;
@@ -117,8 +113,7 @@
          src="images/lightmode.png"
          alt="Toggle theme"
          class="w-8 h-8"/>
-  </button>
-</header>
+  </button></header>
 
   <!-- Side Panel -->
   <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold" style="visibility: hidden;">
@@ -315,45 +310,6 @@
     });
   </script>
   <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b863d30917ada0',t:'MTc0NjUzMzU4OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const toggleBtn = document.getElementById('themeToggle');
-  const icon      = document.getElementById('themeIcon');
-  const root      = document.documentElement;
-  const sunIcon   = 'images/lightmode.png';
-  const moonIcon  = 'images/darkmode.png';
-
-  function renderIcon() {
-    icon.src = root.classList.contains('dark') ? moonIcon : sunIcon;
-    if (window.scrollY <= 10) icon.style.filter = 'invert(100%)';
-  }
-
-  // Initial theme setup
-  if (localStorage.getItem('theme') === 'dark') {
-    root.classList.add('dark');
-  } else {
-    root.classList.remove('dark');
-  }
-  renderIcon();
-
-  // Toggle on click
-  toggleBtn.addEventListener('click', () => {
-    const isDark = root.classList.toggle('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    renderIcon();
-  });
-
-  // Scroll: white at top, black on scroll
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 10) {
-      icon.style.filter = 'none';
-    } else {
-      icon.style.filter = 'invert(100%)';
-    }
-  });
-});
-</script>
-
+  <script src="theme-toggle.js"></script>
 </body>
 </html>
