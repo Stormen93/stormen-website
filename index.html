@@ -103,17 +103,27 @@
 
   <!-- Latest Video + CTA -->
 
-  <section class="bg-gray-100 dark:bg-gray-800 py-16 flex flex-col items-center" id="latest">
-    <div class="embed-wrapper relative pb-[56.25%] h-0">
-+    <iframe
-+      src="https://www.youtube.com/embed/videoseries?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
-+      class="absolute top-0 left-0 w-full h-full"
-+      frameborder="0"
-+      allowfullscreen
-+    ></iframe>
-+  </div>
-    <a href="https://twitch.tv/stormen" target="_blank" class="watch-link mt-8"><span>WATCH STORMEN'S STREAM</span></a>
-  </section>
+  <section id="latest"
+         class="bg-gray-100 dark:bg-gray-800 py-16 flex flex-col items-center">
+
+  <!-- Embed Wrapper with orange border, rounded corners & shadow -->
+  <div class="embed-wrapper relative pb-[56.25%] w-full max-w-5xl">
+    <iframe
+      src="https://www.youtube.com/embed/videoseries?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
+      class="absolute top-0 left-0 w-full h-full"
+      frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <!-- Twitch CTA -->
+  <a href="https://twitch.tv/stormen"
+     target="_blank"
+     class="watch-link mt-8">
+    <span>WATCH STORMEN’S STREAM</span>
+  </a>
+</section>
 
   <!-- Merch Preview -->
 
