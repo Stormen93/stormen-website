@@ -90,9 +90,9 @@
   </aside>
 
   <!-- Watch Content -->
-  <main class="flex-grow min-h-screen container mx-auto px-4 pt-32 pb-20 flex flex-col items-center justify-center">
-    <!-- Embed Wrapper with orange border, rounded corners & shadow -->
-  <div class="embed-wrapper relative pb-[56.25%] w-full max-w-5xl">
+  <main class="flex-grow min-h-screen container mx-auto px-4 pt-32 pb-20 flex flex-col items-center">
+  <!-- 16:9 video wrapper with orange border -->
+  <div class="embed-wrapper relative pb-[56.25%] h-0 overflow-hidden w-full max-w-5xl">
     <iframe
       src="https://www.youtube.com/embed/videoseries?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
       class="absolute top-0 left-0 w-full h-full"
@@ -102,13 +102,17 @@
     </iframe>
   </div>
 
-  <!-- Twitch CTA -->
-  <a href="https://twitch.tv/stormen"
-     target="_blank"
-     class="watch-link mt-8">
-    <span>WATCH STORMEN’S STREAM</span>
-  </a>
-  </main>
+  <!-- Centered Twitch button -->
+  <div class="flex justify-center w-full">
+    <a
+      href="https://twitch.tv/stormen"
+      target="_blank"
+      class="watch-link mt-8"
+    >
+      <span>WATCH STORMEN’S STREAM</span>
+    </a>
+  </div>
+</main>
 
   <!-- Footer -->
   <footer class="bg-white py-10 text-gray-900">

@@ -99,28 +99,34 @@
       <h1 class="font-extralight uppercase tracking-[0.2em] text-white text-4xl sm:text-6xl lg:text-8xl whitespace-nowrap drop-shadow-[0_4px_6px_rgba(0,0,0,0.55)]">Chase&nbsp;the&nbsp;Storm</h1>
       <a href="/collection" class="cta group relative inline-block px-10 py-3 mt-8 rounded-full border border-white/40 bg-white/10 backdrop-blur-md text-white uppercase tracking-widest text-sm whitespace-nowrap transition-all duration-300 hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/50">⚡Shop Official Merch⚡</a>
     </div>
-  <section
-  class="bg-gray-100 dark:bg-gray-800 py-16 flex flex-col items-center"
-  id="latest">
+<section
+  id="latest"
+  class="bg-gray-100 dark:bg-gray-800 py-16"
 >
-  <!-- apply your embed-wrapper class -->
-  <div class="embed-wrapper relative pb-[56.25%] h-0 overflow-hidden">
-    <iframe
-      src="https://www.youtube.com/embed/videoseries?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
-      class="absolute top-0 left-0 w-full h-full"
-      frameborder="0"
-      allowfullscreen
-    ></iframe>
-  </div>
+  <!-- Center & pad just like the rest of your content -->
+  <div class="container mx-auto px-4">
+    <!-- Orange‐bordered 16:9 video -->
+    <div class="embed-wrapper relative pb-[56.25%] h-0 overflow-hidden">
+      <iframe
+        src="https://www.youtube.com/embed/videoseries?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
+        class="absolute top-0 left-0 w-full h-full"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    </div>
 
-  <!-- your .watch-link class is already there -->
-  <a
-    href="https://twitch.tv/stormen"
-    target="_blank"
-    class="watch-link mt-8"
-  >
-    <span>WATCH STORMEN’S STREAM</span>
-  </a>
+    <!-- Button centered under it -->
+    <div class="flex justify-center mt-8">
+      <a
+        href="https://twitch.tv/stormen"
+        target="_blank"
+        class="watch-link"
+      >
+        <span>WATCH STORMEN’S STREAM</span>
+      </a>
+    </div>
+  </div>
 </section>
 
   <!-- Merch Preview -->
