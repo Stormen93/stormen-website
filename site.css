@@ -100,7 +100,7 @@
   width:100%;
   max-width:480px;
   margin:2rem auto 5rem;     /* top  | sides | bottom gap ↙︎ */
-  height:0;                  /* ❶  let the ::before create the height   */
+  height:1;                  /* ❶  let the ::before create the height   */
   border:4px solid #ff9f3a;
   border-radius:.5rem;
   box-shadow:8px 12px 24px rgba(0,0,0,.4);
