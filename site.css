@@ -1,11 +1,13 @@
-/* 0) Base burger lines (match your old index exactly) */
+/* site.css */
+
+/* 0) Base burger lines */
 .burger-line {
   display: block;
   width: 48px;
   height: 2px;
   margin: 6px 0;
   background: #fff;
-  transition: transform 0.3s, background-color 0.3s;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 .burger-line.lower {
   height: 1px;
@@ -14,9 +16,8 @@
 /* 1) Header default + scroll states */
 #siteHeader {
   background: transparent;
-}
-#siteHeader .burger-line {
-  background-color: #fff !important; /* white at top */
+  transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
+  color: #fff; /* white bars at top */
 }
 #siteHeader .logo-white { opacity: 1; transition: opacity 0.3s; }
 #siteHeader .logo-black { opacity: 0; transition: opacity 0.3s; }
@@ -24,23 +25,19 @@
 #siteHeader.scrolled {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  color: #000; /* black bars when scrolled */
 }
-#siteHeader.scrolled .burger-line {
-  background-color: #000 !important;
-}
-#siteHeader.scrolled .logo-white { opacity: 0; }
-#siteHeader.scrolled .logo-black { opacity: 1; }
 
-/* 2) Hamburger ↔ X animation */
+/* 2) Hamburger → X animation */
 #openMenuBtn .burger-line,
 #closeMenuBtn .burger-line {
   background-color: currentColor !important;
 }
 #closeMenuBtn.open .burger-line:first-child {
-  transform: rotate(45deg) !important;
+  transform: rotate(45deg) translateY(2px) !important;
 }
 #closeMenuBtn.open .burger-line.lower {
-  transform: rotate(-45deg) translateY(-1px) !important;
+  transform: rotate(-45deg) translateY(-2px) !important;
 }
 
 /* 3) Backdrop defaults + transitions */
@@ -55,7 +52,7 @@
   pointer-events: auto;
 }
 
-/* 4) Sidebar clickability */
+/* 4) Panel clickability */
 #sidePanel.-translate-x-full {
   pointer-events: none !important;
 }
@@ -63,17 +60,19 @@
   pointer-events: auto !important;
 }
 
-/* 5) Sidebar links & hover underline on the span only */
+/* 5) Sidebar links & hover underline */
 #sidePanel nav a {
   font-family: "Roboto Condensed", sans-serif !important;
-  text-decoration: none;
+  text-decoration: none !important; /* remove default underline */
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
   color: inherit;
 }
-
-/* Underline only the <span> inside each link */
+#sidePanel nav a:last-child {
+  margin-bottom: 0;
+}
+/* Only underline the <span> on hover */
 #sidePanel nav a span {
   position: relative;
   display: inline-block;
@@ -92,13 +91,7 @@
   width: 100%;
 }
 
-/* No extra space after last link */
-#sidePanel nav a:last-child {
-  margin-bottom: 0;
-}
-
 /* 6) Theme-toggle icon */
 #themeIcon {
   filter: invert(100%);
   transition: filter 0.3s ease;
-}
