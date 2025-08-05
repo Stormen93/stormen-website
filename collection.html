@@ -15,67 +15,7 @@
 <link href="site.css" rel="stylesheet"/>
   <!-- Feather Icons -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.1/dist/feather.min.js"></script>
-  <style>
-    body { font-family: 'Roboto Condensed', sans-serif; }
-    .burger-line { display: block; width: 48px; height: 2px; margin: 6px 0; transition: transform 0.3s, background-color 0.3s; }
-    #openMenuBtn .burger-line { background: #000000; }
-    #closeMenuBtn .burger-line { background: #000000; }
-    .burger-line.lower { height: 1px; }
-    #closeMenuBtn.open .burger-line:first-child { transform: rotate(45deg); }
-    #closeMenuBtn.open .burger-line.lower { transform: rotate(-45deg) translateY(-1px); }
-    #closeMenuBtn { z-index: 60; }
-    #sidePanel { transition: transform 0.3s ease-in-out; }
-    #backdrop { transition: opacity 0.3s ease-in-out; }
-    #sidePanel a {
-      display: inline-flex;
-      align-items: center;
-    }
-    #sidePanel a span {
-      position: relative;
-      display: inline-block;
-    }
-    #sidePanel a span::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      width: 0;
-      height: 2px;
-      background-color: black;
-      transition: width 0.3s ease-in-out;
-    }
-    #sidePanel a:hover span::after {
-      width: 100%;
-    }
-    a[href*="tiktok.com"] img { position: relative; top: 2px; }
-    .merch-item { position: relative; overflow: hidden; aspect-ratio: 1/1; touch-action: pan-y; }
-    .merch-item img { transition: opacity 0.3s ease-in-out; width: 100%; height: 100%; object-fit: cover; }
-    .merch-item .back { position: absolute; inset: 0; opacity: 0; }
-    @media (hover:hover) {
-      .merch-item:hover .back { opacity: 1; }
-      .merch-item:hover .front { opacity: 0; }
-    }
-    @media (hover:none) {
-      .merch-item:active .back { opacity: unset; }
-      .merch-item:active .front { opacity: unset; }
-      .merch-item[data-showing="back"] .back { opacity: 1; }
-      .merch-item[data-showing="back"] .front { opacity: 0; }
-      .merch-item[data-showing="front"] .back { opacity: 0; }
-      .merch-item[data-showing="front"] .front { opacity: 1; }
-    }
-    .dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: none; z-index: 10; }
-    @media (hover:none) { .dots { display: flex; gap: 8px; } }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: #d1d5db; transition: background 0.3s; }
-    .dot-active { background: #000000; }
-    .social-link img { transition: filter 0.3s ease; }
-    .social-link:hover img { filter: brightness(0) invert(0.4); }
-  
-/* Always white at top, black on scroll */
-#themeIcon {
-  filter: invert(100%);
-  transition: filter 0.3s ease;
-}
-</style>
+  <style>body { font-family: 'Roboto Condensed', sans-serif; }</style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 dark:bg-gray-900 text-gray-900 dark:text-gray-100 dark:text-gray-100 min-h-screen flex flex-col">
   <!-- Backdrop -->
