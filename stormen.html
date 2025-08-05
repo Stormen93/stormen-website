@@ -316,12 +316,15 @@
   const toggleBtn = document.getElementById('themeToggle');
   const icon      = document.getElementById('themeIcon');
   const root      = document.documentElement;
-
-  const sunIcon  = 'images/lightmode.png';
-  const moonIcon = 'images/darkmode.png';
+  const sunIcon   = 'images/lightmode.png';
+  const moonIcon  = 'images/darkmode.png';
 
   function renderIcon() {
     icon.src = root.classList.contains('dark') ? moonIcon : sunIcon;
+    // maintain white at top state
+    if (window.scrollY <= 10) {
+      icon.style.filter = 'invert(100%)';
+    }
   }
 
   // Initial theme setup
