@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" class="">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -12,6 +12,7 @@
 <!-- Tailwind CSS -->
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
+<link href="site.css" rel="stylesheet"/>
 <!-- Feather Icons -->
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.1/dist/feather.min.js"></script>
 <style>
@@ -143,7 +144,7 @@
 }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
 <!-- Backdrop -->
 <div class="fixed inset-0 bg-gray-900 opacity-0 pointer-events-none z-40 transition-opacity" id="backdrop"></div>
 <!-- Header -->
@@ -156,6 +157,7 @@
 <img alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" src="images/logo_white.png"/>
 <img alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" src="images/logo_yellow.png"/>
 </a>
+  <button id="themeToggle" class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3" aria-label="Toggle Theme"><img id="themeIcon" src="images/lightmode.png" alt="Toggle theme" class="w-8 h-8"/></button>
 </header>
 <!-- Side Panel -->
 <aside class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold" id="sidePanel" style="visibility: hidden;">

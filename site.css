@@ -1,0 +1,33 @@
+/* site.css */
+
+/* Header default/transparency */
+#siteHeader {
+  background: transparent;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+#siteHeader .burger-line {
+  background-color: #fff;
+  transition: background-color 0.3s;
+}
+#siteHeader .logo-white { opacity: 1; transition: opacity 0.3s; }
+#siteHeader .logo-black { opacity: 0; transition: opacity 0.3s; }
+
+/* When scrolled */
+#siteHeader.scrolled {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+#siteHeader.scrolled .burger-line { background-color: #000 !important; }
+#siteHeader.scrolled .logo-white { opacity: 0; }
+#siteHeader.scrolled .logo-black { opacity: 1; }
+
+/* Burger “X” transform */
+.burger-line.lower { height: 1px; }
+#closeMenuBtn.open .burger-line:first-child { transform: rotate(45deg); }
+#closeMenuBtn.open .burger-line.lower { transform: rotate(-45deg) translateY(-1px); }
+
+/* Theme-toggle icon filter */
+#themeIcon {
+  filter: invert(100%);
+  transition: filter 0.3s ease;
+}
