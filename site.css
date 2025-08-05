@@ -1,4 +1,4 @@
-/* 0) Base burger lines */
+/* ── 0) Base burger lines ── */
 .burger-line {
   display: block;
   width: 48px;
@@ -11,7 +11,7 @@
   height: 1px;
 }
 
-/* 1) Header default + scroll states */
+/* ── 1) Header default + scroll states ── */
 #siteHeader {
   background: transparent;
   transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
@@ -26,7 +26,7 @@
   color: #000; /* black bars when scrolled */
 }
 
-/* 2) Hamburger → X animation */
+/* ── 2) Hamburger → X animation ── */
 #openMenuBtn .burger-line,
 #closeMenuBtn .burger-line {
   background-color: currentColor !important;
@@ -38,7 +38,7 @@
   transform: rotate(-45deg) translateY(-2px) !important;
 }
 
-/* 3) Backdrop defaults + transitions */
+/* ── 3) Backdrop defaults + transitions ── */
 #backdrop {
   background: rgba(0,0,0,0.5);
   opacity: 0;
@@ -50,7 +50,7 @@
   pointer-events: auto;
 }
 
-/* 4) Panel clickability */
+/* ── 4) Panel clickability ── */
 #sidePanel.-translate-x-full {
   pointer-events: none !important;
 }
@@ -58,7 +58,7 @@
   pointer-events: auto !important;
 }
 
-/* 5) Sidebar links & hover underline */
+/* ── 5) Sidebar links & hover underline ── */
 #sidePanel nav a {
   font-family: "Roboto Condensed", sans-serif !important;
   text-decoration: none !important;
@@ -70,7 +70,6 @@
 #sidePanel nav a:last-child {
   margin-bottom: 0;
 }
-
 #sidePanel nav a span {
   position: relative;
   display: inline-block;
@@ -89,36 +88,35 @@
   width: 100%;
 }
 
-/* 6) Theme-toggle icon */
+/* ── 6) Theme-toggle icon ── */
 #themeIcon {
   filter: invert(100%);
   transition: filter 0.3s ease;
 }
 
-/* 7) Embed wrapper (orange border + shadow) */
+/* ── 7) Video embed wrapper (orange border) ── */
 .embed-wrapper {
   --outline-color: #ff9f3a;
   position: relative;
   border: 4px solid var(--outline-color);
   border-radius: 0.5rem;
-  box-shadow: 8px 12px 24px rgba(0,0,0,0.4);
+  box-shadow: 8px 12px 24px rgba(0, 0, 0, 0.4);
   max-width: 854px;
   width: 100%;
-  margin: 0 auto;
 }
 
-/* 8) Watch CTA button styling */
+/* ── 8) Watch CTA button styling ── */
 .watch-link {
   font-family: 'Roboto Mono', monospace;
-  font-weight: bold;
-  text-decoration: none;
-  background-color: #ff9f3a;
   color: #000;
+  background-color: #ff9f3a;
   padding: 0.75rem 1.5rem;
   border-radius: 9999px;
   display: inline-block;
-  transition: filter 0.3s ease;
+  font-weight: bold;
+  text-decoration: none;
   position: relative;
+  transition: filter 0.3s ease;
 }
 .watch-link span::after {
   content: '';
@@ -130,7 +128,6 @@
   background-color: #000;
   transform: translateY(-50%);
   transition: width 0.3s ease-in-out;
-  z-index: 1;
 }
 .watch-link:hover {
   filter: brightness(1.1);
