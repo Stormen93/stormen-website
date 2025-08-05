@@ -98,7 +98,7 @@
 .embed-wrapper{
   position:relative;
   width:100%;
-  max-width:640px;      /* desktop width cap */
+  max-width:854px;      /* desktop width cap */
   margin:2rem auto;     /* centre + top / bottom spacing */
   height:0;
   padding-bottom:56.25%;/* 16:9 aspect ratio */
