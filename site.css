@@ -65,7 +65,7 @@
 
 /* 5) Sidebar links & hover underline */
 #sidePanel nav a {
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: "Roboto Condensed", sans-serif !important;
   text-decoration: none;
   margin-bottom: 1rem;
   display: flex;
