@@ -1,5 +1,2 @@
 # Dependencies
 node_modules/
-
-# Optional — if you RE-generate these each build
-dist/
