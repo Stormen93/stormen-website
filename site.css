@@ -94,34 +94,39 @@
   transition: filter 0.3s ease;
 }
 
-/*──────────────────────────────────────────────
-  Universal 16 : 9 wrapper  (no aspect-ratio prop)
-  ──────────────────────────────────────────────*/
+/* ──  universal 16:9 wrapper  ───────────────────────── */
 #latest .embed-wrapper{
   position:relative;
   width:100%;
-  max-width:854px;       /* desktop cap                     */
-  margin:2rem auto 5rem; /* ↑2 rem gap ↑ , 5 rem to button  */
+  max-width:854px;
+  margin:2rem auto 5rem;     /* top  | sides | bottom gap ↙︎ */
+  height:0;                  /* ❶  let the ::before create the height   */
   border:4px solid #ff9f3a;
   border-radius:.5rem;
   box-shadow:8px 12px 24px rgba(0,0,0,.4);
   overflow:hidden;
 }
 
-/* 16 : 9 spacer – works in every browser */
+/* 16 : 9 spacer */
 #latest .embed-wrapper::before{
   content:'';
   display:block;
-  padding-top:56.25%;    /* 9 / 16 = .5625  */
+  padding-top:56.25%;
 }
 
-/* fill the wrapper */
+/* make the iframe fill that wrapper */
 #latest .embed-wrapper iframe{
   position:absolute;
   inset:0;
   width:100%;
   height:100%;
   border:0;
+}
+
+/* CTA – bump the gap a bit more */
+.watch-link{
+  /* …existing rules… */
+  margin-top:2.5rem;          /* ❷  (40 px) */
 }
 
 /* orange pill CTA */
