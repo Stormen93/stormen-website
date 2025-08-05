@@ -1,16 +1,28 @@
-/* site.css */
+/* ── 0) Base burger lines (match your old index exactly) ── */
+.burger-line {
+  display: block;
+  width: 48px;
+  height: 2px;
+  margin: 6px 0;
+  background: #fff;
+  transition: transform 0.3s, background-color 0.3s;
+}
+.burger-line.lower {
+  height: 1px;
+}
 
-/* 1) Header Default & Scroll */
+/* ── 1) Header default + scroll states ── */
+/* default state */
 #siteHeader {
   background: transparent;
-  transition: background-color 0.3s, box-shadow 0.3s;
 }
 #siteHeader .burger-line {
-  background-color: #fff;
-  transition: background-color 0.3s, transform 0.3s;
+  background-color: #fff !important;  /* white at top */
 }
 #siteHeader .logo-white { opacity: 1; transition: opacity 0.3s; }
 #siteHeader .logo-black { opacity: 0; transition: opacity 0.3s; }
+
+/* scrolled state */
 #siteHeader.scrolled {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -21,20 +33,33 @@
 #siteHeader.scrolled .logo-white { opacity: 0; }
 #siteHeader.scrolled .logo-black { opacity: 1; }
 
-/* 2) Hamburger → X animation */
+/* ── 2) Hamburger ↔ X animation ── */
 #openMenuBtn .burger-line,
 #closeMenuBtn .burger-line {
   background-color: currentColor !important;
 }
-.burger-line.lower { height: 1px; }
 #closeMenuBtn.open .burger-line:first-child {
-  transform: rotate(45deg) translateY(2px) !important;
+  transform: rotate(45deg) !important;
 }
 #closeMenuBtn.open .burger-line.lower {
-  transform: rotate(-45deg) translateY(-2px) !important;
+  transform: rotate(-45deg) translateY(-1px) !important;
 }
 
-/* 3) Panel clickability */
+/* ── 3) Backdrop defaults + transitions ── */
+#backdrop {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+  /* if you had a translucent black bg inline, reintroduce it here: */
+  background: rgba(0,0,0,0.5);
+}
+/* when your JS adds .opacity-50 this kicks in: */
+#backdrop.opacity-50 {
+  opacity: 0.5;
+  pointer-events: auto;
+}
+
+/* ── 4) Sidebar clickability ── */
 #sidePanel.-translate-x-full {
   pointer-events: none !important;
 }
@@ -42,23 +67,23 @@
   pointer-events: auto !important;
 }
 
-/* 4) Sidebar links & hover underline */
+/* ── 5) Sidebar links & hover underline ── */
 #sidePanel nav a {
   position: relative;
   display: block;
   margin-bottom: 1rem;
-  font-family: inherit !important;
-  font-weight: normal !important;
-  text-transform: none !important;
-  letter-spacing: normal !important;
+  font-weight: normal;
+  text-transform: none;
   color: inherit;
   text-decoration: none;
 }
 #sidePanel nav a::after {
   content: '';
   position: absolute;
-  left: 0; bottom: -2px;
-  width: 0; height: 2px;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
   background-color: currentColor;
   transition: width 0.3s ease-in-out;
 }
@@ -69,40 +94,8 @@
   margin-bottom: 0;
 }
 
-/* 5) Theme-toggle icon */
+/* ── 6) Theme‐toggle icon ── */
 #themeIcon {
   filter: invert(100%);
   transition: filter 0.3s ease;
-}
-
-/* ───────────────────────────────────────────── */
-/* 0) Base burger-line styling (so the 3 bars actually show up) */
-.burger-line {
-  display: block;
-  width: 48px;
-  height: 2px;
-  margin: 6px 0;
-  transition: transform 0.3s, background-color 0.3s;
-}
-.burger-line.lower {
-  height: 1px;
-}
-
-/* ───────────────────────────────────────────── */
-/* 1) Underline on the <span> inside your sidebar links */
-#sidePanel nav a span {
-  position: relative;       /* needed for the pseudo-element */
-}
-#sidePanel nav a span::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 0;
-  height: 2px;
-  background-color: currentColor;
-  transition: width 0.3s ease-in-out;
-}
-#sidePanel nav a:hover span::after {
-  width: 100%;
 }
