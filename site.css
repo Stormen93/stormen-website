@@ -31,38 +31,3 @@
   filter: invert(100%);
   transition: filter 0.3s ease;
 }
-
-/* Force the burger lines to inherit the current header color */
-#openMenuBtn .burger-line,
-#closeMenuBtn .burger-line {
-  background-color: currentColor !important;
-}
-
-/* When the close button has .open, rotate */
-#closeMenuBtn.open .burger-line:first-child {
-  transform: rotate(45deg) translateY(2px);
-}
-#closeMenuBtn.open .burger-line.lower {
-  transform: rotate(-45deg) translateY(-2px);
-}
-
-/* Tweak the side‐panel link text to normal case and add spacing */
-#sidePanel nav a {
-  text-transform: none;       /* turn off uppercase */
-  font-family: inherit;       /* use your page’s default font */
-  letter-spacing: normal;
-  display: block;             /* stack them with full clickable areas */
-  margin-bottom: 1rem;        /* add breathing room between links */
-}
-#sidePanel nav a:last-child {
-  margin-bottom: 0;
-}
-/* Override the uppercase + font-semibold in the panel links */
-#sidePanel nav a {
-  text-transform: none !important;
-  font-weight: normal !important;
-  font-family: inherit !important;
-  letter-spacing: normal !important;
-  margin-bottom: 1rem;
-  display: block;
-}
