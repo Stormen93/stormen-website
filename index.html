@@ -147,7 +147,12 @@
 .watch-link:hover span::after {
   width: 100%;
 }
-  </style>
+  
+#themeIcon {
+  filter: invert(100%);          /* white at top */
+  transition: filter 0.3s ease;  /* smooth transition */
+}
+</style>
 </head>
 <body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
 <!-- Backdrop -->
@@ -434,10 +439,12 @@
     renderIcon();
   });
 
-  // Scroll-based icon swap in light mode
+  // Always invert to white at top; remove invert (→ black) when scrolled
   window.addEventListener('scroll', () => {
-    if (!root.classList.contains('dark')) {
-      icon.src = window.scrollY > 10 ? moonIcon : sunIcon;
+    if (window.scrollY > 10) {
+      icon.style.filter = 'none';
+    } else {
+      icon.style.filter = 'invert(100%)';
     }
   });
 </script>
