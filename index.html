@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" class="">
+<html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -12,12 +12,6 @@
 <!-- Tailwind CSS -->
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    darkMode: 'class',
-    theme: { extend: {} }
-  }
-</script>
 <!-- Feather Icons -->
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.1/dist/feather.min.js"></script>
 <style>
@@ -147,15 +141,9 @@
 .watch-link:hover span::after {
   width: 100%;
 }
-  
-/* Always white at top, black on scroll */
-#themeIcon {
-  filter: invert(100%);
-  transition: filter 0.3s ease;
-}
-</style>
+  </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col">
 <!-- Backdrop -->
 <div class="fixed inset-0 bg-gray-900 opacity-0 pointer-events-none z-40 transition-opacity" id="backdrop"></div>
 <!-- Header -->
@@ -168,16 +156,6 @@
 <img alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" src="images/logo_white.png"/>
 <img alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" src="images/logo_yellow.png"/>
 </a>
-
-  <!-- Dark/Light toggle button -->
-  <button id="themeToggle"
-          class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 transition-colors duration-300"
-          aria-label="Toggle Theme">
-    <img id="themeIcon"
-         src="images/lightmode.png"
-         alt="Toggle theme"
-         class="w-8 h-8"/>
-  </button>
 </header>
 <!-- Side Panel -->
 <aside class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold" id="sidePanel" style="visibility: hidden;">
@@ -287,131 +265,5 @@
 </footer>
 <!-- Scripts -->
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-      console.log('DOM fully loaded');
-      try {
-        if (typeof feather !== 'undefined') {
-          feather.replace();
-          console.log('Feather Icons initialized');
-        } else {
-          console.warn('Feather Icons library not loaded');
-        }
-      } catch (error) {
-        console.error('Error initializing Feather Icons:', error.message);
-      }
-      const video = document.querySelector('video');
-      video.addEventListener('loadeddata', () => console.log('Video loaded'));
-      video.addEventListener('error', (e) => console.error('Video error:', e));
-      const openMenuBtn = document.getElementById('openMenuBtn');
-      const closeMenuBtn = document.getElementById('closeMenuBtn');
-      const panel = document.getElementById('sidePanel');
-      const backdrop = document.getElementById('backdrop');
-      const hdr = document.getElementById('siteHeader');
-      if (!openMenuBtn || !closeMenuBtn || !panel || !backdrop || !hdr) {
-        console.error('One or more required elements not found:');
-        if (!openMenuBtn) console.error('openMenuBtn not found');
-        if (!closeMenuBtn) console.error('closeMenuBtn not found');
-        if (!panel) console.error('sidePanel not found');
-        if (!backdrop) console.error('backdrop not found');
-        if (!hdr) console.error('siteHeader not found');
-        return;
-      }
-      function openPanel() {
-        panel.style.visibility = 'visible';
-        panel.classList.remove('-translate-x-full');
-        console.log('openPanel: sidePanel classes:', panel.classList.toString());
-        backdrop.classList.remove('pointer-events-none', 'opacity-0');
-        backdrop.classList.add('opacity-50');
-        closeMenuBtn.classList.add('open');
-        console.log('openPanel: closeMenuBtn open?', closeMenuBtn.classList.contains('open'));
-        openMenuBtn.style.display = 'none';
-        closeMenuBtn.style.display = 'block';
-        if (typeof feather !== 'undefined') {
-          feather.replace();
-          console.log('Feather Icons re-initialized on panel open');
-        }
-      }
-      function closePanel() {
-        panel.classList.add('-translate-x-full');
-        console.log('closePanel: sidePanel classes:', panel.classList.toString());
-        setTimeout(() => {
-          panel.style.visibility = 'hidden';
-          console.log('closePanel: sidePanel visibility set to hidden after animation');
-        }, 300);
-        backdrop.classList.add('pointer-events-none', 'opacity-0');
-        backdrop.classList.remove('opacity-50');
-        closeMenuBtn.classList.remove('open');
-        openMenuBtn.style.display = 'block';
-        closeMenuBtn.style.display = 'none';
-      }
-      openMenuBtn.addEventListener('click', () => {
-        console.log('openMenuBtn clicked');
-        openPanel();
-      });
-      closeMenuBtn.addEventListener('click', () => {
-        console.log('closeMenuBtn clicked');
-        closePanel();
-      });
-      backdrop.addEventListener('click', () => {
-        console.log('backdrop clicked');
-        closePanel();
-      });
-      document.addEventListener('click', (e) => {
-        const isClickInside = panel.contains(e.target) || openMenuBtn.contains(e.target);
-        if (!isClickInside && !panel.classList.contains('-translate-x-full')) {
-          console.log('Clicked outside panel, closing');
-          closePanel();
-        }
-      });
-      window.addEventListener('scroll', () => {
-  const hdr = document.getElementById('siteHeader');
-  if (window.scrollY > 10) {
-    hdr.classList.add('scrolled');
-  } else {
-    hdr.classList.remove('scrolled');
-  }
-});
-      // Swipe gesture and dots for merch items on mobile
-      if (window.matchMedia('(hover: none)').matches) {
-        document.querySelectorAll('.merch-item').forEach(item => {
-          item.setAttribute('data-showing', 'front');
-          const dots = document.createElement('div');
-          dots.className = 'dots';
-          dots.innerHTML = '<span class="dot dot-active" data-index="0"></span><span class="dot" data-index="1"></span>';
-          item.appendChild(dots);
-          let touchStartX = 0;
-          item.addEventListener('touchstart', e => {
-            touchStartX = e.touches[0].clientX;
-          });
-          item.addEventListener('touchend', e => {
-            const touchEndX = e.changedTouches[0].clientX;
-            const swipeDistance = touchEndX - touchStartX;
-            const threshold = 50;
-            if (Math.abs(swipeDistance) > threshold) {
-              e.preventDefault();
-              const dots = item.querySelectorAll('.dot');
-              if (swipeDistance < -threshold && item.getAttribute('data-showing') === 'front') {
-                item.setAttribute('data-showing', 'back');
-                dots[0].classList.remove('dot-active');
-                dots[1].classList.add('dot-active');
-              } else if (swipeDistance > threshold && item.getAttribute('data-showing') === 'back') {
-                item.setAttribute('data-showing', 'front');
-                dots[1].classList.remove('dot-active');
-                dots[0].classList.add('dot-active');
-              }
-            }
-          });
-        });
-      } else {
-        document.querySelectorAll('.merch-item').forEach(item => {
-          item.setAttribute('data-showing', 'front');
-        });
-      }
-      console.log('Script setup complete');
-    });
-  </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b8c0d72b23bff2',t:'MTc0NjUzNzM5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-  <script src="theme-toggle.js"></script>
-</body>
+
 </html>
