@@ -98,7 +98,7 @@
 #latest .embed-wrapper{
   position:relative;
   width:100%;
-  max-width:32px;
+  max-width:480px;
   margin:2rem auto 5rem;     /* top  | sides | bottom gap ↙︎ */
   height:0;                  /* ❶  let the ::before create the height   */
   border:4px solid #ff9f3a;
