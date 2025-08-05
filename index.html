@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" class="">
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -12,6 +12,12 @@
 <!-- Tailwind CSS -->
 <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"/>
 <script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: { extend: {} }
+  }
+</script>
 <!-- Feather Icons -->
 <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.1/dist/feather.min.js"></script>
 <style>
@@ -143,7 +149,7 @@
 }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-900 min-h-screen flex flex-col">
+<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
 <!-- Backdrop -->
 <div class="fixed inset-0 bg-gray-900 opacity-0 pointer-events-none z-40 transition-opacity" id="backdrop"></div>
 <!-- Header -->
@@ -156,6 +162,16 @@
 <img alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" src="images/logo_white.png"/>
 <img alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" src="images/logo_yellow.png"/>
 </a>
+
+  <!-- Dark/Light toggle button -->
+  <button id="themeToggle"
+          class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 transition-colors duration-300"
+          aria-label="Toggle Theme">
+    <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 3v1m0 16v1m8.66-8.66l-.71.71M4.05 4.05l-.71.71M21 12h1M2 12H1m16.24 5.66l-.71-.71M4.05 19.95l-.71-.71M12 5a7 7 0 000 14 7 7 0 000-14z" />
+    </svg>
+  </button>
 </header>
 <!-- Side Panel -->
 <aside class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold" id="sidePanel" style="visibility: hidden;">
@@ -220,7 +236,7 @@
 </div>
 </section>
 <!-- LATEST VIDEO / STREAM CTA -->
-<section class="bg-gray-100 py-16 flex flex-col items-center" id="latest">
+<section class="bg-gray-100 dark:bg-gray-800 py-16 flex flex-col items-center" id="latest">
 <!-- YouTube Embed -->
 <div class="w-full max-w-5xl px-4">
 <div class="relative pb-[56.25%] h-0 overflow-hidden rounded-lg shadow-lg">
@@ -234,7 +250,7 @@
 </a>
 </section>
 <!-- Footer -->
-<footer class="bg-white py-10 text-gray-900">
+<footer class="bg-white dark:bg-gray-900 py-10 text-gray-900 dark:text-gray-100">
 <div class="container mx-auto flex flex-col items-center space-y-6">
 <div class="flex space-x-6">
 <a class="social-link" href="https://instagram.com/stormentwitch" target="_blank">
@@ -390,5 +406,34 @@
     });
   </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b8c0d72b23bff2',t:'MTc0NjUzNzM5OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+
+<script>
+  const toggleBtn = document.getElementById('themeToggle');
+  const icon = document.getElementById('themeIcon');
+  const root = document.documentElement;
+
+  if (localStorage.getItem('theme') === 'dark') {
+    root.classList.add('dark');
+    icon.classList.replace('text-white','text-black');
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    const dark = root.classList.toggle('dark');
+    icon.classList.toggle('text-white', !dark);
+    icon.classList.toggle('text-black', dark);
+    localStorage.setItem('theme', dark ? 'dark' : 'light');
+  });
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 10) {
+      icon.classList.remove('text-white');
+      icon.classList.add('text-black');
+    } else if (!root.classList.contains('dark')) {
+      icon.classList.remove('text-black');
+      icon.classList.add('text-white');
+    }
+  });
+</script>
+
 </body>
 </html>
