@@ -1,66 +1,37 @@
 /* site.css */
 
-/* Header default/transparency */
+/* 1) Header Default / Scroll States */
 #siteHeader {
   background: transparent;
   transition: background-color 0.3s, box-shadow 0.3s;
 }
 #siteHeader .burger-line {
   background-color: #fff;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.3s;
 }
 #siteHeader .logo-white { opacity: 1; transition: opacity 0.3s; }
 #siteHeader .logo-black { opacity: 0; transition: opacity 0.3s; }
 
-/* When scrolled */
+/* Scrolled State: white bg, black lines, swap logos */
 #siteHeader.scrolled {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-#siteHeader.scrolled .burger-line { background-color: #000 !important; }
+#siteHeader.scrolled .burger-line {
+  background-color: #000 !important;
+}
 #siteHeader.scrolled .logo-white { opacity: 0; }
 #siteHeader.scrolled .logo-black { opacity: 1; }
 
-/* Burger “X” transform */
-.burger-line.lower { height: 1px; }
-#closeMenuBtn.open .burger-line:first-child { transform: rotate(45deg); }
-#closeMenuBtn.open .burger-line.lower { transform: rotate(-45deg) translateY(-1px); }
-
-/* Theme-toggle icon filter */
-#themeIcon {
-  filter: invert(100%);
-  transition: filter 0.3s ease;
-}
-
-/* Disable clicks when the panel is off-screen */
-#sidePanel.-translate-x-full {
-  pointer-events: none;
-}
-/* Re-enable clicks when it’s visible */
-#sidePanel:not(.-translate-x-full) {
-  pointer-events: auto;
-}
-
-/* Sidebar links: normal case, stacked, normal font */
-#sidePanel nav a {
-  text-transform: none !important;
-  font-weight: normal !important;
-  font-family: inherit !important;
-  display: block !important;
-  margin-bottom: 1rem;
-  letter-spacing: normal !important;
-}
-#sidePanel nav a:last-child {
-  margin-bottom: 0;
-}
-
-/* Make burger lines inherit the header’s currentColor */
+/* 2) Burger ↔ X Animation */
+/* Ensure lines inherit whatever currentColor is */
 #openMenuBtn .burger-line,
 #closeMenuBtn .burger-line {
   background-color: currentColor !important;
 }
+.burger-line.lower { height: 1px; }
 
-/* Rotate into X when open */
+/* When panel is open, .open on close button rotates lines */
 #closeMenuBtn.open .burger-line:first-child {
   transform: rotate(45deg) translateY(2px);
 }
@@ -68,46 +39,47 @@
   transform: rotate(-45deg) translateY(-2px);
 }
 
-/* 1) Sidebar link hover underline animation */
+/* 3) Sidebar Panel Clicks & Visibility */
+/* Off-screen panel shouldn’t intercept clicks */
+#sidePanel.-translate-x-full {
+  pointer-events: none;
+}
+/* When it’s slid in, allow clicks */
+#sidePanel:not(.-translate-x-full) {
+  pointer-events: auto;
+}
+
+/* 4) Sidebar Links Styling */
+/* Reset the uppercase/monospace you originally applied */
 #sidePanel nav a {
-  position: relative;        /* for ::after positioning */
-  display: block;            /* stack vertically */
+  position: relative;
+  display: block;
   margin-bottom: 1rem;
+  font-family: inherit !important;
+  font-weight: normal !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
   color: inherit;
   text-decoration: none;
 }
+/* Animated underline on hover */
 #sidePanel nav a::after {
   content: '';
   position: absolute;
-  left: 0;
-  bottom: -2px;             /* just beneath the text */
-  width: 0;
-  height: 2px;
+  left: 0; bottom: -2px;
+  width: 0; height: 2px;
   background-color: currentColor;
   transition: width 0.3s ease-in-out;
 }
 #sidePanel nav a:hover::after {
   width: 100%;
 }
-
-/* 2) Make burger lines always inherit header color */
-#siteHeader .burger-line {
-  background-color: currentColor !important;
-}
-/* (And when you scroll, .scrolled will already flip currentColor to black.) */
-
-/* 3) Rotate those two lines into an “X” on open */
-#closeMenuBtn.open .burger-line:first-child {
-  transform: rotate(45deg) translateY(2px);
-}
-#closeMenuBtn.open .burger-line.lower {
-  transform: rotate(-45deg) translateY(-2px);
+#sidePanel nav a:last-child {
+  margin-bottom: 0;
 }
 
-/* 4) Disable clicks when the panel is off-screen */
-#sidePanel.-translate-x-full {
-  pointer-events: none;
-}
-#sidePanel:not(.-translate-x-full) {
-  pointer-events: auto;
+/* 5) Theme-Toggle Icon Filter */
+#themeIcon {
+  filter: invert(100%);
+  transition: filter 0.3s ease;
 }
