@@ -56,21 +56,19 @@ document.addEventListener('DOMContentLoaded', () => {
     closeBtn.style.display = 'block';
     feather.replace();
   }
-  function closePanel() {
+ function closePanel() {
   panel.classList.add('-translate-x-full');
-
-  // after the slide-out animation completes:
+  // hide after animation
   setTimeout(() => {
     panel.style.visibility = 'hidden';
   }, 300);
-
-  // reset the backdrop:
+  // reset backdrop
   backdrop.classList.add('pointer-events-none','opacity-0');
   backdrop.classList.remove('opacity-50');
-
-  closeMenuBtn.classList.remove('open');
-  openMenuBtn.style.display = 'block';
-  closeMenuBtn.style.display = 'none';
+  // swap buttons
+  closeBtn.classList.remove('open');
+  openBtn.style.display  = 'block';
+  closeBtn.style.display = 'none';
 }
   openBtn.addEventListener('click', openPanel);
   closeBtn.addEventListener('click', closePanel);
