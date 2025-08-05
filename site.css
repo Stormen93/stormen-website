@@ -125,7 +125,6 @@
 
 /* CTA – bump the gap a bit more */
 .watch-link{
-  /* …existing rules… */
   margin-top:2.5rem;          /* ❷  (40 px) */
 }
 
