@@ -94,13 +94,11 @@
   transition: filter 0.3s ease;
 }
 
-/* ── Video wrapper border ── */
+/* ─── EMBED WRAPPER ─── */
 .embed-wrapper {
-  /* 16:9 box */
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%;
-  height: 0;
+  padding-bottom: 56.25%;  /* 16:9 aspect ratio */
   overflow: hidden;
 
   /* styling */
@@ -114,8 +112,8 @@
   position: absolute;
   top:    0;
   left:   0;
-  width: 100%;
-  height:100%;
+  width:  100%;
+  height: 100%;
 }
 
 /* ── CTA button styling ── */

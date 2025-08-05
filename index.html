@@ -125,14 +125,14 @@
 
 <section id="latest" class="bg-gray-100 dark:bg-gray-800 py-16">
   <div class="container mx-auto px-4">
-    <!-- cap it the same as watch.html -->
-    <div class="embed-wrapper w-full max-w-3xl mx-auto relative pb-[56.25%] h-0 overflow-hidden">
+    <!-- 16:9 embed capped at 3xl (~768px) -->
+    <div class="embed-wrapper w-full max-w-3xl mx-auto">
       <iframe
         src="https://www.youtube.com/embed/videoseries?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
-        class="absolute top-0 left-0 w-full h-full"
         frameborder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen
+        class="absolute inset-0 w-full h-full"
       ></iframe>
     </div>
 
