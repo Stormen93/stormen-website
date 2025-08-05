@@ -83,3 +83,25 @@
   filter: invert(100%);
   transition: filter 0.3s ease;
 }
+
+/* ==== DEBUG OVERRIDES ==== */
+#sidePanel nav a {
+  position: relative !important;
+  display: block !important;
+  text-transform: none !important;
+}
+#sidePanel nav a::after {
+  content: '' !important;
+  position: absolute !important;
+  left: 0 !important; bottom: -2px !important;
+  width: 0 !important; height: 2px !important;
+  background-color: red !important; /* TEMP highlight */
+  transition: width .3s !important;
+}
+#sidePanel nav a:hover::after {
+  width: 100% !important;
+}
+#openMenuBtn .burger-line,
+#closeMenuBtn .burger-line {
+  background-color: lime !important; /* TEMP highlight */
+}
