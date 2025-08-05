@@ -67,3 +67,47 @@
 #closeMenuBtn.open .burger-line.lower {
   transform: rotate(-45deg) translateY(-2px);
 }
+
+/* 1) Sidebar link hover underline animation */
+#sidePanel nav a {
+  position: relative;        /* for ::after positioning */
+  display: block;            /* stack vertically */
+  margin-bottom: 1rem;
+  color: inherit;
+  text-decoration: none;
+}
+#sidePanel nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;             /* just beneath the text */
+  width: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition: width 0.3s ease-in-out;
+}
+#sidePanel nav a:hover::after {
+  width: 100%;
+}
+
+/* 2) Make burger lines always inherit header color */
+#siteHeader .burger-line {
+  background-color: currentColor !important;
+}
+/* (And when you scroll, .scrolled will already flip currentColor to black.) */
+
+/* 3) Rotate those two lines into an “X” on open */
+#closeMenuBtn.open .burger-line:first-child {
+  transform: rotate(45deg) translateY(2px);
+}
+#closeMenuBtn.open .burger-line.lower {
+  transform: rotate(-45deg) translateY(-2px);
+}
+
+/* 4) Disable clicks when the panel is off-screen */
+#sidePanel.-translate-x-full {
+  pointer-events: none;
+}
+#sidePanel:not(.-translate-x-full) {
+  pointer-events: auto;
+}
