@@ -107,7 +107,7 @@
 }
 </style>
 </head>
-<body class="bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
   <!-- Backdrop -->
   <div id="backdrop" class="fixed inset-0 bg-gray-900 opacity-0 pointer-events-none z-40 transition-opacity"></div>
 
@@ -227,88 +227,6 @@
 
   <!-- Scripts -->
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      console.log('DOM fully loaded');
-      try {
-        if (typeof feather !== 'undefined') {
-          feather.replace();
-          console.log('Feather Icons initialized');
-        } else {
-          console.warn('Feather Icons library not loaded');
-        }
-      } catch (error) {
-        console.error('Error initializing Feather Icons:', error.message);
-      }
-      const openMenuBtn = document.getElementById('openMenuBtn');
-      const closeMenuBtn = document.getElementById('closeMenuBtn');
-      const panel = document.getElementById('sidePanel');
-      const backdrop = document.getElementById('backdrop');
-      const hdr = document.getElementById('siteHeader');
-      if (!openMenuBtn || !closeMenuBtn || !panel || !backdrop || !hdr) {
-        console.error('One or more required elements not found:');
-        if (!openMenuBtn) console.error('openMenuBtn not found');
-        if (!closeMenuBtn) console.error('closeMenuBtn not found');
-        if (!panel) console.error('sidePanel not found');
-        if (!backdrop) console.error('backdrop not found');
-        if (!hdr) console.error('siteHeader not found');
-        return;
-      }
-      function openPanel() {
-        panel.style.visibility = 'visible';
-        panel.classList.remove('-translate-x-full');
-        console.log('openPanel: sidePanel classes:', panel.classList.toString());
-        backdrop.classList.remove('pointer-events-none', 'opacity-0');
-        backdrop.classList.add('opacity-50');
-        closeMenuBtn.classList.add('open');
-        console.log('openPanel: closeMenuBtn open?', closeMenuBtn.classList.contains('open'));
-        openMenuBtn.style.display = 'none';
-        closeMenuBtn.style.display = 'block';
-        if (typeof feather !== 'undefined') {
-          feather.replace();
-          console.log('Feather Icons re-initialized on panel open');
-        }
-      }
-      function closePanel() {
-        panel.classList.add('-translate-x-full');
-        console.log('closePanel: sidePanel classes:', panel.classList.toString());
-        setTimeout(() => {
-          panel.style.visibility = 'hidden';
-          console.log('closePanel: sidePanel visibility set to hidden after animation');
-        }, 300);
-        backdrop.classList.add('pointer-events-none', 'opacity-0');
-        backdrop.classList.remove('opacity-50');
-        closeMenuBtn.classList.remove('open');
-        openMenuBtn.style.display = 'block';
-        closeMenuBtn.style.display = 'none';
-      }
-      openMenuBtn.addEventListener('click', () => {
-        console.log('openMenuBtn clicked');
-        openPanel();
-      });
-      closeMenuBtn.addEventListener('click', () => {
-        console.log('closeMenuBtn clicked');
-        closePanel();
-      });
-      backdrop.addEventListener('click', () => {
-        console.log('backdrop clicked');
-        closePanel();
-      });
-      document.addEventListener('click', (e) => {
-        const isClickInside = panel.contains(e.target) || openMenuBtn.contains(e.target);
-        if (!isClickInside && !panel.classList.contains('-translate-x-full')) {
-          console.log('Clicked outside panel, closing');
-          closePanel();
-        }
-      });
-      window.addEventListener('scroll', () => {
-        const scrolled = window.scrollY > 10;
-        hdr.classList.toggle('bg-white', scrolled);
-        hdr.classList.toggle('shadow-sm', scrolled);
-      });
-      console.log('Script setup complete');
-    });
-  </script>
   <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'93b874c978d8454e',t:'MTc0NjUzNDI4My4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
   <script src="theme-toggle.js"></script>
 </body>
