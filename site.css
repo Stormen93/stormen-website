@@ -2,16 +2,13 @@
 
 /* 1) Header Default & Scroll */
 #siteHeader {
-  /* default: white bars on transparent */
   color: #fff;
   background-color: transparent;
   transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
 }
-/* always black bars in light mode */
 html.dark #siteHeader {
   color: #000;
 }
-/* scrolled: black bars on white */
 #siteHeader.scrolled {
   color: #000;
   background-color: #fff;
@@ -21,7 +18,7 @@ html.dark #siteHeader {
 /* 2) Base Hamburger Lines */
 .burger-line {
   display: block;
-  width: 30px;
+  width: 48px;           /* restored */
   height: 2px;
   margin: 6px 0;
   background-color: currentColor;
@@ -34,8 +31,13 @@ html.dark #siteHeader {
 /* 3) Toggle ↔ X Animation */
 #openMenuBtn .burger-line,
 #closeMenuBtn .burger-line {
-  /* inherit header color */
   background-color: currentColor !important;
+}
+#closeMenuBtn.open .burger-line:first-child {
+  transform: rotate(45deg) translateY(8px) !important;
+}
+#closeMenuBtn.open .burger-line.lower {
+  transform: rotate(-45deg) translateY(-8px) !important;
 }
 /* first bar rotates down */ 
 #closeMenuBtn.open .burger-line:first-child {
