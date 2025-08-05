@@ -96,14 +96,19 @@
 
 /* ── Video wrapper border ── */
 .embed-wrapper {
+  /* 16:9 aspect ratio box */
+  position: relative;
+  width: 100%;
+  /* padding-bottom: 56.25% of width for 16:9 */
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+
+  /* visual styling */
   --outline-color: #ff9f3a;
   border: 4px solid var(--outline-color);
   border-radius: 0.5rem;
   box-shadow: 8px 12px 24px rgba(0,0,0,0.4);
-  max-width: 854px;
-  width: 100%;
-  position: relative;
-  margin-bottom: 1rem;
 }
 
 /* ── CTA button styling ── */
@@ -132,4 +137,12 @@
 }
 .watch-link:hover span::after {
   width: 100%;
+}
+
+.embed-wrapper iframe {
+  position: absolute;
+  top:   0;
+  left:  0;
+  width: 100%;
+  height:100%;
 }
