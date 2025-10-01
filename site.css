@@ -26,6 +26,11 @@
   color: #000; /* black bars when scrolled */
 }
 
+/* Add this to your site.css file */
+#sidePanel {
+  transition: transform 0.3s ease-in-out;
+}
+
 /* ── dark-mode banner colour ─────────────────────────────── */
 html.dark #siteHeader.scrolled{
   background-color:#0d1117;   /* ← whatever your page bg is in dark mode */
@@ -39,17 +44,36 @@ html.dark #siteHeader.scrolled .logo-black { opacity:0; }
 #siteHeader.scrolled .logo-white { opacity: 0; }   /* hide white logo   */
 #siteHeader.scrolled .logo-black { opacity: 1; }   /* show yellow logo  */
 
-/* ── 2) Hamburger → X animation ── */
-#openMenuBtn .burger-line,
-#closeMenuBtn .burger-line {
-  background-color: currentColor !important;
+/* --- Burger Icon & Animation --- */
+
+/* Base styles for the lines */
+.burger-line {
+  display: block;
+  width: 32px; /* A slightly smaller width can look cleaner */
+  height: 2px;
+  background-color: currentColor; /* Inherits color from parent button */
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  transform-origin: center;
 }
-#closeMenuBtn.open .burger-line:first-child {
-  transform: rotate(45deg) translateY(2px) !important;
+
+/* Spacing between the lines */
+.burger-line + .burger-line {
+  margin-top: 8px;
 }
-#closeMenuBtn.open .burger-line.lower {
-  transform: rotate(-45deg) translateY(-2px) !important;
+
+/* --- Transformation into an 'X' --- */
+
+/* This targets the button when the menu is open */
+#menuToggleBtn.open .burger-line:first-child {
+  /* Rotates the top line 45 degrees */
+  transform: translateY(5px) rotate(45deg);
 }
+
+#menuToggleBtn.open .burger-line.lower {
+  /* Rotates the bottom line -45 degrees */
+  transform: translateY(-5px) rotate(-45deg);
+}
+
 
 /* ── 3) Backdrop defaults + transitions ── */
 #backdrop {
