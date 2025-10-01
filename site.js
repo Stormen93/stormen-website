@@ -1,113 +1,104 @@
-// site.js
-document.addEventListener('DOMContentLoaded', () => {
-  // --- Initialize Feather Icons ---
-  if (window.feather) {
-    feather.replace();
+/* ──────────────────────────────────────────────────────────────
+   Stormen — site.js (full)
+   - Handles menu open/close
+   - Moves the toggle button into #sidePanel on open
+     and returns it to the header on close
+   - Keeps ARIA state and keyboard / backdrop behavior
+   ────────────────────────────────────────────────────────────── */
+
+(function () {
+  // Elements
+  const siteHeader    = document.getElementById('siteHeader');
+  const sidePanel     = document.getElementById('sidePanel');
+  const backdrop      = document.getElementById('backdrop');
+  const menuToggleBtn = document.getElementById('menuToggleBtn');
+
+  if (!siteHeader || !sidePanel || !backdrop || !menuToggleBtn) return;
+
+  // Original parent (header) to restore the button later
+  const originalParent = menuToggleBtn.parentElement;
+
+  // Helpers: move button into panel / back to header
+  function moveBtnIntoPanel() {
+    if (menuToggleBtn.parentElement !== sidePanel) {
+      sidePanel.appendChild(menuToggleBtn);
+    }
+    menuToggleBtn.classList.add('in-panel', 'open');
+    menuToggleBtn.setAttribute('aria-expanded', 'true');
   }
 
-  // --- Element Selectors ---
-  const root = document.documentElement;
-  const siteHeader = document.getElementById('siteHeader');
-  const menuToggleBtn = document.getElementById('menuToggleBtn');
-  const sidePanel = document.getElementById('sidePanel');
-  const backdrop = document.getElementById('backdrop');
-  const themeToggleBtn = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
+  function moveBtnBackToHeader() {
+    if (menuToggleBtn.parentElement !== originalParent) {
+      originalParent.appendChild(menuToggleBtn);
+    }
+    menuToggleBtn.classList.remove('in-panel', 'open');
+    menuToggleBtn.setAttribute('aria-expanded', 'false');
+  }
 
-  // --- Theme Toggling ---
-  const sunIcon = 'images/lightmode.png';
-  const moonIcon = 'images/darkmode.png';
-
-  const applyTheme = () => {
-    const isDark = localStorage.getItem('theme') === 'dark';
-    root.classList.toggle('dark', isDark);
-    themeIcon.src = isDark ? moonIcon : sunIcon;
-  };
-
-  themeToggleBtn.addEventListener('click', () => {
-    const isDark = root.classList.toggle('dark');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    applyTheme();
-  });
-
-  // --- Header Scroll Effect ---
-  window.addEventListener('scroll', () => {
-    siteHeader.classList.toggle('scrolled', window.scrollY > 10);
-  }, { passive: true });
-
-
-  // --- Side Panel & Menu Animation ---
-const setExpanded = (bool) => menuToggleBtn.setAttribute('aria-expanded', String(bool));
-  
-  const openPanel = () => {
-  siteHeader.classList.add('menu-open');
-  menuToggleBtn.classList.add('open');
-  setExpanded(true);
-    // LIFT THE HEADER TO THE TOP STACKING LAYER
-    siteHeader.classList.add('menu-open');
-    
-    // Animate burger icon to 'X'
-    menuToggleBtn.classList.add('open');
-    
-    // Make panel visible and slide it in
-    sidePanel.style.visibility = 'visible';
+  // Open / Close
+  function openPanel() {
+    // Slide panel in
     sidePanel.classList.remove('-translate-x-full');
-    
-    // Show backdrop
+    // Fade in backdrop
     backdrop.classList.add('opacity-50');
-    backdrop.classList.remove('pointer-events-none');
-    
-    // Prevent background scrolling
-    document.body.style.overflow = 'hidden';
-  };
+    // Lift header for safe stacking
+    siteHeader.classList.add('menu-open');
+    // Move the button into the panel’s top-right
+    moveBtnIntoPanel();
+    // Prevent body scroll if you like (uncomment if needed)
+    // document.documentElement.style.overflow = 'hidden';
+  }
 
-  const closePanel = () => {
-    siteHeader.classList.remove('menu-open');
-  menuToggleBtn.classList.remove('open');
-  setExpanded(false);
-    // RETURN THE HEADER TO ITS NORMAL STACKING LAYER
-    siteHeader.classList.remove('menu-open');
-    
-    // Animate 'X' back to burger icon
-    menuToggleBtn.classList.remove('open');
-    
-    // Slide panel out
+  function closePanel() {
     sidePanel.classList.add('-translate-x-full');
-    
-    // Hide backdrop
     backdrop.classList.remove('opacity-50');
-    backdrop.classList.add('pointer-events-none');
-    
-    // Restore background scrolling
-    document.body.style.overflow = '';
-    
-    // Hide the panel from screen readers after animation
-    setTimeout(() => {
-        if (sidePanel.classList.contains('-translate-x-full')) {
-             sidePanel.style.visibility = 'hidden';
-        }
-    }, 300); // Must match CSS transition duration
-  };
-  
-  // --- Event Listeners for Panel ---
-  menuToggleBtn.addEventListener('click', () => {
-    const isPanelOpen = !sidePanel.classList.contains('-translate-x-full');
-    if (isPanelOpen) {
+    siteHeader.classList.remove('menu-open');
+    moveBtnBackToHeader();
+    // document.documentElement.style.overflow = '';
+  }
+
+  function isOpen() {
+    return !sidePanel.classList.contains('-translate-x-full');
+  }
+
+  // Toggle handler
+  function handleToggleClick(e) {
+    e.preventDefault();
+    if (isOpen()) {
       closePanel();
     } else {
       openPanel();
     }
-  });
+  }
 
+  // Close on backdrop click
   backdrop.addEventListener('click', closePanel);
 
+  // Close on ESC
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !sidePanel.classList.contains('-translate-x-full')) {
-      closePanel();
-    }
+    if (e.key === 'Escape' && isOpen()) closePanel();
   });
-  
-  // Initialize theme on page load
-  applyTheme();
-});
 
+  // Close after clicking a nav link inside the panel
+  sidePanel.addEventListener('click', (e) => {
+    const a = e.target.closest('a');
+    if (a) closePanel();
+  });
+
+  // Main toggle button
+  menuToggleBtn.addEventListener('click', handleToggleClick);
+
+  // Optional: update header color on scroll (if you’re swapping logos/colors)
+  const onScroll = () => {
+    if (window.scrollY > 10) {
+      siteHeader.classList.add('scrolled');
+    } else {
+      siteHeader.classList.remove('scrolled');
+    }
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll);
+
+  // Expose for debugging if needed
+  window.__stormenMenu = { openPanel, closePanel };
+})();

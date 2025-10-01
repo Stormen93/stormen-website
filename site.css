@@ -1,12 +1,15 @@
 /* ──────────────────────────────────────────────────────────────
-   1) Header default + scroll states
+   Stormen — site.css (full)
+   Keeps header styles, fixes X visibility, and places the X
+   at the top-right INSIDE the sliding menu when open.
    ────────────────────────────────────────────────────────────── */
+
+/* 1) Header default + scroll states */
 #siteHeader {
   background: transparent;
   transition: background-color .3s, box-shadow .3s, color .3s;
   color: #fff; /* white icons/logo by default on hero */
 }
-
 #siteHeader .logo-white { opacity: 1; transition: opacity .3s; }
 #siteHeader .logo-black { opacity: 0; transition: opacity .3s; }
 
@@ -16,40 +19,32 @@
   color: #000; /* dark icons/logo on scroll */
 }
 
-/* If your JS does add .menu-open on the header, keep it lifted */
+/* Keep header above content while menu is open */
 #siteHeader.menu-open { z-index: 900; }
 
-/* ──────────────────────────────────────────────────────────────
-   2) Dark mode header on scroll
-   ────────────────────────────────────────────────────────────── */
+/* 2) Dark mode header on scroll */
 html.dark #siteHeader.scrolled {
   background-color: #0d1117;
   color: #fff;
 }
 
-/* swap the logos back (white logo on dark banner) */
+/* swap logos by theme/scroll */
 html.dark #siteHeader.scrolled .logo-white { opacity: 1; }
 html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
-
-/* light-mode on scroll: dark logo */
 #siteHeader.scrolled .logo-white { opacity: 0; }
 #siteHeader.scrolled .logo-black { opacity: 1; }
 
-/* ──────────────────────────────────────────────────────────────
-   3) Burger / X button + animation + visibility
-   ────────────────────────────────────────────────────────────── */
-
-/* Base toggle: sits within header; inherits header color */
+/* 3) Menu toggle (burger/X) — animation + visibility */
 #menuToggleBtn {
-  position: relative;
-  z-index: 1000;                 /* above header/panel/backdrop */
-  color: currentColor;           /* follow header text color */
+  position: relative;            /* lives in the header by default */
+  z-index: 1000;                 /* above header, panel, backdrop */
+  color: currentColor;           /* inherits header text color */
   transition:
     top .3s ease, left .3s ease, right .3s ease, transform .3s ease,
     background-color .3s ease, color .3s ease, box-shadow .3s ease;
 }
 
-/* Lines follow the button color */
+/* Burger lines follow the button color */
 #menuToggleBtn .burger-line {
   display: block;
   width: 32px;
@@ -58,34 +53,32 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
   transition: transform .3s ease-in-out, opacity .3s ease-in-out, background-color .3s ease-in-out;
   transform-origin: center;
 }
-
 #menuToggleBtn .burger-line + .burger-line { margin-top: 8px; }
 
 /* X transforms */
 #menuToggleBtn.open .burger-line { background-color: currentColor; }
 #menuToggleBtn.open .burger-line:not(.lower) { transform: translateY(5px) rotate(45deg); }
-#menuToggleBtn.open .burger-line.lower { transform: translateY(-5px) rotate(-45deg); }
+#menuToggleBtn.open .burger-line.lower       { transform: translateY(-5px) rotate(-45deg); }
 
-/* ===== CRITICAL FIX: make the toggle move to the PANEL'S TOP-RIGHT when open =====
-   We key off the button's own .open state (and aria-expanded) to avoid depending
-   on any external class. We also hard-override Tailwind utilities with !important. */
-#menuToggleBtn.open,
-#menuToggleBtn[aria-expanded="true"] {
-  position: fixed !important;    /* detach from header flow */
+/* ===== Place the button INSIDE the sliding panel when open =====
+   JS adds .in-panel once the button is appended to #sidePanel. */
+#menuToggleBtn.in-panel {
+  position: absolute !important;   /* positioned relative to #sidePanel */
   top: 16px !important;
-  right: 16px !important;        /* <— TOP-RIGHT of viewport/panel area */
+  right: 16px !important;          /* TOP-RIGHT inside the white panel */
   left: auto !important;
-  transform: none !important;    /* cancel -translate-y-1/2 etc. */
-  color: #0f172a;                /* dark X over light panel */
-  background: rgba(255, 255, 255, .96);
+  transform: none !important;
+
+  /* High contrast + large tap target */
+  color: #0f172a;
+  background: rgba(255,255,255,.96);
   border-radius: 9999px;
-  padding: 10px 12px;            /* bigger hit target */
+  padding: 10px 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,.12);
 }
 
-/* Dark mode: keep X dark for contrast regardless of theme */
-html.dark #menuToggleBtn.open,
-html.dark #menuToggleBtn[aria-expanded="true"] { color: #0b1220; }
+/* Dark theme: keep X dark over the light panel */
+html.dark #menuToggleBtn.in-panel { color: #0b1220; }
 
 /* Accessible focus ring */
 #menuToggleBtn:focus-visible {
@@ -93,12 +86,8 @@ html.dark #menuToggleBtn[aria-expanded="true"] { color: #0b1220; }
   outline-offset: 3px;
 }
 
-/* ──────────────────────────────────────────────────────────────
-   4) Side panel & backdrop
-   ────────────────────────────────────────────────────────────── */
-#sidePanel {
-  transition: transform .3s ease-in-out;
-}
+/* 4) Side panel & backdrop transitions */
+#sidePanel { transition: transform .3s ease-in-out; }
 
 /* Backdrop defaults + transitions */
 #backdrop {
@@ -108,19 +97,17 @@ html.dark #menuToggleBtn[aria-expanded="true"] { color: #0b1220; }
   transition: opacity .3s ease-in-out;
 }
 
-/* Activated by your JS */
+/* Activated (JS toggles this) */
 #backdrop.opacity-50 {
   opacity: .5;
-  pointer-events: auto; /* backdrop becomes clickable */
+  pointer-events: auto; /* clickable to close */
 }
 
 /* Panel clickability: ignore clicks while fully offscreen */
 #sidePanel.-translate-x-full { pointer-events: none !important; }
 #sidePanel:not(.-translate-x-full) { pointer-events: auto !important; }
 
-/* ──────────────────────────────────────────────────────────────
-   5) Sidebar links & hover underline
-   ────────────────────────────────────────────────────────────── */
+/* 5) Sidebar links & hover underline */
 #sidePanel nav a {
   font-family: "Roboto Condensed", sans-serif !important;
   text-decoration: none !important;
@@ -129,9 +116,7 @@ html.dark #menuToggleBtn[aria-expanded="true"] { color: #0b1220; }
   position: relative;
   display: inline-block;
 }
-
 #sidePanel nav a span { position: relative; display: inline-block; }
-
 #sidePanel nav a span::after {
   content: '';
   position: absolute;
@@ -142,17 +127,12 @@ html.dark #menuToggleBtn[aria-expanded="true"] { color: #0b1220; }
   background-color: currentColor;
   transition: width .3s ease-in-out;
 }
-
 #sidePanel nav a:hover span::after { width: 100%; }
 
-/* ──────────────────────────────────────────────────────────────
-   6) Theme-toggle icon
-   ────────────────────────────────────────────────────────────── */
+/* 6) Theme-toggle icon */
 #themeIcon { filter: invert(100%); transition: filter .3s ease; }
 
-/* ──────────────────────────────────────────────────────────────
-   7) Universal 16:9 media wrapper (embeds)
-   ────────────────────────────────────────────────────────────── */
+/* 7) Universal 16:9 media wrapper (embeds) */
 .embed-wrapper {
   position: relative;
   width: 100%;
@@ -162,13 +142,11 @@ html.dark #menuToggleBtn[aria-expanded="true"] { color: #0b1220; }
   border-radius: 16px;
   overflow: hidden;
 }
-
 .embed-wrapper::before {
   content: '';
   display: block;
   padding-top: 56.25%; /* 16:9 */
 }
-
 .embed-wrapper iframe {
   position: absolute;
   inset: 0;
@@ -177,14 +155,12 @@ html.dark #menuToggleBtn[aria-expanded="true"] { color: #0b1220; }
   border: 0;
 }
 
-/* ──────────────────────────────────────────────────────────────
-   8) Orange pill CTA
-   ────────────────────────────────────────────────────────────── */
+/* 8) Orange pill CTA */
 .watch-link {
   font-family: 'Roboto Mono', monospace;
   font-weight: 700;
   display: inline-block;
-  margin-top: 1.5rem;    /* space under the video */
+  margin-top: 1.5rem;
   padding: .75rem 1.5rem;
   background: #ff9f3a;
   color: #000;
@@ -192,11 +168,8 @@ html.dark #menuToggleBtn[aria-expanded="true"] { color: #0b1220; }
   text-decoration: none;
   transition: filter .2s;
 }
-
 .watch-link:hover { filter: brightness(1.1); }
-
 .watch-link span { position: relative; }
-
 .watch-link span::after {
   content: '';
   position: absolute;
@@ -207,5 +180,9 @@ html.dark #menuToggleBtn[aria-expanded="true"] { color: #0b1220; }
   background: #000;
   transition: width .3s;
 }
-
 .watch-link:hover span::after { width: 100%; }
+
+/* 9) Small-screen tweaks for the in-panel close button */
+@media (max-width: 480px) {
+  #menuToggleBtn.in-panel { top: 12px !important; right: 12px !important; }
+}
