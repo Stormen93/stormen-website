@@ -1,9 +1,12 @@
-/* ── 1) Header default + scroll states ── */
+/* ──────────────────────────────────────────────────────────────
+   1) Header default + scroll states
+   ────────────────────────────────────────────────────────────── */
 #siteHeader {
   background: transparent;
   transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
-  color: #fff; /* white bars at top */
+  color: #fff; /* white bars/logo at top by default */
 }
+
 #siteHeader .logo-white { opacity: 1; transition: opacity 0.3s; }
 #siteHeader .logo-black { opacity: 0; transition: opacity 0.3s; }
 
@@ -13,46 +16,58 @@
   color: #000; /* black bars when scrolled */
 }
 
+/* Lift header when the menu is open so the toggle stays on top */
 #siteHeader.menu-open {
-  z-index: 60;
+  z-index: 900;
 }
 
-#sidePanel {
-  transition: transform 0.3s ease-in-out;
-}
-
-/* ── dark-mode banner colour ─────────────────────────────── */
-html.dark #siteHeader.scrolled{
-  background-color:#0d1117;   /* ← whatever your page bg is in dark mode */
-  color:#fff;                 /* keep text/icons light                 */
+/* ──────────────────────────────────────────────────────────────
+   2) Dark mode header on scroll
+   ────────────────────────────────────────────────────────────── */
+html.dark #siteHeader.scrolled {
+  background-color: #0d1117;   /* dark header in dark mode */
+  color: #fff;                 /* keep text/icons light     */
 }
 
 /* swap the logos back (white logo on the dark banner) */
-html.dark #siteHeader.scrolled .logo-white { opacity:1; }
-html.dark #siteHeader.scrolled .logo-black { opacity:0; }
+html.dark #siteHeader.scrolled .logo-white { opacity: 1; }
+html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 
-#siteHeader.scrolled .logo-white { opacity: 0; }   /* hide white logo   */
-#siteHeader.scrolled .logo-black { opacity: 1; }   /* show yellow logo  */
+/* On scroll in light mode: show the dark logo, hide the white */
+#siteHeader.scrolled .logo-white { opacity: 0; }
+#siteHeader.scrolled .logo-black { opacity: 1; }
 
-/* --- Burger Icon & Animation --- */
-#menuToggleBtn.open {
-  color: #111827; /* A dark gray to match your panel text */
+/* ──────────────────────────────────────────────────────────────
+   3) Burger / X button + animation + visibility fixes
+   ────────────────────────────────────────────────────────────── */
+
+/* Keep the button above panel & backdrop, inherit color by default */
+#menuToggleBtn {
+  position: relative;
+  z-index: 1000;          /* safely above header/panel/backdrop */
+  color: currentColor;    /* inherits header color (white at top, black on scroll) */
 }
 
-.burger-line {
+/* Make sure the two lines follow the button color */
+#menuToggleBtn .burger-line {
   display: block;
   width: 32px;
   height: 2px;
-  background-color: currentColor; /* Inherits color from parent button */
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  background-color: currentColor; /* inherits from #menuToggleBtn */
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, background-color 0.3s ease-in-out;
   transform-origin: center;
 }
 
-.burger-line + .burger-line {
-  margin-top: 8px;
+#menuToggleBtn .burger-line + .burger-line { margin-top: 8px; }
+#menuToggleBtn .burger-line.lower {}
+
+/* X state transforms */
+#menuToggleBtn.open .burger-line {
+  /* keep visible; color is enforced below too */
+  background-color: currentColor;
 }
 
-#menuToggleBtn.open .burger-line:first-child {
+#menuToggleBtn.open .burger-line:not(.lower) {
   transform: translateY(5px) rotate(45deg);
 }
 
@@ -60,20 +75,48 @@ html.dark #siteHeader.scrolled .logo-black { opacity:0; }
   transform: translateY(-5px) rotate(-45deg);
 }
 
+/* When the menu is open, give the toggle a high-contrast pill background */
+#siteHeader.menu-open #menuToggleBtn {
+  color: #0f172a;                    /* dark X for contrast over light panel */
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 9999px;
+  padding: 10px 12px;                /* nicer hit target */
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
+}
 
-/* ── 3) Backdrop defaults + transitions ── */
+/* Dark mode: keep the X dark for contrast regardless of theme */
+html.dark #siteHeader.menu-open #menuToggleBtn {
+  color: #0b1220;
+}
+
+/* Accessible focus ring */
+#menuToggleBtn:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 3px;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   4) Side panel & backdrop
+   ────────────────────────────────────────────────────────────── */
+#sidePanel {
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Backdrop defaults + transitions */
 #backdrop {
   background: rgba(0,0,0,0.5);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease-in-out;
 }
+
+/* Use a utility-like class to activate it (from your JS) */
 #backdrop.opacity-50 {
   opacity: 0.5;
-  pointer-events: auto; /* This makes the backdrop clickable again */
+  pointer-events: auto; /* backdrop becomes clickable */
 }
 
-/* ── 4) Panel clickability ── */
+/* Panel clickability: ignore clicks while fully offscreen */
 #sidePanel.-translate-x-full {
   pointer-events: none !important;
 }
@@ -81,22 +124,23 @@ html.dark #siteHeader.scrolled .logo-black { opacity:0; }
   pointer-events: auto !important;
 }
 
-/* ── 5) Sidebar links & hover underline ── */
+/* ──────────────────────────────────────────────────────────────
+   5) Sidebar links & hover underline
+   ────────────────────────────────────────────────────────────── */
 #sidePanel nav a {
   font-family: "Roboto Condensed", sans-serif !important;
   text-decoration: none !important;
   margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
   color: inherit;
+  position: relative;
+  display: inline-block;
 }
-#sidePanel nav a:last-child {
-  margin-bottom: 0;
-}
+
 #sidePanel nav a span {
   position: relative;
   display: inline-block;
 }
+
 #sidePanel nav a span::after {
   content: '';
   position: absolute;
@@ -107,65 +151,75 @@ html.dark #siteHeader.scrolled .logo-black { opacity:0; }
   background-color: currentColor;
   transition: width 0.3s ease-in-out;
 }
+
 #sidePanel nav a:hover span::after {
   width: 100%;
 }
 
-/* ── 6) Theme-toggle icon ── */
+/* ──────────────────────────────────────────────────────────────
+   6) Theme-toggle icon
+   ────────────────────────────────────────────────────────────── */
 #themeIcon {
   filter: invert(100%);
   transition: filter 0.3s ease;
 }
 
-/* universal 16 : 9 wrapper ------------------------- */
-.embed-wrapper{
-  position:relative;
-  width:100%;
-  max-width:1024px;
-  margin:2rem auto 5rem;   /* top | sides | bottom */
-  border:4px solid #ff9f3a;
-  border-radius:.5rem;
-  box-shadow:8px 12px 24px rgba(0,0,0,.4);
-  overflow:hidden;
+/* ──────────────────────────────────────────────────────────────
+   7) Universal 16:9 media wrapper (embeds)
+   ────────────────────────────────────────────────────────────── */
+.embed-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1024px;
+  margin: 2rem auto 5rem;   /* top | sides | bottom */
+  border: 4px solid #ff9f3a;
+  border-radius: 16px;
+  overflow: hidden;
 }
 
-.embed-wrapper::before{
-  content:'';
-  display:block;
-  padding-top:56.25%;      /* 9 / 16 = 0.5625 */
+.embed-wrapper::before {
+  content: '';
+  display: block;
+  padding-top: 56.25%; /* 16:9 */
 }
 
-.embed-wrapper iframe{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  border:0;
+.embed-wrapper iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
-/* orange pill CTA */
-.watch-link{
-  font-family:'Roboto Mono',monospace;
-  font-weight:700;
-  display:inline-block;
-  margin-top:1.5rem;    /* space under the video */
-  padding:.75rem 1.5rem;
-  background:#ff9f3a;
-  color:#000;
-  border-radius:9999px;
-  text-decoration:none;
-  transition:filter .2s;
+/* ──────────────────────────────────────────────────────────────
+   8) Orange pill CTA
+   ────────────────────────────────────────────────────────────── */
+.watch-link {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 700;
+  display: inline-block;
+  margin-top: 1.5rem;    /* space under the video */
+  padding: .75rem 1.5rem;
+  background: #ff9f3a;
+  color: #000;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: filter .2s;
 }
-.watch-link:hover{filter:brightness(1.1);}
-.watch-link span{position:relative;}
-.watch-link span::after{
-  content:'';
-  position:absolute;
-  left:0;
-  bottom:-2px;
-  width:0;
-  height:2px;
-  background:#000;
-  transition:width .3s;
+
+.watch-link:hover { filter: brightness(1.1); }
+
+.watch-link span { position: relative; }
+
+.watch-link span::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: #000;
+  transition: width .3s;
 }
-.watch-link:hover span::after{width:100%;}
+
+.watch-link:hover span::after { width: 100%; }

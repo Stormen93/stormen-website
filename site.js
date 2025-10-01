@@ -37,7 +37,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   // --- Side Panel & Menu Animation ---
+const setExpanded = (bool) => menuToggleBtn.setAttribute('aria-expanded', String(bool));
+  
   const openPanel = () => {
+  siteHeader.classList.add('menu-open');
+  menuToggleBtn.classList.add('open');
+  setExpanded(true);
     // LIFT THE HEADER TO THE TOP STACKING LAYER
     siteHeader.classList.add('menu-open');
     
@@ -57,6 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const closePanel = () => {
+    siteHeader.classList.remove('menu-open');
+  menuToggleBtn.classList.remove('open');
+  setExpanded(false);
     // RETURN THE HEADER TO ITS NORMAL STACKING LAYER
     siteHeader.classList.remove('menu-open');
     
