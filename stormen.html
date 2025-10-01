@@ -23,32 +23,28 @@
 
   <!-- Header -->
   <header id="siteHeader" class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
-    <button id="openMenuBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none">
-      <span class="burger-line"></span>
-      <span class="burger-line lower"></span>
-    </button>
-    <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
-      <img src="images/logo_yellow.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
+    <button id="menuToggleBtn" aria-controls="sidePanel"
+  class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none z-[60]"
+  aria-label="Open menu" aria-expanded="false">
+  <span class="burger-line"></span>
+  <span class="burger-line lower"></span>
+</button>
+    <a href="/" class="mx-auto relative h-36 flex items-center justify-center z-10">
+      <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
       <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
     </a>
-  
-  <!-- Dark/Light toggle button -->
-  <button id="themeToggle"
-          class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 transition-colors duration-300"
-          aria-label="Toggle Theme">
-    <img id="themeIcon"
-         src="images/lightmode.png"
-         alt="Toggle theme"
-         class="w-8 h-8"/>
-  </button></header>
+    <!-- Dark/Light Toggle -->
+    <button id="themeToggle" class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 transition-colors duration-300" aria-label="Toggle Theme">
+      <img id="themeIcon" src="images/lightmode.png" alt="Toggle theme" class="w-8 h-8" />
+    </button>
+  </header>
 
   <!-- Side Panel -->
-  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold" style="visibility: hidden;">
-    <button id="closeMenuBtn" class="absolute right-3 top-3 p-3 focus:outline-none">
-      <span class="burger-line"></span>
-      <span class="burger-line lower"></span>
-    </button>
-    <nav class="mt-14 space-y-6 pl-4">
+
+  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl" role="dialog" aria-label="Main menu">
+
+
+     <nav class="mt-14 space-y-6 pl-4">
       <div>
         <a href="/">
           <i data-feather="home" class="inline-block w-5 h-5 mr-2"></i>
