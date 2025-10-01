@@ -1,7 +1,9 @@
 /* ──────────────────────────────────────────────────────────────
    Stormen — site.css (full)
-   Keeps header styles, fixes X visibility, and places the X
-   at the top-right INSIDE the sliding menu when open.
+   - Header theming + scroll swap
+   - Side panel + backdrop transitions
+   - Burger/X button that relocates INSIDE the panel on open
+   - Utility styles used across pages
    ────────────────────────────────────────────────────────────── */
 
 /* 1) Header default + scroll states */
@@ -61,8 +63,10 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 #menuToggleBtn.open .burger-line.lower       { transform: translateY(-5px) rotate(-45deg); }
 
 /* ===== Place the button INSIDE the sliding panel when open =====
-   JS adds .in-panel once the button is appended to #sidePanel. */
-#menuToggleBtn.in-panel {
+   JS appends the button to #sidePanel; these rules position it. */
+#sidePanel { position: fixed; } /* ensure containing block for absolute children */
+
+#sidePanel #menuToggleBtn {
   position: absolute !important;   /* positioned relative to #sidePanel */
   top: 16px !important;
   right: 16px !important;          /* TOP-RIGHT inside the white panel */
@@ -78,7 +82,7 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 }
 
 /* Dark theme: keep X dark over the light panel */
-html.dark #menuToggleBtn.in-panel { color: #0b1220; }
+html.dark #sidePanel #menuToggleBtn { color: #0b1220; }
 
 /* Accessible focus ring */
 #menuToggleBtn:focus-visible {
@@ -89,7 +93,6 @@ html.dark #menuToggleBtn.in-panel { color: #0b1220; }
 /* 4) Side panel & backdrop transitions */
 #sidePanel { transition: transform .3s ease-in-out; }
 
-/* Backdrop defaults + transitions */
 #backdrop {
   background: rgba(0,0,0,.5);
   opacity: 0;
@@ -182,7 +185,7 @@ html.dark #menuToggleBtn.in-panel { color: #0b1220; }
 }
 .watch-link:hover span::after { width: 100%; }
 
-/* 9) Small-screen tweaks for the in-panel close button */
+/* 9) Small-screen tweaks for close button */
 @media (max-width: 480px) {
-  #menuToggleBtn.in-panel { top: 12px !important; right: 12px !important; }
+  #sidePanel #menuToggleBtn { top: 12px !important; right: 12px !important; }
 }
