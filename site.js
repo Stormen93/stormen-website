@@ -50,6 +50,8 @@ function openPanel() {
   backdrop.classList.remove('opacity-50');
   siteHeader.classList.remove('menu-open');
 
+  menuToggleBtn.setAttribute('aria-expanded', 'false');
+
   panelCloseBtn.classList.remove('show');
   panelCloseBtn.style.display = 'none'; // (if you keep this line in your file)
 

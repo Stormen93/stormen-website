@@ -239,3 +239,98 @@ html.dark #panelCloseBtn { color: #0b1220; }
 #backdrop { z-index: 900 !important; }
 #sidePanel { z-index: 1000 !important; }
 #panelCloseBtn { z-index: 1100 !important; }
+
+
+/* === Burger/X: wider lines, thicker top, morph to X === */
+
+/* base look */
+#menuToggleBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: 9999px;
+}
+
+/* make both lines wider; top thicker than bottom */
+#menuToggleBtn .burger-line {
+  position: absolute;
+  width: 24px;             /* wider */
+  height: 3px;             /* top thickness */
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform .28s ease, opacity .2s ease, height .2s ease, width .2s ease, background-color .2s ease;
+}
+#menuToggleBtn .burger-line.lower { height: 2px; }
+
+/* resting positions (spread so the morph is visible) */
+#menuToggleBtn .burger-line:not(.lower) { transform: translateY(-7px); } /* top */
+#menuToggleBtn .burger-line.lower       { transform: translateY(7px); }  /* bottom */
+
+/* MORPH TRIGGER — works via either header class OR aria-expanded */
+#siteHeader.menu-open #menuToggleBtn .burger-line:not(.lower),
+#menuToggleBtn[aria-expanded="true"] .burger-line:not(.lower) {
+  transform: translateY(0) rotate(45deg);
+}
+#siteHeader.menu-open #menuToggleBtn .burger-line.lower,
+#menuToggleBtn[aria-expanded="true"] .burger-line.lower {
+  transform: translateY(0) rotate(-45deg);
+}
+
+/* optional chip while open */
+#siteHeader.menu-open #menuToggleBtn,
+#menuToggleBtn[aria-expanded="true"] {
+  background: rgba(17,24,39,.08);
+  border-radius: 9999px;
+}
+
+/* === In-panel X: slide with the menu and stay clickable === */
+
+#panelCloseBtn {
+  position: absolute; top: 16px; right: 16px;
+  width: 40px; height: 40px;
+  border-radius: 9999px;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(255,255,255,.96);
+  color: #0f172a;
+  border: 1px solid rgba(15,23,42,.08);
+  box-shadow: 0 2px 10px rgba(0,0,0,.10);
+  cursor: pointer; pointer-events: auto;
+  z-index: 1100;
+  /* start slightly left so it rides in with the panel */
+  transform: translateX(-24px);
+  transition: transform .30s ease, box-shadow .2s ease, background-color .2s ease;
+}
+#panelCloseBtn.show { display: inline-flex; }
+html.dark #panelCloseBtn { color: #0b1220; }
+
+/* slide to place exactly when the panel is onscreen (no special class needed) */
+#sidePanel:not(.-translate-x-full) #panelCloseBtn { transform: translateX(0); }
+
+/* thin X, matched to burger widths */
+#panelCloseBtn .burger-line {
+  position: absolute;
+  width: 24px; height: 3px; border-radius: 2px; background: currentColor;
+}
+#panelCloseBtn .burger-line.lower { height: 2px; }
+#panelCloseBtn .burger-line:not(.lower) { transform: rotate(45deg); }
+#panelCloseBtn .burger-line.lower       { transform: rotate(-45deg); }
+
+/* === Z-index hard guarantees === */
+#backdrop { z-index: 900 !important; }
+#sidePanel { z-index: 1000 !important; }
+#panelCloseBtn { z-index: 1100 !important; }
+#siteHeader, #siteHeader.menu-open { z-index: 800 !important; }
+
+
+#siteHeader { position: relative; } /* safe: creates positioning context if needed */
+
+#menuToggleBtn {
+  top: 16px !important;           /* match the X's vertical position */
+  transform: none !important;     /* cancel -translate-y-1/2 from Tailwind */
+}
+
+/* If you want it a hair tighter on phones: */
+@media (max-width: 480px) {
+  #menuToggleBtn { top: 12px !important; }
+}
