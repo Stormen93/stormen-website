@@ -1,16 +1,3 @@
-/* ── 0) Base burger lines ── */
-.burger-line {
-  display: block;
-  width: 48px;
-  height: 2px;
-  margin: 6px 0;
-  background: #fff;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-}
-.burger-line.lower {
-  height: 1px;
-}
-
 /* ── 1) Header default + scroll states ── */
 #siteHeader {
   background: transparent;
@@ -26,7 +13,6 @@
   color: #000; /* black bars when scrolled */
 }
 
-/* Add this to your site.css file */
 #sidePanel {
   transition: transform 0.3s ease-in-out;
 }
@@ -45,32 +31,24 @@ html.dark #siteHeader.scrolled .logo-black { opacity:0; }
 #siteHeader.scrolled .logo-black { opacity: 1; }   /* show yellow logo  */
 
 /* --- Burger Icon & Animation --- */
-
-/* Base styles for the lines */
 .burger-line {
   display: block;
-  width: 32px; /* A slightly smaller width can look cleaner */
+  width: 32px;
   height: 2px;
   background-color: currentColor; /* Inherits color from parent button */
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   transform-origin: center;
 }
 
-/* Spacing between the lines */
 .burger-line + .burger-line {
   margin-top: 8px;
 }
 
-/* --- Transformation into an 'X' --- */
-
-/* This targets the button when the menu is open */
 #menuToggleBtn.open .burger-line:first-child {
-  /* Rotates the top line 45 degrees */
   transform: translateY(5px) rotate(45deg);
 }
 
 #menuToggleBtn.open .burger-line.lower {
-  /* Rotates the bottom line -45 degrees */
   transform: translateY(-5px) rotate(-45deg);
 }
 
@@ -84,7 +62,7 @@ html.dark #siteHeader.scrolled .logo-black { opacity:0; }
 }
 #backdrop.opacity-50 {
   opacity: 0.5;
-  pointer-events: auto;
+  pointer-events: auto; /* This makes the backdrop clickable again */
 }
 
 /* ── 4) Panel clickability ── */
@@ -143,14 +121,12 @@ html.dark #siteHeader.scrolled .logo-black { opacity:0; }
   overflow:hidden;
 }
 
-/* 16 : 9 spacer  (no #latest qualifier!) */
 .embed-wrapper::before{
   content:'';
   display:block;
   padding-top:56.25%;      /* 9 / 16 = 0.5625 */
 }
 
-/* make the iframe fill that wrapper */
 .embed-wrapper iframe{
   position:absolute;
   inset:0;
