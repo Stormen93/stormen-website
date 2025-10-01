@@ -16,7 +16,7 @@
   color: #000; /* dark icons/logo on scroll */
 }
 
-/* Lift header when the menu is open so the toggle stays on top */
+/* If your JS does add .menu-open on the header, keep it lifted */
 #siteHeader.menu-open { z-index: 900; }
 
 /* ──────────────────────────────────────────────────────────────
@@ -63,23 +63,19 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 
 /* X transforms */
 #menuToggleBtn.open .burger-line { background-color: currentColor; }
-#menuToggleBtn.open .burger-line:not(.lower) {
-  transform: translateY(5px) rotate(45deg);
-}
-#menuToggleBtn.open .burger-line.lower {
-  transform: translateY(-5px) rotate(-45deg);
-}
+#menuToggleBtn.open .burger-line:not(.lower) { transform: translateY(5px) rotate(45deg); }
+#menuToggleBtn.open .burger-line.lower { transform: translateY(-5px) rotate(-45deg); }
 
-/* When menu opens:
-   - detach from header flow
-   - animate to panel's TOP-RIGHT corner
-   - give contrast pill so X is always visible */
-#siteHeader.menu-open #menuToggleBtn {
-  position: fixed !important;    /* follow the viewport/panel */
+/* ===== CRITICAL FIX: make the toggle move to the PANEL'S TOP-RIGHT when open =====
+   We key off the button's own .open state (and aria-expanded) to avoid depending
+   on any external class. We also hard-override Tailwind utilities with !important. */
+#menuToggleBtn.open,
+#menuToggleBtn[aria-expanded="true"] {
+  position: fixed !important;    /* detach from header flow */
   top: 16px !important;
-  right: 16px !important;        /* <— TOP-RIGHT placement */
+  right: 16px !important;        /* <— TOP-RIGHT of viewport/panel area */
   left: auto !important;
-  transform: none !important;    /* cancel -translate-y-1/2 etc */
+  transform: none !important;    /* cancel -translate-y-1/2 etc. */
   color: #0f172a;                /* dark X over light panel */
   background: rgba(255, 255, 255, .96);
   border-radius: 9999px;
@@ -88,7 +84,8 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 }
 
 /* Dark mode: keep X dark for contrast regardless of theme */
-html.dark #siteHeader.menu-open #menuToggleBtn { color: #0b1220; }
+html.dark #menuToggleBtn.open,
+html.dark #menuToggleBtn[aria-expanded="true"] { color: #0b1220; }
 
 /* Accessible focus ring */
 #menuToggleBtn:focus-visible {
