@@ -25,7 +25,7 @@
   <!-- Header -->
 
   <header id="siteHeader" class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
-    <button id="menuToggleBtn"
+    <button id="menuToggleBtn" aria-controls="sidePanel"
   class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none z-[60]"
   aria-label="Open menu" aria-expanded="false">
   <span class="burger-line"></span>
@@ -43,7 +43,8 @@
 
   <!-- Side Panel -->
 
-  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl" style="visibility: hidden;" aria-hidden="true">
+  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl" role="dialog" aria-label="Main menu">
+
 
      <nav class="mt-14 space-y-6 pl-4">
       <div>

@@ -7,32 +7,45 @@
    - Header color swap on scroll
    ────────────────────────────────────────────────────────────── */
 
-(function () {
+document.addEventListener('DOMContentLoaded', () => {
+  /* Feather icons (safe if not loaded) */
+  if (window.feather && typeof feather.replace === 'function') {
+    try { feather.replace(); } catch {}
+  }
+
+  /* Elements */
   const siteHeader    = document.getElementById('siteHeader');
   const sidePanel     = document.getElementById('sidePanel');
   const backdrop      = document.getElementById('backdrop');
   const menuToggleBtn = document.getElementById('menuToggleBtn');
+  const themeToggle   = document.getElementById('themeToggle');
+  const themeIcon     = document.getElementById('themeIcon');
 
   if (!siteHeader || !sidePanel || !backdrop || !menuToggleBtn) return;
 
-  /* ---------- Inject a dedicated close button inside the panel ---------- */
-  const panelCloseBtn = menuToggleBtn.cloneNode(true);
+  /* --------- Inject a dedicated close button inside the panel --------- */
+  const panelCloseBtn = document.createElement('button');
   panelCloseBtn.id = 'panelCloseBtn';
+  panelCloseBtn.type = 'button';
   panelCloseBtn.setAttribute('aria-label', 'Close menu');
-  panelCloseBtn.setAttribute('aria-expanded', 'true');
-  panelCloseBtn.classList.add('open'); // ensure it looks like an X
-  panelCloseBtn.style.display = 'none'; // hidden until open
+  panelCloseBtn.className = ''; // CSS handles look/position
+
+  // Two lines for the "X"
+  panelCloseBtn.innerHTML = '<span class="burger-line"></span><span class="burger-line lower"></span>';
   sidePanel.appendChild(panelCloseBtn);
 
-  /* ---------- Helpers ---------- */
+  // Make it look like an X
+  panelCloseBtn.classList.add('open');
+
+  /* --------- Menu state helpers --------- */
   const isOpen = () => !sidePanel.classList.contains('-translate-x-full');
 
   function openPanel() {
-    sidePanel.classList.remove('-translate-x-full'); // slide in
-    backdrop.classList.add('opacity-50');            // fade in backdrop
-    siteHeader.classList.add('menu-open');           // lift header
+    sidePanel.classList.remove('-translate-x-full');  // slide in (Tailwind handles transform)
+    backdrop.classList.add('opacity-50');             // fade in backdrop
+    siteHeader.classList.add('menu-open');            // lift header
 
-    // Header burger becomes inert/hidden while menu is open
+    // Header burger becomes inert/hidden while menu is open (optional but tidy)
     menuToggleBtn.setAttribute('aria-expanded', 'true');
     menuToggleBtn.classList.add('open');
     menuToggleBtn.style.visibility = 'hidden';
@@ -40,7 +53,7 @@
 
     // Show the in-panel close button
     panelCloseBtn.style.display = 'block';
-    panelCloseBtn.classList.add('show'); // CSS display toggle
+    panelCloseBtn.classList.add('show');
   }
 
   function closePanel() {
@@ -59,22 +72,19 @@
     panelCloseBtn.style.display = 'none';
   }
 
-  /* ---------- Event wiring ---------- */
+  /* --------- Wire up interactions --------- */
   menuToggleBtn.addEventListener('click', (e) => {
     e.preventDefault();
     if (isOpen()) closePanel(); else openPanel();
   });
 
-  // Close via the in-panel X
   panelCloseBtn.addEventListener('click', (e) => {
     e.preventDefault();
     closePanel();
   });
 
-  // Close on backdrop click
   backdrop.addEventListener('click', closePanel);
 
-  // Close on ESC
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && isOpen()) closePanel();
   });
@@ -84,7 +94,7 @@
     if (e.target.closest('a')) closePanel();
   });
 
-  /* ---------- Scroll styling (header color swap) ---------- */
+  /* --------- Header scroll color swap --------- */
   const onScroll = () => {
     if (window.scrollY > 10) siteHeader.classList.add('scrolled');
     else siteHeader.classList.remove('scrolled');
@@ -92,12 +102,26 @@
   onScroll();
   window.addEventListener('scroll', onScroll);
 
-  /* ---------- Safety: if menu starts open (e.g., hot reload) ---------- */
+  /* --------- Theme toggle (kept simple) --------- */
+  const applyTheme = () => {
+    const isDark = localStorage.getItem('theme') === 'dark';
+    document.documentElement.classList.toggle('dark', isDark);
+    if (themeIcon) themeIcon.src = isDark ? 'images/darkmode.png' : 'images/lightmode.png';
+  };
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const next = !(localStorage.getItem('theme') === 'dark');
+      localStorage.setItem('theme', next ? 'dark' : 'light');
+      applyTheme();
+    });
+  }
+  applyTheme();
+
+  /* --------- Safety: if menu starts open (hot reload etc.) --------- */
   if (isOpen()) {
-    // Ensure correct visibility on load
     menuToggleBtn.style.visibility = 'hidden';
     menuToggleBtn.style.pointerEvents = 'none';
     panelCloseBtn.style.display = 'block';
     panelCloseBtn.classList.add('show');
   }
-})();
+});

@@ -42,12 +42,11 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
   z-index: 1000;                 /* above header/backdrop */
   color: currentColor;           /* inherits header text color */
   transition:
-    top .3s ease, left .3s ease, right .3s ease, transform .3s ease,
     background-color .3s ease, color .3s ease, box-shadow .3s ease,
     visibility .2s ease, opacity .2s ease;
 }
 
-/* Burger lines follow the button color */
+/* Burger/X lines — shared by header button and panel close button */
 #menuToggleBtn .burger-line,
 #panelCloseBtn .burger-line {
   display: block;
@@ -60,7 +59,7 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 #menuToggleBtn .burger-line + .burger-line,
 #panelCloseBtn .burger-line + .burger-line { margin-top: 8px; }
 
-/* X transforms (used by the close button) */
+/* X transforms (used by the close button, and if you toggle .open on the header button) */
 #menuToggleBtn.open .burger-line,
 #panelCloseBtn.open .burger-line { background-color: currentColor; }
 
@@ -70,18 +69,20 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 #menuToggleBtn.open .burger-line.lower,
 #panelCloseBtn.open .burger-line.lower { transform: translateY(-5px) rotate(-45deg); }
 
-/* 4) Dedicated CLOSE button inside the panel */
-#sidePanel { position: fixed; transition: transform .3s ease-in-out; } /* ensure containing block */
+/* 4) Side panel & in-panel close button */
+#sidePanel {
+  position: fixed;                 /* ensure containing block for absolute children */
+  transition: transform .3s ease-in-out;
+}
 
+/* Dedicated CLOSE button inside the panel */
 #panelCloseBtn {
   position: absolute;
   top: 16px;
-  right: 16px;                   /* TOP-RIGHT inside the white panel */
+  right: 16px;                     /* TOP-RIGHT inside the white panel */
   left: auto;
   transform: none;
-
-  /* Visible only when menu is open (we toggle .show in JS) */
-  display: none;
+  display: none;                   /* shown only when menu is open */
 
   /* Contrast + tap target */
   color: #0f172a;
@@ -89,7 +90,7 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
   border-radius: 9999px;
   padding: 10px 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,.12);
-  z-index: 1001;                 /* above panel items */
+  z-index: 1001;                   /* above panel items */
 }
 #panelCloseBtn.show { display: block; }
 html.dark #panelCloseBtn { color: #0b1220; }
