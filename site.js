@@ -1,9 +1,11 @@
 /* ──────────────────────────────────────────────────────────────
-   Stormen — site.js (X never disappears + fixed header)
+   Stormen — site.js (final)
+   - Burger morph + slide to the right in sync with panel
+   - In-panel X always visible/clickable when open
+   - Header remains fixed; scroll color swap preserved
    ────────────────────────────────────────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Feather icons (safe if not present)
   if (window.feather && typeof feather.replace === 'function') { try { feather.replace(); } catch {} }
 
   const siteHeader    = document.getElementById('siteHeader');
@@ -29,12 +31,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const isOpen = () => !sidePanel.classList.contains('-translate-x-full');
 
   function openPanel() {
-    sidePanel.classList.remove('-translate-x-full');   // slide in
-    backdrop.classList.add('opacity-50');              // fade in backdrop
-    siteHeader.classList.add('menu-open');             // header yields z-index to panel
-    menuToggleBtn.setAttribute('aria-expanded', 'true'); // morph burger to X
+    // Set the exact panel width so the burger slides precisely to the right
+    document.documentElement.style.setProperty('--panel-w', sidePanel.offsetWidth + 'px');
 
-    // Show the in-panel X (no inline display; CSS handles it)
+    sidePanel.classList.remove('-translate-x-full');      // slide in
+    backdrop.classList.add('opacity-50');                 // fade in overlay
+    siteHeader.classList.add('menu-open');                // allow panel to overtake header
+
+    // Trigger burger morph + slide (CSS hooks on aria-expanded/ .menu-open)
+    menuToggleBtn.setAttribute('aria-expanded', 'true');
+
+    // Show the in-panel X (CSS controls display)
     panelCloseBtn.classList.add('show');
   }
 
@@ -42,30 +49,37 @@ document.addEventListener('DOMContentLoaded', () => {
     sidePanel.classList.add('-translate-x-full');
     backdrop.classList.remove('opacity-50');
     siteHeader.classList.remove('menu-open');
+
+    // Reset burger
     menuToggleBtn.setAttribute('aria-expanded', 'false');
 
-    // Hide via class only
+    // Hide in-panel X
     panelCloseBtn.classList.remove('show');
   }
 
-  // Toggle
+  /* Interactions */
   menuToggleBtn.addEventListener('click', (e) => {
     e.preventDefault();
     isOpen() ? closePanel() : openPanel();
   });
 
-  // In-panel X
   panelCloseBtn.addEventListener('click', (e) => {
     e.preventDefault();
     closePanel();
   });
 
-  // Backdrop / ESC / link click
   backdrop.addEventListener('click', closePanel);
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) closePanel(); });
-  sidePanel.addEventListener('click', (e) => { if (e.target.closest('a')) closePanel(); });
 
-  // Header scroll color swap (header remains fixed via CSS)
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen()) closePanel();
+  });
+
+  // Close after clicking any nav link inside the panel
+  sidePanel.addEventListener('click', (e) => {
+    if (e.target.closest('a')) closePanel();
+  });
+
+  /* Header scroll color swap */
   const onScroll = () => {
     if (window.scrollY > 10) siteHeader.classList.add('scrolled');
     else siteHeader.classList.remove('scrolled');
@@ -73,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   onScroll();
   window.addEventListener('scroll', onScroll);
 
-  // Theme toggle (unchanged)
+  /* Theme toggle (kept simple) */
   const applyTheme = () => {
     const isDark = localStorage.getItem('theme') === 'dark';
     document.documentElement.classList.toggle('dark', isDark);
@@ -88,8 +102,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   applyTheme();
 
-  // Initial state (hot reload etc.)
+  /* Initial state (e.g., hot reload) */
   if (isOpen()) {
+    document.documentElement.style.setProperty('--panel-w', sidePanel.offsetWidth + 'px');
     panelCloseBtn.classList.add('show');
     menuToggleBtn.setAttribute('aria-expanded', 'true');
     siteHeader.classList.add('menu-open');
