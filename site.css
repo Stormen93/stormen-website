@@ -1,9 +1,9 @@
 /* ──────────────────────────────────────────────────────────────
-   Stormen — site.css (full)
+   Stormen — site.css (full, stable)
    - Header theming + scroll swap
    - Side panel + backdrop transitions
-   - Burger/X button that relocates INSIDE the panel on open
-   - Utility styles used across pages
+   - Header burger stays in header
+   - Dedicated close button lives INSIDE the panel (top-right)
    ────────────────────────────────────────────────────────────── */
 
 /* 1) Header default + scroll states */
@@ -36,18 +36,20 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 #siteHeader.scrolled .logo-white { opacity: 0; }
 #siteHeader.scrolled .logo-black { opacity: 1; }
 
-/* 3) Menu toggle (burger/X) — animation + visibility */
+/* 3) Header burger (always in header) */
 #menuToggleBtn {
-  position: relative;            /* lives in the header by default */
-  z-index: 1000;                 /* above header, panel, backdrop */
+  position: relative;            /* lives in the header */
+  z-index: 1000;                 /* above header/backdrop */
   color: currentColor;           /* inherits header text color */
   transition:
     top .3s ease, left .3s ease, right .3s ease, transform .3s ease,
-    background-color .3s ease, color .3s ease, box-shadow .3s ease;
+    background-color .3s ease, color .3s ease, box-shadow .3s ease,
+    visibility .2s ease, opacity .2s ease;
 }
 
 /* Burger lines follow the button color */
-#menuToggleBtn .burger-line {
+#menuToggleBtn .burger-line,
+#panelCloseBtn .burger-line {
   display: block;
   width: 32px;
   height: 2px;
@@ -55,52 +57,57 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
   transition: transform .3s ease-in-out, opacity .3s ease-in-out, background-color .3s ease-in-out;
   transform-origin: center;
 }
-#menuToggleBtn .burger-line + .burger-line { margin-top: 8px; }
+#menuToggleBtn .burger-line + .burger-line,
+#panelCloseBtn .burger-line + .burger-line { margin-top: 8px; }
 
-/* X transforms */
-#menuToggleBtn.open .burger-line { background-color: currentColor; }
-#menuToggleBtn.open .burger-line:not(.lower) { transform: translateY(5px) rotate(45deg); }
-#menuToggleBtn.open .burger-line.lower       { transform: translateY(-5px) rotate(-45deg); }
+/* X transforms (used by the close button) */
+#menuToggleBtn.open .burger-line,
+#panelCloseBtn.open .burger-line { background-color: currentColor; }
 
-/* ===== Place the button INSIDE the sliding panel when open =====
-   JS appends the button to #sidePanel; these rules position it. */
-#sidePanel { position: fixed; } /* ensure containing block for absolute children */
+#menuToggleBtn.open .burger-line:not(.lower),
+#panelCloseBtn.open .burger-line:not(.lower) { transform: translateY(5px) rotate(45deg); }
 
-#sidePanel #menuToggleBtn {
-  position: absolute !important;   /* positioned relative to #sidePanel */
-  top: 16px !important;
-  right: 16px !important;          /* TOP-RIGHT inside the white panel */
-  left: auto !important;
-  transform: none !important;
+#menuToggleBtn.open .burger-line.lower,
+#panelCloseBtn.open .burger-line.lower { transform: translateY(-5px) rotate(-45deg); }
 
-  /* High contrast + large tap target */
+/* 4) Dedicated CLOSE button inside the panel */
+#sidePanel { position: fixed; transition: transform .3s ease-in-out; } /* ensure containing block */
+
+#panelCloseBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;                   /* TOP-RIGHT inside the white panel */
+  left: auto;
+  transform: none;
+
+  /* Visible only when menu is open (we toggle .show in JS) */
+  display: none;
+
+  /* Contrast + tap target */
   color: #0f172a;
   background: rgba(255,255,255,.96);
   border-radius: 9999px;
   padding: 10px 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,.12);
+  z-index: 1001;                 /* above panel items */
 }
+#panelCloseBtn.show { display: block; }
+html.dark #panelCloseBtn { color: #0b1220; }
 
-/* Dark theme: keep X dark over the light panel */
-html.dark #sidePanel #menuToggleBtn { color: #0b1220; }
-
-/* Accessible focus ring */
-#menuToggleBtn:focus-visible {
+/* Accessible focus ring (both buttons) */
+#menuToggleBtn:focus-visible,
+#panelCloseBtn:focus-visible {
   outline: 2px solid #60a5fa;
   outline-offset: 3px;
 }
 
-/* 4) Side panel & backdrop transitions */
-#sidePanel { transition: transform .3s ease-in-out; }
-
+/* 5) Backdrop */
 #backdrop {
   background: rgba(0,0,0,.5);
   opacity: 0;
   pointer-events: none;
   transition: opacity .3s ease-in-out;
 }
-
-/* Activated (JS toggles this) */
 #backdrop.opacity-50 {
   opacity: .5;
   pointer-events: auto; /* clickable to close */
@@ -110,7 +117,7 @@ html.dark #sidePanel #menuToggleBtn { color: #0b1220; }
 #sidePanel.-translate-x-full { pointer-events: none !important; }
 #sidePanel:not(.-translate-x-full) { pointer-events: auto !important; }
 
-/* 5) Sidebar links & hover underline */
+/* 6) Sidebar links & hover underline */
 #sidePanel nav a {
   font-family: "Roboto Condensed", sans-serif !important;
   text-decoration: none !important;
@@ -132,10 +139,10 @@ html.dark #sidePanel #menuToggleBtn { color: #0b1220; }
 }
 #sidePanel nav a:hover span::after { width: 100%; }
 
-/* 6) Theme-toggle icon */
+/* 7) Theme-toggle icon */
 #themeIcon { filter: invert(100%); transition: filter .3s ease; }
 
-/* 7) Universal 16:9 media wrapper (embeds) */
+/* 8) Universal 16:9 media wrapper (embeds) */
 .embed-wrapper {
   position: relative;
   width: 100%;
@@ -145,20 +152,10 @@ html.dark #sidePanel #menuToggleBtn { color: #0b1220; }
   border-radius: 16px;
   overflow: hidden;
 }
-.embed-wrapper::before {
-  content: '';
-  display: block;
-  padding-top: 56.25%; /* 16:9 */
-}
-.embed-wrapper iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
+.embed-wrapper::before { content: ''; display: block; padding-top: 56.25%; }
+.embed-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-/* 8) Orange pill CTA */
+/* 9) Orange pill CTA */
 .watch-link {
   font-family: 'Roboto Mono', monospace;
   font-weight: 700;
@@ -185,7 +182,7 @@ html.dark #sidePanel #menuToggleBtn { color: #0b1220; }
 }
 .watch-link:hover span::after { width: 100%; }
 
-/* 9) Small-screen tweaks for close button */
+/* 10) Small-screen tweak */
 @media (max-width: 480px) {
-  #sidePanel #menuToggleBtn { top: 12px !important; right: 12px !important; }
+  #panelCloseBtn { top: 12px; right: 12px; }
 }
