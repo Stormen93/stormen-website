@@ -217,3 +217,67 @@ html.dark #siteHeader #logoWhite { opacity: 1; }
   background:rgba(255,255,255,.96) !important;
   box-shadow:0 2px 10px rgba(0,0,0,.12) !important;
 }
+
+/* ============================================================
+   FINAL, ULTRA-SPECIFIC FIXES
+   1) Stop any hover/group-hover transforms from moving the lines
+   2) Force dark mode + scrolled to: black lines + colored logo
+   Place this at the VERY END of site.css
+   ============================================================ */
+
+/* 1) Burger lines — lock their baseline when CLOSED (no hover jump) */
+#siteHeader #menuToggleBtn:not([aria-expanded="true"]) .burger-line:not(.lower) {
+  top: 15px !important;
+  transform: none !important;
+}
+#siteHeader #menuToggleBtn:not([aria-expanded="true"]) .burger-line.lower {
+  top: 27px !important;
+  transform: none !important;
+}
+
+/* Also lock on any interactive state that might be injected by utilities */
+#siteHeader #menuToggleBtn:not([aria-expanded="true"]):is(:hover, :focus, :active) .burger-line:not(.lower) {
+  top: 15px !important;
+  transform: none !important;
+}
+#siteHeader #menuToggleBtn:not([aria-expanded="true"]):is(:hover, :focus, :active) .burger-line.lower {
+  top: 27px !important;
+  transform: none !important;
+}
+
+/* When OPEN: center both lines and rotate — and keep them centered even on hover */
+#siteHeader #menuToggleBtn[aria-expanded="true"] .burger-line {
+  top: 22px !important;
+}
+#siteHeader #menuToggleBtn[aria-expanded="true"] .burger-line:not(.lower) {
+  transform: rotate(45deg) !important;
+}
+#siteHeader #menuToggleBtn[aria-expanded="true"] .burger-line.lower {
+  transform: rotate(-45deg) !important;
+}
+#siteHeader #menuToggleBtn[aria-expanded="true"]:is(:hover, :focus, :active) .burger-line {
+  top: 22px !important;
+}
+
+/* 2) Dark mode + SCROLLED should look like light mode (white header, black lines, COLORED logo) */
+html.dark body #siteHeader.scrolled {
+  background: #fff !important;
+  color: #000 !important;              /* burger/X uses currentColor ⇒ black */
+}
+
+/* Force COLORED logo after scroll, even in dark mode */
+html.dark body #siteHeader.scrolled .logo-color,
+html.dark body #siteHeader.scrolled .logo-black,
+html.dark body #siteHeader.scrolled #logoColor {
+  opacity: 1 !important;
+}
+html.dark body #siteHeader.scrolled .logo-white,
+html.dark body #siteHeader.scrolled #logoWhite {
+  opacity: 0 !important;
+}
+
+/* (Belt & suspenders) Neutralize any hover color utilities on the button after scroll */
+#siteHeader.scrolled #menuToggleBtn,
+#siteHeader.scrolled #menuToggleBtn .burger-line {
+  color: #000 !important;
+}
