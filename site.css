@@ -1,8 +1,8 @@
 /* ──────────────────────────────────────────────────────────────
-   Stormen — site.css (single moving toggle button)
+   Stormen — site.css (single moving toggle button + FLIP)
    ────────────────────────────────────────────────────────────── */
 
-/* Fallback; JS sets the exact panel width if needed */
+/* Fallback; JS will set exact panel width if you ever need it */
 :root { --panel-w: 288px; --panel-pad: 16px; }
 
 /* 1) Header (fixed) + scroll states */
@@ -23,7 +23,7 @@
   color: #000;
 }
 
-/* panel layers above header when open; button goes above panel */
+/* Panel stacks above header while open */
 #siteHeader.menu-open { z-index: 1900 !important; }
 
 /* Dark mode on scroll */
@@ -35,37 +35,33 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 
 /* 2) Toggle button (burger ↔ X) */
 #menuToggleBtn {
-  position: absolute;             /* default: living in header */
-  left: 16px;
-  top: 16px;                      /* aligns with panel placement */
+  position: absolute; left: 16px; top: 16px;   /* default spot in header */
   z-index: 2050;
   color: currentColor;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-flex; align-items: center; justify-content: center;
   width: 44px; height: 44px;
   border-radius: 9999px;
-  cursor: pointer;                /* ensures the “hand” cursor */
+  cursor: pointer;
   transition: background-color .2s ease, box-shadow .2s ease, color .2s ease;
 }
 #menuToggleBtn:hover { box-shadow: 0 2px 10px rgba(0,0,0,.12); }
 
-/* Longer lines (36px). Top thicker than bottom. LOWERED per your note */
+/* Longer lines (36px). Top thicker than bottom. LOWERED a bit. */
 #menuToggleBtn .burger-line {
   position: absolute;
   width: 36px;
-  height: 3px;                    /* top thickness */
+  height: 3px;                 /* top thickness */
   background: currentColor;
   border-radius: 2px;
   transition: transform .28s ease, opacity .2s ease, width .2s ease, height .2s ease, background-color .2s ease;
 }
-#menuToggleBtn .burger-line.lower { height: 2px; }  /* bottom thinner */
+#menuToggleBtn .burger-line.lower { height: 2px; }   /* bottom thinner */
 
-/* Resting offsets: lower the strokes */
-#menuToggleBtn .burger-line:not(.lower) { transform: translateY(-1px); }  /* top line slightly down */
+/* Resting offsets (lowered) */
+#menuToggleBtn .burger-line:not(.lower) { transform: translateY(-1px); }  /* top line slightly lower */
 #menuToggleBtn .burger-line.lower       { transform: translateY(11px); }  /* bottom line lower */
 
-/* Morph to X */
+/* Morph to X (centered) */
 #siteHeader.menu-open #menuToggleBtn .burger-line:not(.lower),
 #menuToggleBtn[aria-expanded="true"] .burger-line:not(.lower) {
   transform: translateY(0) rotate(45deg);
@@ -75,11 +71,11 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
   transform: translateY(0) rotate(-45deg);
 }
 
-/* 3) Side panel + backdrop */
+/* 3) Side panel + backdrop + stacking */
 #sidePanel {
   position: fixed;
-  transition: transform .30s ease-in-out;
-  z-index: 1950 !important; /* above header when open */
+  transition: transform .30s ease-in-out;   /* keep this in sync with JS FLIP timing */
+  z-index: 1950 !important;                 /* above header when open */
 }
 #backdrop {
   position: fixed;
@@ -90,18 +86,18 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 }
 #backdrop.opacity-50 { opacity: .5; pointer-events: auto; }
 
-/* Clickability */
 #sidePanel.-translate-x-full { pointer-events: none !important; }
 #sidePanel:not(.-translate-x-full) { pointer-events: auto !important; }
 
-/* 4) When the SAME button is placed INSIDE the panel (JS moves it): */
+/* 4) When the SAME button is moved INSIDE the panel (JS appends it)  */
+/* Lower it a bit more per your screenshot: top: 24px instead of 16px */
 #sidePanel #menuToggleBtn {
-  position: absolute !important;   /* now relative to the panel */
+  position: absolute !important;
   right: 16px !important;
   left: auto !important;
-  top: 16px !important;
-  z-index: 3000 !important;        /* above panel content */
-  color: #0f172a !important;       /* dark strokes over white panel */
+  top: 24px !important;                      /* ↓ lowered */
+  z-index: 3000 !important;                  /* above panel content */
+  color: #0f172a !important;                 /* dark strokes on white */
   background: rgba(255,255,255,.96) !important;
   box-shadow: 0 2px 10px rgba(0,0,0,.12) !important;
   cursor: pointer !important;
@@ -110,7 +106,12 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 /* 5) Hide any legacy in-panel X if it still exists */
 #panelCloseBtn { display: none !important; }
 
-/* 6) Nav underline */
+/* 6) Smooth FLIP end-state transition (transform only) */
+#menuToggleBtn.animating {
+  transition: transform .30s ease;     /* same as panel */
+}
+
+/* 7) Nav underline */
 #sidePanel nav a {
   font-family: "Roboto Condensed", sans-serif !important;
   text-decoration: none !important;
@@ -124,22 +125,23 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 }
 #sidePanel nav a:hover span::after { width: 100%; }
 
-/* 7) Theme icon */
+/* 8) Theme icon */
 #themeIcon { filter: invert(100%); transition: filter .3s ease; }
 
-/* 8) 16:9 embed */
+/* 9) 16:9 embed */
 .embed-wrapper { position: relative; width: 100%; max-width: 1024px; margin: 2rem auto 5rem; border: 4px solid #ff9f3a; border-radius: 16px; overflow: hidden; }
 .embed-wrapper::before { content: ''; display: block; padding-top: 56.25%; }
 .embed-wrapper iframe  { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-/* 9) CTA pill */
+/* 10) CTA pill */
 .watch-link { font-family: 'Roboto Mono', monospace; font-weight: 700; display: inline-block; margin-top: 1.5rem; padding: .75rem 1.5rem; background: #ff9f3a; color: #000; border-radius: 9999px; text-decoration: none; transition: filter .2s; }
 .watch-link:hover { filter: brightness(1.1); }
 .watch-link span { position: relative; }
 .watch-link span::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 0; height: 2px; background: #000; transition: width .25s; }
 .watch-link:hover span::after { width: 100%; }
 
-/* 10) Small screens */
+/* 11) Small screens */
 @media (max-width: 480px) {
   #menuToggleBtn { left: 12px; top: 12px; width: 42px; height: 42px; }
+  #sidePanel #menuToggleBtn { top: 20px !important; }  /* keep it a bit lower on phones, too */
 }
