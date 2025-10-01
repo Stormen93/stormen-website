@@ -1,12 +1,9 @@
 /* ──────────────────────────────────────────────────────────────
-   Stormen — site.js (single toggle button that follows the panel)
-   - One button (#menuToggleBtn) morphs burger ↔ X
-   - On open: button follows the panel’s right edge (top-right inside)
-   - On close: returns to header position
-   - Always on top & clickable
+   Stormen — site.js (move the ONE button into the panel)
    ────────────────────────────────────────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // feather icons (safe if missing)
   if (window.feather && typeof feather.replace === 'function') { try { feather.replace(); } catch {} }
 
   const siteHeader    = document.getElementById('siteHeader');
@@ -18,59 +15,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!siteHeader || !sidePanel || !backdrop || !menuToggleBtn) return;
 
-  // Remove any legacy in-panel button if present (we only use one button)
+  // Remove any old in-panel close button
   const stale = document.getElementById('panelCloseBtn');
   if (stale && stale.parentElement) stale.parentElement.removeChild(stale);
 
+  // Remember where the button lives by default (header)
+  const buttonHome = menuToggleBtn.parentElement;
+
   const isOpen = () => !sidePanel.classList.contains('-translate-x-full');
 
-  /* ---- Keep the button pinned to the panel’s top-right while it slides ---- */
-  let followRAF = null;
-  const positionToPanelTopRight = () => {
-    const rect = sidePanel.getBoundingClientRect();
-    const btnW = menuToggleBtn.offsetWidth || 44;
-    const left = rect.left + rect.width - 16 - btnW; // 16px in-panel padding
-    menuToggleBtn.style.position = 'fixed';
-    menuToggleBtn.style.left     = `${left}px`;
-    menuToggleBtn.style.top      = `16px`;
-    menuToggleBtn.style.zIndex   = '3000';           // above panel & header
+  function moveBtnIntoPanel() {
+    if (menuToggleBtn.parentElement !== sidePanel) {
+      sidePanel.appendChild(menuToggleBtn);
+    }
+    // ensure clickability & cursor (in case previous styles linger)
     menuToggleBtn.style.pointerEvents = 'auto';
-  };
-  const startFollowing = () => {
-    cancelFollowing();
-    const t0 = performance.now();
-    const step = (t) => {
-      positionToPanelTopRight();
-      // follow panel for the slide duration (~300ms) + buffer
-      if (t - t0 < 420) followRAF = requestAnimationFrame(step);
-      else followRAF = null;
-    };
-    followRAF = requestAnimationFrame(step);
-  };
-  const cancelFollowing = () => {
-    if (followRAF) { cancelAnimationFrame(followRAF); followRAF = null; }
-  };
+    menuToggleBtn.style.cursor = 'pointer';
+  }
 
-  const resetButtonToHeader = () => {
-    menuToggleBtn.style.position = '';
-    menuToggleBtn.style.left     = '';
-    menuToggleBtn.style.top      = '';
-    menuToggleBtn.style.zIndex   = '';
+  function moveBtnBackToHeader() {
+    if (menuToggleBtn.parentElement !== buttonHome) {
+      buttonHome.appendChild(menuToggleBtn);
+    }
+    // clear any inline overrides
     menuToggleBtn.style.pointerEvents = '';
-  };
+    menuToggleBtn.style.cursor = '';
+  }
 
   function openPanel() {
-    // update CSS var for accuracy, if anything else reads it
-    document.documentElement.style.setProperty('--panel-w', sidePanel.offsetWidth + 'px');
-
     sidePanel.classList.remove('-translate-x-full');  // slide in
-    backdrop.classList.add('opacity-50');             // overlay
-    siteHeader.classList.add('menu-open');            // header yields to panel
+    backdrop.classList.add('opacity-50');
+    siteHeader.classList.add('menu-open');
 
-    // morph burger → X and follow the panel’s edge
+    // move the SAME button into the panel (top-right via CSS)
+    moveBtnIntoPanel();
+
+    // trigger burger → X morph (and color change)
     menuToggleBtn.setAttribute('aria-expanded', 'true');
-    positionToPanelTopRight();
-    startFollowing();
   }
 
   function closePanel() {
@@ -78,10 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
     backdrop.classList.remove('opacity-50');
     siteHeader.classList.remove('menu-open');
 
-    cancelFollowing();
-    resetButtonToHeader();
+    // put the button back into the header
+    moveBtnBackToHeader();
 
-    // reset burger state
+    // reset burger
     menuToggleBtn.setAttribute('aria-expanded', 'false');
   }
 
@@ -91,13 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
     isOpen() ? closePanel() : openPanel();
   });
 
-  // Close on backdrop / ESC / nav link
+  // Close interactions
   backdrop.addEventListener('click', closePanel);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) closePanel(); });
   sidePanel.addEventListener('click', (e) => { if (e.target.closest('a')) closePanel(); });
-
-  // If the user resizes while open, keep the button pinned
-  window.addEventListener('resize', () => { if (isOpen()) { positionToPanelTopRight(); startFollowing(); } });
 
   // Header scroll color swap
   const onScroll = () => {
@@ -122,15 +100,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   applyTheme();
 
-  // Initial state
+  // Initial state / hot reload safety
   if (isOpen()) {
-    siteHeader.classList.add('menu-open');
+    moveBtnIntoPanel();
     menuToggleBtn.setAttribute('aria-expanded', 'true');
-    positionToPanelTopRight();
-    startFollowing();
+    siteHeader.classList.add('menu-open');
   } else {
-    siteHeader.classList.remove('menu-open');
+    moveBtnBackToHeader();
     menuToggleBtn.setAttribute('aria-expanded', 'false');
-    resetButtonToHeader();
+    siteHeader.classList.remove('menu-open');
   }
 });
