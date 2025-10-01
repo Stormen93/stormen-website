@@ -1,14 +1,9 @@
 /* ──────────────────────────────────────────────────────────────
-   Stormen — site.js (full)
-   - Opens/closes the side menu
-   - Burger morph controlled by aria-expanded
-   - Dedicated close (X) button lives INSIDE #sidePanel
-   - Backdrop click + ESC + nav-link close
-   - Header color swap on scroll (keeps header fixed behavior)
+   Stormen — site.js (X never disappears + fixed header)
    ────────────────────────────────────────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Feather icons (safe if not loaded)
+  // Feather icons (safe if not present)
   if (window.feather && typeof feather.replace === 'function') { try { feather.replace(); } catch {} }
 
   const siteHeader    = document.getElementById('siteHeader');
@@ -20,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!siteHeader || !sidePanel || !backdrop || !menuToggleBtn) return;
 
-  /* --------- Ensure an in-panel close button exists --------- */
+  /* Ensure an in-panel close button exists */
   let panelCloseBtn = document.getElementById('panelCloseBtn');
   if (!panelCloseBtn) {
     panelCloseBtn = document.createElement('button');
@@ -31,18 +26,15 @@ document.addEventListener('DOMContentLoaded', () => {
     sidePanel.appendChild(panelCloseBtn);
   }
 
-  /* --------- State helpers --------- */
   const isOpen = () => !sidePanel.classList.contains('-translate-x-full');
 
   function openPanel() {
-    sidePanel.classList.remove('-translate-x-full');  // slide in
-    backdrop.classList.add('opacity-50');             // fade in backdrop
-    siteHeader.classList.add('menu-open');            // adjust z-index & burger styling
+    sidePanel.classList.remove('-translate-x-full');   // slide in
+    backdrop.classList.add('opacity-50');              // fade in backdrop
+    siteHeader.classList.add('menu-open');             // header yields z-index to panel
+    menuToggleBtn.setAttribute('aria-expanded', 'true'); // morph burger to X
 
-    // Burger morph trigger
-    menuToggleBtn.setAttribute('aria-expanded', 'true');
-
-    // Show the in-panel close button (class only; no inline display)
+    // Show the in-panel X (no inline display; CSS handles it)
     panelCloseBtn.classList.add('show');
   }
 
@@ -50,37 +42,30 @@ document.addEventListener('DOMContentLoaded', () => {
     sidePanel.classList.add('-translate-x-full');
     backdrop.classList.remove('opacity-50');
     siteHeader.classList.remove('menu-open');
-
-    // Burger morph reset
     menuToggleBtn.setAttribute('aria-expanded', 'false');
 
     // Hide via class only
     panelCloseBtn.classList.remove('show');
   }
 
-  /* --------- Wire up interactions --------- */
+  // Toggle
   menuToggleBtn.addEventListener('click', (e) => {
     e.preventDefault();
     isOpen() ? closePanel() : openPanel();
   });
 
+  // In-panel X
   panelCloseBtn.addEventListener('click', (e) => {
     e.preventDefault();
     closePanel();
   });
 
+  // Backdrop / ESC / link click
   backdrop.addEventListener('click', closePanel);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) closePanel(); });
+  sidePanel.addEventListener('click', (e) => { if (e.target.closest('a')) closePanel(); });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isOpen()) closePanel();
-  });
-
-  // Close after clicking any nav link inside the panel
-  sidePanel.addEventListener('click', (e) => {
-    if (e.target.closest('a')) closePanel();
-  });
-
-  /* --------- Header scroll color swap (keeps header fixed behavior) --------- */
+  // Header scroll color swap (header remains fixed via CSS)
   const onScroll = () => {
     if (window.scrollY > 10) siteHeader.classList.add('scrolled');
     else siteHeader.classList.remove('scrolled');
@@ -88,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
   onScroll();
   window.addEventListener('scroll', onScroll);
 
-  /* --------- Theme toggle (kept simple) --------- */
+  // Theme toggle (unchanged)
   const applyTheme = () => {
     const isDark = localStorage.getItem('theme') === 'dark';
     document.documentElement.classList.toggle('dark', isDark);
@@ -103,13 +88,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   applyTheme();
 
-  /* --------- Safety: ensure correct initial state --------- */
+  // Initial state (hot reload etc.)
   if (isOpen()) {
-    // If panel is already visible (e.g., hot reload), show the X and morph burger
     panelCloseBtn.classList.add('show');
     menuToggleBtn.setAttribute('aria-expanded', 'true');
+    siteHeader.classList.add('menu-open');
   } else {
     panelCloseBtn.classList.remove('show');
     menuToggleBtn.setAttribute('aria-expanded', 'false');
+    siteHeader.classList.remove('menu-open');
   }
 });

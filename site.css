@@ -1,18 +1,17 @@
 /* ──────────────────────────────────────────────────────────────
-   Stormen — site.css (full)
-   - Fixed header theming + scroll swap
-   - Side panel + backdrop transitions
-   - Header burger (morphs to X)
-   - In-panel close button (top-right) that slides with the panel
+   Stormen — site.css (fixed header + reliable in-panel X)
    ────────────────────────────────────────────────────────────── */
 
-/* 1) Header default + scroll states */
+/* 1) Header (fixed) + scroll states */
 #siteHeader {
-  /* keep whatever Tailwind sets (likely fixed top-0 left-0 right-0) */
+  position: fixed !important; /* ensure header follows while scrolling */
+  top: 0; left: 0; right: 0;
   background: transparent;
   transition: background-color .3s, box-shadow .3s, color .3s;
   color: #fff; /* white icons/logo by default on hero */
+  z-index: 2000; /* high by default (panel will overtake when open) */
 }
+
 #siteHeader .logo-white { opacity: 1; transition: opacity .3s; }
 #siteHeader .logo-black { opacity: 0; transition: opacity .3s; }
 
@@ -22,8 +21,8 @@
   color: #000; /* dark icons/logo on scroll */
 }
 
-/* Keep header under the panel while the menu is open */
-#siteHeader.menu-open { z-index: 800; }
+/* When menu is open, let the sliding panel sit above the header */
+#siteHeader.menu-open { z-index: 1900 !important; }
 
 /* 2) Dark mode header on scroll */
 html.dark #siteHeader.scrolled { background-color: #0d1117; color: #fff; }
@@ -36,16 +35,13 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
    3) Header burger (morphs to X)
    ────────────────────────────────────────────────────────────── */
 #menuToggleBtn {
-  position: absolute;            /* typical setup: absolute inside header */
-  left: 16px;                    /* adjust if you place it elsewhere */
-  top: 16px;                     /* aligned with the in-panel X */
-  z-index: 70;                   /* below panel (1000+) but above header content */
-  color: currentColor;           /* inherits header text color */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
+  position: absolute;   /* place inside header */
+  left: 16px;
+  top: 16px;            /* align with in-panel X (top:16px) */
+  z-index: 2050;        /* above header content, below panel when open */
+  color: currentColor;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px;
   border-radius: 9999px;
   transition: background-color .2s ease, color .2s ease, box-shadow .2s ease;
 }
@@ -55,7 +51,7 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 #menuToggleBtn .burger-line {
   position: absolute;
   width: 24px;            /* wider */
-  height: 3px;            /* top line thickness */
+  height: 3px;            /* thicker top line by default */
   background-color: currentColor;
   border-radius: 2px;
   transition:
@@ -65,14 +61,14 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
     width .2s ease,
     height .2s ease;
 }
-/* Lower line is thinner */
+/* lower line thinner */
 #menuToggleBtn .burger-line.lower { height: 2px; }
 
-/* Rest positions (spread apart so morph is visible) */
-#menuToggleBtn .burger-line:not(.lower) { transform: translateY(-7px); }  /* top */
-#menuToggleBtn .burger-line.lower       { transform: translateY(7px); }   /* bottom */
+/* resting positions */
+#menuToggleBtn .burger-line:not(.lower) { transform: translateY(-7px); } /* top */
+#menuToggleBtn .burger-line.lower       { transform: translateY(7px); }  /* bottom */
 
-/* Morph trigger: either header has .menu-open OR button has aria-expanded="true" */
+/* morph trigger (either header has .menu-open OR aria-expanded=true) */
 #siteHeader.menu-open #menuToggleBtn .burger-line:not(.lower),
 #menuToggleBtn[aria-expanded="true"] .burger-line:not(.lower) {
   transform: translateY(0) rotate(45deg);
@@ -81,7 +77,6 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 #menuToggleBtn[aria-expanded="true"] .burger-line.lower {
   transform: translateY(0) rotate(-45deg);
 }
-/* Subtle chip background while open (optional) */
 #siteHeader.menu-open #menuToggleBtn,
 #menuToggleBtn[aria-expanded="true"] {
   background: rgba(17, 24, 39, .08);
@@ -94,7 +89,7 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 #sidePanel {
   position: fixed;                 /* containing block for absolute children */
   transition: transform .3s ease-in-out;
-  z-index: 1000;                   /* panel above header/backdrop */
+  z-index: 1950 !important;        /* above header (1900) when open */
 }
 
 #backdrop {
@@ -103,7 +98,7 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
   opacity: 0;
   pointer-events: none;
   transition: opacity .3s ease-in-out;
-  z-index: 900;                    /* below panel */
+  z-index: 1800;                   /* below header & panel */
 }
 #backdrop.opacity-50 { opacity: .5; pointer-events: auto; }
 
@@ -112,50 +107,45 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 #sidePanel:not(.-translate-x-full) { pointer-events: auto !important; }
 
 /* ──────────────────────────────────────────────────────────────
-   5) In-panel close button (top-right) — slides with the menu
+   5) In-panel close button (top-right) — slides with the panel
    ────────────────────────────────────────────────────────────── */
 #panelCloseBtn {
   position: absolute;
-  top: 16px;
-  right: 16px;                     /* top-right inside the panel */
-  width: 40px;
-  height: 40px;
+  top: 16px; right: 16px;
+  width: 40px; height: 40px;
   border-radius: 9999px;
-  display: none;                   /* shown only when menu is open */
-  align-items: center;
-  justify-content: center;
+  display: none; /* hidden until JS adds .show */
+  align-items: center; justify-content: center;
 
-  /* Thin-line aesthetic */
   background: rgba(255,255,255,.96);
   color: #0f172a;
   border: 1px solid rgba(15,23,42,.08);
   box-shadow: 0 2px 10px rgba(0,0,0,.10);
 
-  cursor: pointer;
-  pointer-events: auto;            /* ensure clicks are received */
-  z-index: 1100;                   /* above panel content */
-  transform: translateX(-24px);    /* slight offset so it “rides” the panel in */
+  cursor: pointer; pointer-events: auto;
+  z-index: 1960; /* above panel content */
+  transform: translateX(-24px); /* rides in with panel */
   transition: transform .30s ease, box-shadow .2s ease, background-color .2s ease;
 }
-#panelCloseBtn.show { display: inline-flex; }
-#panelCloseBtn:hover { box-shadow: 0 4px 16px rgba(0,0,0,.14); transform: translateX(-24px) translateY(-1px); }
+
+/* Strong show rule so it ALWAYS wins */
+#sidePanel #panelCloseBtn.show { display: inline-flex !important; }
+
+#panelCloseBtn:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,.14);
+  transform: translateX(-24px) translateY(-1px);
+}
 html.dark #panelCloseBtn { color: #0b1220; }
 
-/* Slide the X into place when the panel is onscreen (no extra JS class needed) */
+/* Slide to final position whenever the panel is onscreen */
 #sidePanel:not(.-translate-x-full) #panelCloseBtn { transform: translateX(0); }
 
-/* Make its lines match the burger’s width/thickness for consistency */
+/* Match burger’s widths/thickness */
 #panelCloseBtn .burger-line {
   position: absolute;
-  width: 24px;
-  height: 3px;              /* top */
-  background-color: currentColor;
-  border-radius: 2px;
-  transition: transform .2s ease, background-color .2s ease, opacity .2s ease;
+  width: 24px; height: 3px; border-radius: 2px; background: currentColor;
 }
-/* bottom thinner */
 #panelCloseBtn .burger-line.lower { height: 2px; }
-/* cross into X (centered) */
 #panelCloseBtn .burger-line:not(.lower) { transform: rotate(45deg); }
 #panelCloseBtn .burger-line.lower       { transform: rotate(-45deg); }
 
@@ -173,12 +163,8 @@ html.dark #panelCloseBtn { color: #0b1220; }
 #sidePanel nav a span { position: relative; display: inline-block; }
 #sidePanel nav a span::after {
   content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 0;
-  height: 2px;
-  background-color: currentColor;
+  position: absolute; left: 0; bottom: -2px;
+  width: 0; height: 2px; background-color: currentColor;
   transition: width .25s ease-in-out;
 }
 #sidePanel nav a:hover span::after { width: 100%; }
@@ -189,16 +175,11 @@ html.dark #panelCloseBtn { color: #0b1220; }
 #themeIcon { filter: invert(100%); transition: filter .3s ease; }
 
 /* ──────────────────────────────────────────────────────────────
-   8) Universal 16:9 media wrapper (embeds)
+   8) 16:9 embed wrapper
    ────────────────────────────────────────────────────────────── */
 .embed-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 1024px;
-  margin: 2rem auto 5rem;   /* top | sides | bottom */
-  border: 4px solid #ff9f3a;
-  border-radius: 16px;
-  overflow: hidden;
+  position: relative; width: 100%; max-width: 1024px;
+  margin: 2rem auto 5rem; border: 4px solid #ff9f3a; border-radius: 16px; overflow: hidden;
 }
 .embed-wrapper::before { content: ''; display: block; padding-top: 56.25%; }
 .embed-wrapper iframe  { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
@@ -207,42 +188,21 @@ html.dark #panelCloseBtn { color: #0b1220; }
    9) Orange pill CTA
    ────────────────────────────────────────────────────────────── */
 .watch-link {
-  font-family: 'Roboto Mono', monospace;
-  font-weight: 700;
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: .75rem 1.5rem;
-  background: #ff9f3a;
-  color: #000;
-  border-radius: 9999px;
-  text-decoration: none;
-  transition: filter .2s;
+  font-family: 'Roboto Mono', monospace; font-weight: 700;
+  display: inline-block; margin-top: 1.5rem; padding: .75rem 1.5rem;
+  background: #ff9f3a; color: #000; border-radius: 9999px; text-decoration: none; transition: filter .2s;
 }
 .watch-link:hover { filter: brightness(1.1); }
 .watch-link span { position: relative; }
 .watch-link span::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 0;
-  height: 2px;
-  background: #000;
-  transition: width .25s;
+  content: ''; position: absolute; left: 0; bottom: -2px; width: 0; height: 2px; background: #000; transition: width .25s;
 }
 .watch-link:hover span::after { width: 100%; }
 
 /* ──────────────────────────────────────────────────────────────
-   10) Small-screen tweak
+   10) Small-screen tweaks
    ────────────────────────────────────────────────────────────── */
 @media (max-width: 480px) {
   #menuToggleBtn { top: 12px; left: 12px; }
   #panelCloseBtn { top: 12px; right: 12px; }
 }
-
-/* ──────────────────────────────────────────────────────────────
-   11) Z-INDEX & CLICKABILITY (hard guarantees)
-   ────────────────────────────────────────────────────────────── */
-#backdrop    { z-index: 900 !important; }
-#sidePanel   { z-index: 1000 !important; }
-#panelCloseBtn { z-index: 1100 !important; }
