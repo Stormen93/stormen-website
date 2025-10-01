@@ -1,10 +1,10 @@
 /* ──────────────────────────────────────────────────────────────
-   Stormen — site.js
+   Stormen — site.js (full)
    - Opens/closes the side menu
-   - Header burger stays in header
-   - Separate close (X) button INSIDE #sidePanel
+   - Burger morph controlled by aria-expanded
+   - Dedicated close (X) button lives INSIDE #sidePanel
    - Backdrop click + ESC + nav-link close
-   - Header color swap on scroll
+   - Header color swap on scroll (keeps header fixed behavior)
    ────────────────────────────────────────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -20,43 +20,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!siteHeader || !sidePanel || !backdrop || !menuToggleBtn) return;
 
-  /* --------- Create a dedicated close button inside the panel --------- */
-  const panelCloseBtn = document.createElement('button');
-  panelCloseBtn.id = 'panelCloseBtn';
-  panelCloseBtn.type = 'button';
-  panelCloseBtn.setAttribute('aria-label', 'Close menu');
-  panelCloseBtn.innerHTML = '<span class="burger-line"></span><span class="burger-line lower"></span>';
-  sidePanel.appendChild(panelCloseBtn);
+  /* --------- Ensure an in-panel close button exists --------- */
+  let panelCloseBtn = document.getElementById('panelCloseBtn');
+  if (!panelCloseBtn) {
+    panelCloseBtn = document.createElement('button');
+    panelCloseBtn.id = 'panelCloseBtn';
+    panelCloseBtn.type = 'button';
+    panelCloseBtn.setAttribute('aria-label', 'Close menu');
+    panelCloseBtn.innerHTML = '<span class="burger-line"></span><span class="burger-line lower"></span>';
+    sidePanel.appendChild(panelCloseBtn);
+  }
 
   /* --------- State helpers --------- */
   const isOpen = () => !sidePanel.classList.contains('-translate-x-full');
 
-function openPanel() {
-  sidePanel.classList.remove('-translate-x-full');  // slide in
-  backdrop.classList.add('opacity-50');
-  siteHeader.classList.add('menu-open');
+  function openPanel() {
+    sidePanel.classList.remove('-translate-x-full');  // slide in
+    backdrop.classList.add('opacity-50');             // fade in backdrop
+    siteHeader.classList.add('menu-open');            // adjust z-index & burger styling
 
-  menuToggleBtn.setAttribute('aria-expanded', 'true');
+    // Burger morph trigger
+    menuToggleBtn.setAttribute('aria-expanded', 'true');
 
-  // show the in-panel close button
-  panelCloseBtn.classList.add('show');
-  panelCloseBtn.style.pointerEvents = 'auto';
-
-  sidePanel.classList.add('open');                 // <— ADD THIS (enables X slide-in)
-}
+    // Show the in-panel close button (class only; no inline display)
+    panelCloseBtn.classList.add('show');
+  }
 
   function closePanel() {
-  sidePanel.classList.add('-translate-x-full');
-  backdrop.classList.remove('opacity-50');
-  siteHeader.classList.remove('menu-open');
+    sidePanel.classList.add('-translate-x-full');
+    backdrop.classList.remove('opacity-50');
+    siteHeader.classList.remove('menu-open');
 
-  menuToggleBtn.setAttribute('aria-expanded', 'false');
+    // Burger morph reset
+    menuToggleBtn.setAttribute('aria-expanded', 'false');
 
-  panelCloseBtn.classList.remove('show');
-  panelCloseBtn.style.display = 'none'; // (if you keep this line in your file)
-
-  sidePanel.classList.remove('open');              // <— ADD THIS
-}
+    // Hide via class only
+    panelCloseBtn.classList.remove('show');
+  }
 
   /* --------- Wire up interactions --------- */
   menuToggleBtn.addEventListener('click', (e) => {
@@ -66,7 +66,6 @@ function openPanel() {
 
   panelCloseBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    // Guard: if something above is catching clicks, this still runs
     closePanel();
   });
 
@@ -81,7 +80,7 @@ function openPanel() {
     if (e.target.closest('a')) closePanel();
   });
 
-  /* --------- Header scroll color swap --------- */
+  /* --------- Header scroll color swap (keeps header fixed behavior) --------- */
   const onScroll = () => {
     if (window.scrollY > 10) siteHeader.classList.add('scrolled');
     else siteHeader.classList.remove('scrolled');
@@ -104,9 +103,13 @@ function openPanel() {
   }
   applyTheme();
 
-  /* --------- Safety: if menu starts open (hot reload etc.) --------- */
+  /* --------- Safety: ensure correct initial state --------- */
   if (isOpen()) {
+    // If panel is already visible (e.g., hot reload), show the X and morph burger
     panelCloseBtn.classList.add('show');
-    panelCloseBtn.style.pointerEvents = 'auto';
+    menuToggleBtn.setAttribute('aria-expanded', 'true');
+  } else {
+    panelCloseBtn.classList.remove('show');
+    menuToggleBtn.setAttribute('aria-expanded', 'false');
   }
 });

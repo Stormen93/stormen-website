@@ -1,13 +1,14 @@
 /* ──────────────────────────────────────────────────────────────
    Stormen — site.css (full)
-   - Header theming + scroll swap
+   - Fixed header theming + scroll swap
    - Side panel + backdrop transitions
-   - Header burger (morphs to X) + in-panel close button
-   - Utility styles used across pages
+   - Header burger (morphs to X)
+   - In-panel close button (top-right) that slides with the panel
    ────────────────────────────────────────────────────────────── */
 
 /* 1) Header default + scroll states */
 #siteHeader {
+  /* keep whatever Tailwind sets (likely fixed top-0 left-0 right-0) */
   background: transparent;
   transition: background-color .3s, box-shadow .3s, color .3s;
   color: #fff; /* white icons/logo by default on hero */
@@ -35,8 +36,10 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
    3) Header burger (morphs to X)
    ────────────────────────────────────────────────────────────── */
 #menuToggleBtn {
-  position: relative;            /* lives in the header */
-  z-index: 70;                   /* above header/backdrop (panel is higher) */
+  position: absolute;            /* typical setup: absolute inside header */
+  left: 16px;                    /* adjust if you place it elsewhere */
+  top: 16px;                     /* aligned with the in-panel X */
+  z-index: 70;                   /* below panel (1000+) but above header content */
   color: currentColor;           /* inherits header text color */
   display: inline-flex;
   align-items: center;
@@ -65,19 +68,22 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 /* Lower line is thinner */
 #menuToggleBtn .burger-line.lower { height: 2px; }
 
-/* Rest positions (spread apart so morph looks nice) */
+/* Rest positions (spread apart so morph is visible) */
 #menuToggleBtn .burger-line:not(.lower) { transform: translateY(-7px); }  /* top */
 #menuToggleBtn .burger-line.lower       { transform: translateY(7px); }   /* bottom */
 
-/* When menu opens: pull both lines to center and cross into an X */
-#siteHeader.menu-open #menuToggleBtn .burger-line:not(.lower) {
+/* Morph trigger: either header has .menu-open OR button has aria-expanded="true" */
+#siteHeader.menu-open #menuToggleBtn .burger-line:not(.lower),
+#menuToggleBtn[aria-expanded="true"] .burger-line:not(.lower) {
   transform: translateY(0) rotate(45deg);
 }
-#siteHeader.menu-open #menuToggleBtn .burger-line.lower {
+#siteHeader.menu-open #menuToggleBtn .burger-line.lower,
+#menuToggleBtn[aria-expanded="true"] .burger-line.lower {
   transform: translateY(0) rotate(-45deg);
 }
 /* Subtle chip background while open (optional) */
-#siteHeader.menu-open #menuToggleBtn {
+#siteHeader.menu-open #menuToggleBtn,
+#menuToggleBtn[aria-expanded="true"] {
   background: rgba(17, 24, 39, .08);
   border-radius: 9999px;
 }
@@ -119,7 +125,7 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
   align-items: center;
   justify-content: center;
 
-  /* Aesthetic: thin X in a subtle round chip */
+  /* Thin-line aesthetic */
   background: rgba(255,255,255,.96);
   color: #0f172a;
   border: 1px solid rgba(15,23,42,.08);
@@ -135,8 +141,8 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 #panelCloseBtn:hover { box-shadow: 0 4px 16px rgba(0,0,0,.14); transform: translateX(-24px) translateY(-1px); }
 html.dark #panelCloseBtn { color: #0b1220; }
 
-/* Slide the X into place when the panel is marked open by JS */
-#sidePanel.open #panelCloseBtn { transform: translateX(0); }
+/* Slide the X into place when the panel is onscreen (no extra JS class needed) */
+#sidePanel:not(.-translate-x-full) #panelCloseBtn { transform: translateX(0); }
 
 /* Make its lines match the burger’s width/thickness for consistency */
 #panelCloseBtn .burger-line {
@@ -149,7 +155,7 @@ html.dark #panelCloseBtn { color: #0b1220; }
 }
 /* bottom thinner */
 #panelCloseBtn .burger-line.lower { height: 2px; }
-/* cross into X (they’re centered by default) */
+/* cross into X (centered) */
 #panelCloseBtn .burger-line:not(.lower) { transform: rotate(45deg); }
 #panelCloseBtn .burger-line.lower       { transform: rotate(-45deg); }
 
@@ -230,107 +236,13 @@ html.dark #panelCloseBtn { color: #0b1220; }
    10) Small-screen tweak
    ────────────────────────────────────────────────────────────── */
 @media (max-width: 480px) {
+  #menuToggleBtn { top: 12px; left: 12px; }
   #panelCloseBtn { top: 12px; right: 12px; }
 }
 
 /* ──────────────────────────────────────────────────────────────
    11) Z-INDEX & CLICKABILITY (hard guarantees)
    ────────────────────────────────────────────────────────────── */
-#backdrop { z-index: 900 !important; }
-#sidePanel { z-index: 1000 !important; }
+#backdrop    { z-index: 900 !important; }
+#sidePanel   { z-index: 1000 !important; }
 #panelCloseBtn { z-index: 1100 !important; }
-
-
-/* === Burger/X: wider lines, thicker top, morph to X === */
-
-/* base look */
-#menuToggleBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px; height: 40px;
-  border-radius: 9999px;
-}
-
-/* make both lines wider; top thicker than bottom */
-#menuToggleBtn .burger-line {
-  position: absolute;
-  width: 24px;             /* wider */
-  height: 3px;             /* top thickness */
-  background: currentColor;
-  border-radius: 2px;
-  transition: transform .28s ease, opacity .2s ease, height .2s ease, width .2s ease, background-color .2s ease;
-}
-#menuToggleBtn .burger-line.lower { height: 2px; }
-
-/* resting positions (spread so the morph is visible) */
-#menuToggleBtn .burger-line:not(.lower) { transform: translateY(-7px); } /* top */
-#menuToggleBtn .burger-line.lower       { transform: translateY(7px); }  /* bottom */
-
-/* MORPH TRIGGER — works via either header class OR aria-expanded */
-#siteHeader.menu-open #menuToggleBtn .burger-line:not(.lower),
-#menuToggleBtn[aria-expanded="true"] .burger-line:not(.lower) {
-  transform: translateY(0) rotate(45deg);
-}
-#siteHeader.menu-open #menuToggleBtn .burger-line.lower,
-#menuToggleBtn[aria-expanded="true"] .burger-line.lower {
-  transform: translateY(0) rotate(-45deg);
-}
-
-/* optional chip while open */
-#siteHeader.menu-open #menuToggleBtn,
-#menuToggleBtn[aria-expanded="true"] {
-  background: rgba(17,24,39,.08);
-  border-radius: 9999px;
-}
-
-/* === In-panel X: slide with the menu and stay clickable === */
-
-#panelCloseBtn {
-  position: absolute; top: 16px; right: 16px;
-  width: 40px; height: 40px;
-  border-radius: 9999px;
-  display: none; align-items: center; justify-content: center;
-  background: rgba(255,255,255,.96);
-  color: #0f172a;
-  border: 1px solid rgba(15,23,42,.08);
-  box-shadow: 0 2px 10px rgba(0,0,0,.10);
-  cursor: pointer; pointer-events: auto;
-  z-index: 1100;
-  /* start slightly left so it rides in with the panel */
-  transform: translateX(-24px);
-  transition: transform .30s ease, box-shadow .2s ease, background-color .2s ease;
-}
-#panelCloseBtn.show { display: inline-flex; }
-html.dark #panelCloseBtn { color: #0b1220; }
-
-/* slide to place exactly when the panel is onscreen (no special class needed) */
-#sidePanel:not(.-translate-x-full) #panelCloseBtn { transform: translateX(0); }
-
-/* thin X, matched to burger widths */
-#panelCloseBtn .burger-line {
-  position: absolute;
-  width: 24px; height: 3px; border-radius: 2px; background: currentColor;
-}
-#panelCloseBtn .burger-line.lower { height: 2px; }
-#panelCloseBtn .burger-line:not(.lower) { transform: rotate(45deg); }
-#panelCloseBtn .burger-line.lower       { transform: rotate(-45deg); }
-
-/* === Z-index hard guarantees === */
-#backdrop { z-index: 900 !important; }
-#sidePanel { z-index: 1000 !important; }
-#panelCloseBtn { z-index: 1100 !important; }
-#siteHeader, #siteHeader.menu-open { z-index: 800 !important; }
-
-
-#siteHeader { position: relative; } /* safe: creates positioning context if needed */
-
-#menuToggleBtn {
-  top: 16px !important;           /* match the X's vertical position */
-  transform: none !important;     /* cancel -translate-y-1/2 from Tailwind */
-}
-
-/* If you want it a hair tighter on phones: */
-@media (max-width: 480px) {
-  #menuToggleBtn { top: 12px !important; }
-}
