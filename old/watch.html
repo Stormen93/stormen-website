@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" class="">
 <head>
-  <script src="assets/js/theme.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Stormen | About</title>
+  <title>Stormen | Watch</title>
   <!-- Roboto Condensed -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet"/>
   <!-- Roboto Mono -->
@@ -17,31 +16,31 @@
   <!-- Feather Icons -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.1/dist/feather.min.js"></script>
   <style>body { font-family: 'Roboto Condensed', sans-serif; }</style>
-  <link rel="stylesheet" href="assets/css/theme.css">
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 dark:bg-gray-900 text-gray-900 dark:text-gray-100 dark:text-gray-100 min-h-screen flex flex-col">
   <!-- Backdrop -->
   <div id="backdrop" class="fixed inset-0 bg-gray-900 opacity-0 pointer-events-none z-40 transition-opacity"></div>
 
   <!-- Header -->
-  
-<header class="site-header" role="banner">
-  <div class="container">
-    <a class="brand" href="index.html" aria-label="Stormen home">
-      <img src="assets/logo.png" alt="Stormen logo" />
-      <span>Stormen</span>
+  <header id="siteHeader" class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
+    <button id="openMenuBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none">
+      <span class="burger-line"></span>
+      <span class="burger-line lower"></span>
+    </button>
+    <a href="/" class="mx-auto h-36 flex items-center justify-center">
+      <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36" />
     </a>
-    <nav class="nav" role="navigation" aria-label="Primary">
-      <a href="index.html">Home</a>
-      <a href="videos.html">Videos</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <button class="theme-toggle" data-theme-toggle aria-label="Switch theme" title="Switch theme">🌓</button>
-    </nav>
-  </div>
-</header>
-
-
+  
+  <!-- Dark/Light toggle button -->
+  <button id="themeToggle"
+          class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 transition-colors duration-300"
+          aria-label="Toggle Theme">
+    <img id="themeIcon"
+         src="images/lightmode.png"
+         alt="Toggle theme"
+         class="w-8 h-8"/>
+  </button></header>
+ 
   <!-- Side Panel -->
   <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl uppercase font-semibold" style="visibility: hidden;">
     <button id="closeMenuBtn" class="absolute right-3 top-3 p-3 focus:outline-none">
@@ -88,27 +87,27 @@
     </nav>
   </aside>
 
-  <!-- About Content -->
-  <main class="flex-grow flex flex-col md:flex-row items-center justify-center py-20 px-4">
-    <img src="images/avatar.jpg" alt="Stormen avatar" class="w-96 h-96 rounded-full object-cover border-4 border-black shadow-md mr-12 mb-8 md:mb-0"/>
-    <div class="max-w-lg">
-      <h1 class="text-5xl font-extrabold mb-4">STORMEN</h1>
-      <p>
-        Hey there, I’m <strong>Stormen</strong>! I’ve been streaming full-time for almost a decade, mostly focusing on FPS games where I balance a high-skill approach with a laid-back, welcoming vibe.
-      </p>
-      <p class="mt-4">
-        My channel is all about having fun, showcasing solid gameplay, and keeping the interaction with my community front and center. After nearly 10 years, we’ve grown into an awesome, supportive group that loves to share laughs, tips, and good times.
-      </p>
-      <p class="mt-4">
-        Be sure to get connected and say hey!
-      </p>
-      <div class="mt-6">
-        <a href="https://twitch.tv/stormen" target="_blank" class="watch-link">
+  <!-- Watch Content -->
+  <main class="flex-grow min-h-screen container mx-auto px-8 pt-32 pb-20 flex flex-col items-center">
+  <!-- 16:9 video wrapper with orange border -->
+   <div class="container mx-auto px-4">
+
+    <div class="embed-wrapper">
+      <iframe
+        src="https://www.youtube.com/embed/videoseries?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="flex justify-center mt-16"> <!-- 64 px gap -->
+      <a href="https://twitch.tv/stormen" target="_blank" class="watch-link">
         <span>WATCH STORMEN’S STREAM</span>
       </a>
-      </div>
     </div>
-  </main>
+
+  </div>
+</main>
 
   <!-- Footer -->
   <footer class="bg-white py-10 text-gray-900">
@@ -141,7 +140,7 @@
     </div>
   </footer>
 
-<!-- Cloudflare Email Decode -->
+ <!-- Cloudflare Email Decode -->
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
   <!-- Site JS -->
   <script src="site.js" defer></script>

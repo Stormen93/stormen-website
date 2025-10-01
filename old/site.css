@@ -1,0 +1,163 @@
+/* ── 0) Base burger lines ── */
+.burger-line {
+  display: block;
+  width: 48px;
+  height: 2px;
+  margin: 6px 0;
+  background: #fff;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+.burger-line.lower {
+  height: 1px;
+}
+
+/* ── 1) Header default + scroll states ── */
+#siteHeader {
+  background: transparent;
+  transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
+  color: #fff; /* white bars at top */
+}
+#siteHeader .logo-white { opacity: 1; transition: opacity 0.3s; }
+#siteHeader .logo-black { opacity: 0; transition: opacity 0.3s; }
+
+#siteHeader.scrolled {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  color: #000; /* black bars when scrolled */
+}
+
+/* ── dark-mode banner colour ─────────────────────────────── */
+html.dark #siteHeader.scrolled{
+  background-color:#0d1117;   /* ← whatever your page bg is in dark mode */
+  color:#fff;                 /* keep text/icons light                 */
+}
+
+/* swap the logos back (white logo on the dark banner) */
+html.dark #siteHeader.scrolled .logo-white { opacity:1; }
+html.dark #siteHeader.scrolled .logo-black { opacity:0; }
+
+#siteHeader.scrolled .logo-white { opacity: 0; }   /* hide white logo   */
+#siteHeader.scrolled .logo-black { opacity: 1; }   /* show yellow logo  */
+
+/* ── 2) Hamburger → X animation ── */
+#openMenuBtn .burger-line,
+#closeMenuBtn .burger-line {
+  background-color: currentColor !important;
+}
+#closeMenuBtn.open .burger-line:first-child {
+  transform: rotate(45deg) translateY(2px) !important;
+}
+#closeMenuBtn.open .burger-line.lower {
+  transform: rotate(-45deg) translateY(-2px) !important;
+}
+
+/* ── 3) Backdrop defaults + transitions ── */
+#backdrop {
+  background: rgba(0,0,0,0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+#backdrop.opacity-50 {
+  opacity: 0.5;
+  pointer-events: auto;
+}
+
+/* ── 4) Panel clickability ── */
+#sidePanel.-translate-x-full {
+  pointer-events: none !important;
+}
+#sidePanel:not(.-translate-x-full) {
+  pointer-events: auto !important;
+}
+
+/* ── 5) Sidebar links & hover underline ── */
+#sidePanel nav a {
+  font-family: "Roboto Condensed", sans-serif !important;
+  text-decoration: none !important;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  color: inherit;
+}
+#sidePanel nav a:last-child {
+  margin-bottom: 0;
+}
+#sidePanel nav a span {
+  position: relative;
+  display: inline-block;
+}
+#sidePanel nav a span::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background-color: currentColor;
+  transition: width 0.3s ease-in-out;
+}
+#sidePanel nav a:hover span::after {
+  width: 100%;
+}
+
+/* ── 6) Theme-toggle icon ── */
+#themeIcon {
+  filter: invert(100%);
+  transition: filter 0.3s ease;
+}
+
+/* universal 16 : 9 wrapper ------------------------- */
+.embed-wrapper{
+  position:relative;
+  width:100%;
+  max-width:1024px;
+  margin:2rem auto 5rem;   /* top | sides | bottom */
+  border:4px solid #ff9f3a;
+  border-radius:.5rem;
+  box-shadow:8px 12px 24px rgba(0,0,0,.4);
+  overflow:hidden;
+}
+
+/* 16 : 9 spacer  (no #latest qualifier!) */
+.embed-wrapper::before{
+  content:'';
+  display:block;
+  padding-top:56.25%;      /* 9 / 16 = 0.5625 */
+}
+
+/* make the iframe fill that wrapper */
+.embed-wrapper iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+}
+
+/* orange pill CTA */
+.watch-link{
+  font-family:'Roboto Mono',monospace;
+  font-weight:700;
+  display:inline-block;
+  margin-top:1.5rem;    /* space under the video */
+  padding:.75rem 1.5rem;
+  background:#ff9f3a;
+  color:#000;
+  border-radius:9999px;
+  text-decoration:none;
+  transition:filter .2s;
+}
+.watch-link:hover{filter:brightness(1.1);}
+.watch-link span{position:relative;}
+.watch-link span::after{
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:-2px;
+  width:0;
+  height:2px;
+  background:#000;
+  transition:width .3s;
+}
+.watch-link:hover span::after{width:100%;}

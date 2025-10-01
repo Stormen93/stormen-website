@@ -2,7 +2,6 @@
 
 <html lang="en" class="">
 <head>
-  <script src="assets/js/theme.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stormen | Social Media</title>
@@ -18,7 +17,6 @@
   <!-- Site CSS -->
   <link href="site.css" rel="stylesheet" />
   <style>body { font-family: 'Roboto Condensed', sans-serif; }</style>
-  <link rel="stylesheet" href="assets/css/theme.css">
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
 
@@ -28,23 +26,20 @@
 
   <!-- Header -->
 
-  
-<header class="site-header" role="banner">
-  <div class="container">
-    <a class="brand" href="index.html" aria-label="Stormen home">
-      <img src="assets/logo.png" alt="Stormen logo" />
-      <span>Stormen</span>
+  <header id="siteHeader" class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
+    <button id="openMenuBtn" class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none">
+      <span class="burger-line"></span>
+      <span class="burger-line lower"></span>
+    </button>
+    <a href="/" class="mx-auto relative h-36 flex items-center justify-center">
+      <img src="images/logo_yellow.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
+      <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
     </a>
-    <nav class="nav" role="navigation" aria-label="Primary">
-      <a href="index.html">Home</a>
-      <a href="videos.html">Videos</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <button class="theme-toggle" data-theme-toggle aria-label="Switch theme" title="Switch theme">🌓</button>
-    </nav>
-  </div>
-</header>
-
+    <!-- Dark/Light Toggle -->
+    <button id="themeToggle" class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 transition-colors duration-300" aria-label="Toggle Theme">
+      <img id="themeIcon" src="images/lightmode.png" alt="Toggle theme" class="w-8 h-8" />
+    </button>
+  </header>
 
   <!-- Side Panel -->
 
