@@ -1,147 +1,124 @@
 /* ──────────────────────────────────────────────────────────────
-   Stormen — site.css (single moving toggle button + FLIP)
+   Stormen — site.css (menu-internal animation)
+   - Header is fixed on scroll
+   - Header burger (longer, lowered) only opens the menu
+   - Close button lives INSIDE the menu and animates there:
+       slide-in + burger→X morph on open, reverse on close
    ────────────────────────────────────────────────────────────── */
 
-/* Fallback; JS will set exact panel width if you ever need it */
-:root { --panel-w: 288px; --panel-pad: 16px; }
+/* General fallback numbers (Tailwind w-72 = 288px) */
+:root { --panel-w: 288px; --chip-bg: rgba(255,255,255,.96); --chip-fg: #0f172a; }
 
-/* 1) Header (fixed) + scroll states */
+/* 1) Header (fixed) + scroll styling */
 #siteHeader {
-  position: fixed !important;
-  top: 0; left: 0; right: 0;
-  background: transparent;
+  position: fixed !important; top: 0; left: 0; right: 0;
+  background: transparent; color: #fff;
   transition: background-color .3s, box-shadow .3s, color .3s;
-  color: #fff;
   z-index: 2000;
 }
-#siteHeader .logo-white { opacity: 1; transition: opacity .3s; }
-#siteHeader .logo-black { opacity: 0; transition: opacity .3s; }
+#siteHeader.scrolled { background:#fff; box-shadow:0 2px 4px rgba(0,0,0,.1); color:#000; }
+#siteHeader .logo-white { opacity:1; transition:opacity .3s; }
+#siteHeader .logo-black { opacity:0; transition:opacity .3s; }
+#siteHeader.scrolled .logo-white { opacity:0; }
+#siteHeader.scrolled .logo-black { opacity:1; }
 
-#siteHeader.scrolled {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,.1);
-  color: #000;
-}
-
-/* Panel stacks above header while open */
+/* While menu is open, the panel sits above the header */
 #siteHeader.menu-open { z-index: 1900 !important; }
 
-/* Dark mode on scroll */
-html.dark #siteHeader.scrolled { background-color: #0d1117; color: #fff; }
-html.dark #siteHeader.scrolled .logo-white { opacity: 1; }
-html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
-#siteHeader.scrolled .logo-white { opacity: 0; }
-#siteHeader.scrolled .logo-black { opacity: 1; }
-
-/* 2) Toggle button (burger ↔ X) */
-#menuToggleBtn {
-  position: absolute; left: 16px; top: 16px;   /* default spot in header */
-  z-index: 2050;
-  color: currentColor;
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px;
-  border-radius: 9999px;
-  cursor: pointer;
-  transition: background-color .2s ease, box-shadow .2s ease, color .2s ease;
+/* 2) Header burger (open button) — longer + lowered lines */
+#menuToggleBtn{
+  position:absolute; left:16px; top:16px;
+  display:inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; border-radius:9999px;
+  color:currentColor; cursor:pointer; z-index:2050;
+  transition: background-color .2s, box-shadow .2s, color .2s;
 }
-#menuToggleBtn:hover { box-shadow: 0 2px 10px rgba(0,0,0,.12); }
+#menuToggleBtn:hover{ box-shadow:0 2px 10px rgba(0,0,0,.12); }
 
-/* Longer lines (36px). Top thicker than bottom. LOWERED a bit. */
-#menuToggleBtn .burger-line {
-  position: absolute;
-  width: 36px;
-  height: 3px;                 /* top thickness */
-  background: currentColor;
-  border-radius: 2px;
-  transition: transform .28s ease, opacity .2s ease, width .2s ease, height .2s ease, background-color .2s ease;
+#menuToggleBtn .burger-line{
+  position:absolute; width:36px; height:3px;        /* 1.5× length, thicker top */
+  border-radius:2px; background:currentColor;
+  transition:transform .28s ease, opacity .2s ease;
 }
-#menuToggleBtn .burger-line.lower { height: 2px; }   /* bottom thinner */
+#menuToggleBtn .burger-line.lower{ height:2px; }    /* thinner bottom */
+#menuToggleBtn .burger-line:not(.lower){ transform:translateY(-1px); } /* lowered */
+#menuToggleBtn .burger-line.lower{ transform:translateY(11px); }
 
-/* Resting offsets (lowered) */
-#menuToggleBtn .burger-line:not(.lower) { transform: translateY(-1px); }  /* top line slightly lower */
-#menuToggleBtn .burger-line.lower       { transform: translateY(11px); }  /* bottom line lower */
-
-/* Morph to X (centered) */
-#siteHeader.menu-open #menuToggleBtn .burger-line:not(.lower),
-#menuToggleBtn[aria-expanded="true"] .burger-line:not(.lower) {
-  transform: translateY(0) rotate(45deg);
+/* 3) Side panel + backdrop */
+#sidePanel{
+  position:fixed;
+  transition:transform .30s ease-in-out;
+  z-index:1950 !important; /* above header when open */
 }
-#siteHeader.menu-open #menuToggleBtn .burger-line.lower,
-#menuToggleBtn[aria-expanded="true"] .burger-line.lower {
-  transform: translateY(0) rotate(-45deg);
+#backdrop{
+  position:fixed; background:rgba(0,0,0,.5); opacity:0; pointer-events:none;
+  transition:opacity .30s ease-in-out; z-index:1800;
 }
+#backdrop.opacity-50{ opacity:.5; pointer-events:auto; }
+#sidePanel.-translate-x-full{ pointer-events:none !important; }
+#sidePanel:not(.-translate-x-full){ pointer-events:auto !important; }
 
-/* 3) Side panel + backdrop + stacking */
-#sidePanel {
-  position: fixed;
-  transition: transform .30s ease-in-out;   /* keep this in sync with JS FLIP timing */
-  z-index: 1950 !important;                 /* above header when open */
+/* 4) In-panel close button (lives in panel, animates in panel) */
+#panelCloseBtn{
+  position:absolute; right:16px; top:24px;            /* slightly lower per your request */
+  width:44px; height:44px; border-radius:9999px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--chip-bg); color:var(--chip-fg);
+  border:1px solid rgba(15,23,42,.08);
+  box-shadow:0 2px 10px rgba(0,0,0,.10);
+  cursor:pointer; z-index:1960;
+  /* start hidden; JS toggles .is-open on the PANEL to run animations */
+  opacity:0; transform:translateX(24px); pointer-events:none;
+  transition: opacity .30s ease, transform .30s ease, box-shadow .2s ease;
 }
-#backdrop {
-  position: fixed;
-  background: rgba(0,0,0,.5);
-  opacity: 0; pointer-events: none;
-  transition: opacity .30s ease-in-out;
-  z-index: 1800;
+#panelCloseBtn:hover{ box-shadow:0 4px 16px rgba(0,0,0,.14); }
+
+/* lines inside the panel button (burger state by default) */
+#panelCloseBtn .line{
+  position:absolute; width:36px; height:3px; border-radius:2px; background:currentColor;
+  transition: transform .28s ease;
 }
-#backdrop.opacity-50 { opacity: .5; pointer-events: auto; }
+#panelCloseBtn .line.b{ height:2px; }                /* thinner bottom */
+#panelCloseBtn .line.t{ transform: translateY(-1px); }
+#panelCloseBtn .line.b{ transform: translateY(11px); }
 
-#sidePanel.-translate-x-full { pointer-events: none !important; }
-#sidePanel:not(.-translate-x-full) { pointer-events: auto !important; }
-
-/* 4) When the SAME button is moved INSIDE the panel (JS appends it)  */
-/* Lower it a bit more per your screenshot: top: 24px instead of 16px */
-#sidePanel #menuToggleBtn {
-  position: absolute !important;
-  right: 16px !important;
-  left: auto !important;
-  top: 24px !important;                      /* ↓ lowered */
-  z-index: 3000 !important;                  /* above panel content */
-  color: #0f172a !important;                 /* dark strokes on white */
-  background: rgba(255,255,255,.96) !important;
-  box-shadow: 0 2px 10px rgba(0,0,0,.12) !important;
-  cursor: pointer !important;
+/* When the panel is OPEN, animate the panel button in & morph to X */
+#sidePanel.is-open #panelCloseBtn{
+  opacity:1; transform:translateX(0); pointer-events:auto;
 }
+#sidePanel.is-open #panelCloseBtn .line.t{ transform: rotate(45deg); }
+#sidePanel.is-open #panelCloseBtn .line.b{ transform: rotate(-45deg); }
 
-/* 5) Hide any legacy in-panel X if it still exists */
-#panelCloseBtn { display: none !important; }
+/* 5) If an old duplicate X exists, hide it hard */
+#panelCloseBtnLegacy, #panel-close, .panel-close { display:none !important; }
 
-/* 6) Smooth FLIP end-state transition (transform only) */
-#menuToggleBtn.animating {
-  transition: transform .30s ease;     /* same as panel */
+/* 6) Nav hover underline */
+#sidePanel nav a{
+  font-family:"Roboto Condensed",sans-serif !important; text-decoration:none !important;
+  margin-bottom:1rem; color:inherit; position:relative; display:inline-block;
 }
-
-/* 7) Nav underline */
-#sidePanel nav a {
-  font-family: "Roboto Condensed", sans-serif !important;
-  text-decoration: none !important;
-  margin-bottom: 1rem; color: inherit;
-  position: relative; display: inline-block;
+#sidePanel nav a span::after{
+  content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:currentColor;
+  transition:width .25s ease-in-out;
 }
-#sidePanel nav a span { position: relative; display: inline-block; }
-#sidePanel nav a span::after {
-  content: ''; position: absolute; left: 0; bottom: -2px; width: 0; height: 2px;
-  background-color: currentColor; transition: width .25s ease-in-out;
-}
-#sidePanel nav a:hover span::after { width: 100%; }
+#sidePanel nav a:hover span::after{ width:100%; }
 
-/* 8) Theme icon */
-#themeIcon { filter: invert(100%); transition: filter .3s ease; }
+/* 7) Theme icon */
+#themeIcon{ filter:invert(100%); transition:filter .3s; }
 
-/* 9) 16:9 embed */
-.embed-wrapper { position: relative; width: 100%; max-width: 1024px; margin: 2rem auto 5rem; border: 4px solid #ff9f3a; border-radius: 16px; overflow: hidden; }
-.embed-wrapper::before { content: ''; display: block; padding-top: 56.25%; }
-.embed-wrapper iframe  { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+/* 8) 16:9 embed + CTA pill (unchanged) */
+.embed-wrapper{ position:relative; width:100%; max-width:1024px; margin:2rem auto 5rem; border:4px solid #ff9f3a; border-radius:16px; overflow:hidden; }
+.embed-wrapper::before{ content:''; display:block; padding-top:56.25%; }
+.embed-wrapper iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
 
-/* 10) CTA pill */
-.watch-link { font-family: 'Roboto Mono', monospace; font-weight: 700; display: inline-block; margin-top: 1.5rem; padding: .75rem 1.5rem; background: #ff9f3a; color: #000; border-radius: 9999px; text-decoration: none; transition: filter .2s; }
-.watch-link:hover { filter: brightness(1.1); }
-.watch-link span { position: relative; }
-.watch-link span::after { content: ''; position: absolute; left: 0; bottom: -2px; width: 0; height: 2px; background: #000; transition: width .25s; }
-.watch-link:hover span::after { width: 100%; }
+.watch-link{ font-family:'Roboto Mono',monospace; font-weight:700; display:inline-block; margin-top:1.5rem; padding:.75rem 1.5rem; background:#ff9f3a; color:#000; border-radius:9999px; text-decoration:none; transition:filter .2s; }
+.watch-link:hover{ filter:brightness(1.1); }
+.watch-link span{ position:relative; }
+.watch-link span::after{ content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:#000; transition:width .25s; }
+.watch-link:hover span::after{ width:100%; }
 
-/* 11) Small screens */
-@media (max-width: 480px) {
-  #menuToggleBtn { left: 12px; top: 12px; width: 42px; height: 42px; }
-  #sidePanel #menuToggleBtn { top: 20px !important; }  /* keep it a bit lower on phones, too */
+/* 9) Small screens */
+@media (max-width:480px){
+  #menuToggleBtn{ left:12px; top:12px; width:42px; height:42px; }
+  #panelCloseBtn{ top:20px; }
 }

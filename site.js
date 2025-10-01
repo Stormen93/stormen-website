@@ -1,9 +1,8 @@
 /* ──────────────────────────────────────────────────────────────
-   Stormen — site.js (single toggle + FLIP slide)
-   - One button (#menuToggleBtn) morphs burger ↔ X
-   - On open: DOM is moved into panel and we FLIP-animate from header → panel
-   - On close: FLIP back from panel → header
-   - Header stays fixed; backdrop/esc/link close preserved
+   Stormen — site.js (menu-internal animation)
+   - Header burger opens menu
+   - Close button lives INSIDE the menu and animates there
+   - No moving button between header/panel; no duplicates
    ────────────────────────────────────────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -12,79 +11,40 @@ document.addEventListener('DOMContentLoaded', () => {
   const siteHeader    = document.getElementById('siteHeader');
   const sidePanel     = document.getElementById('sidePanel');
   const backdrop      = document.getElementById('backdrop');
-  const menuToggleBtn = document.getElementById('menuToggleBtn');
+  const menuToggleBtn = document.getElementById('menuToggleBtn');   // header opener
   const themeToggle   = document.getElementById('themeToggle');
   const themeIcon     = document.getElementById('themeIcon');
 
   if (!siteHeader || !sidePanel || !backdrop || !menuToggleBtn) return;
 
-  // Remove any legacy in-panel close button (we only use #menuToggleBtn)
-  const stale = document.getElementById('panelCloseBtn');
-  if (stale && stale.parentElement) stale.parentElement.removeChild(stale);
+  /* Ensure a single, permanent in-panel close button exists */
+  let panelCloseBtn = document.getElementById('panelCloseBtn');
+  if (!panelCloseBtn) {
+    panelCloseBtn = document.createElement('button');
+    panelCloseBtn.id = 'panelCloseBtn';
+    panelCloseBtn.type = 'button';
+    panelCloseBtn.setAttribute('aria-label', 'Close menu');
+    panelCloseBtn.innerHTML = `
+      <span class="line t"></span>
+      <span class="line b"></span>
+    `;
+    sidePanel.appendChild(panelCloseBtn);
+  }
 
-  const homeParent = menuToggleBtn.parentElement; // header container
+  // Helper
   const isOpen = () => !sidePanel.classList.contains('-translate-x-full');
 
-  // FLIP helper: animate menuToggleBtn from its previous rect to its new rect
-  function flipToNewPlace(moveDOMCallback) {
-    const startRect = menuToggleBtn.getBoundingClientRect();
-
-    // Move the element in the DOM (header → panel, or panel → header)
-    moveDOMCallback();
-
-    // Force style application before measuring end rect
-    menuToggleBtn.offsetHeight; // reflow
-    const endRect = menuToggleBtn.getBoundingClientRect();
-
-    // Compute delta between positions
-    const dx = startRect.left - endRect.left;
-    const dy = startRect.top  - endRect.top;
-
-    // Apply inverse transform, then animate back to identity
-    menuToggleBtn.style.transform = `translate(${dx}px, ${dy}px)`;
-    // Trigger transition
-    menuToggleBtn.classList.add('animating');
-    requestAnimationFrame(() => {
-      menuToggleBtn.style.transform = 'translate(0, 0)';
-    });
-
-    // Clean up after transition
-    const clear = () => {
-      menuToggleBtn.classList.remove('animating');
-      menuToggleBtn.style.transform = '';
-      menuToggleBtn.removeEventListener('transitionend', clear);
-    };
-    menuToggleBtn.addEventListener('transitionend', clear);
-  }
-
-  function moveIntoPanel() {
-    if (menuToggleBtn.parentElement !== sidePanel) {
-      sidePanel.appendChild(menuToggleBtn);
-    }
-    // Ensure it stays clickable and on top
-    menuToggleBtn.style.pointerEvents = 'auto';
-    menuToggleBtn.style.zIndex = '3000';
-  }
-
-  function moveBackToHeader() {
-    if (menuToggleBtn.parentElement !== homeParent) {
-      homeParent.appendChild(menuToggleBtn);
-    }
-    menuToggleBtn.style.pointerEvents = '';
-    menuToggleBtn.style.zIndex = '';
-  }
-
   function openPanel() {
-    // Slide panel in
+    // slide in the panel & fade backdrop
     sidePanel.classList.remove('-translate-x-full');
     backdrop.classList.add('opacity-50');
     siteHeader.classList.add('menu-open');
 
-    // Burger → X (also changes color in CSS)
-    menuToggleBtn.setAttribute('aria-expanded', 'true');
+    // trigger in-panel animation (slides the close chip in & morphs to X)
+    sidePanel.classList.add('is-open');
 
-    // FLIP: header → panel (button lands at top-right inside, lower at 24px)
-    flipToNewPlace(moveIntoPanel);
+    // (Optional) reflect state on opener so you can style it if desired
+    menuToggleBtn.setAttribute('aria-expanded', 'true');
   }
 
   function closePanel() {
@@ -92,29 +52,22 @@ document.addEventListener('DOMContentLoaded', () => {
     backdrop.classList.remove('opacity-50');
     siteHeader.classList.remove('menu-open');
 
-    // X → burger
-    menuToggleBtn.setAttribute('aria-expanded', 'false');
+    // reverse in-panel animation (chip slides out, lines back to burger)
+    sidePanel.classList.remove('is-open');
 
-    // FLIP: panel → header (button returns to top-left inside header)
-    flipToNewPlace(moveBackToHeader);
+    menuToggleBtn.setAttribute('aria-expanded', 'false');
   }
 
-  // Toggle
-  menuToggleBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    isOpen() ? closePanel() : openPanel();
-  });
-
-  // Close behaviors
+  // Wire up interactions
+  menuToggleBtn.addEventListener('click', (e) => { e.preventDefault(); isOpen() ? closePanel() : openPanel(); });
+  panelCloseBtn.addEventListener('click',  (e) => { e.preventDefault(); closePanel(); });
   backdrop.addEventListener('click', closePanel);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) closePanel(); });
   sidePanel.addEventListener('click', (e) => { if (e.target.closest('a')) closePanel(); });
 
-  // Keep header color swap
-  const onScroll = () => {
-    if (window.scrollY > 10) siteHeader.classList.add('scrolled');
-    else siteHeader.classList.remove('scrolled');
-  };
+  // Header scroll color swap
+  const onScroll = () => { (window.scrollY > 10) ? siteHeader.classList.add('scrolled')
+                                                 : siteHeader.classList.remove('scrolled'); };
   onScroll();
   window.addEventListener('scroll', onScroll);
 
@@ -124,24 +77,21 @@ document.addEventListener('DOMContentLoaded', () => {
     document.documentElement.classList.toggle('dark', isDark);
     if (themeIcon) themeIcon.src = isDark ? 'images/darkmode.png' : 'images/lightmode.png';
   };
-  if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-      const next = !(localStorage.getItem('theme') === 'dark');
-      localStorage.setItem('theme', next ? 'dark' : 'light');
-      applyTheme();
-    });
-  }
+  if (themeToggle) themeToggle.addEventListener('click', () => {
+    const next = !(localStorage.getItem('theme') === 'dark');
+    localStorage.setItem('theme', next ? 'dark' : 'light');
+    applyTheme();
+  });
   applyTheme();
 
-  // Initial state / hot reload
+  // Initial state (hot reload safety)
   if (isOpen()) {
-    // Ensure it lives in the panel and looks like an X
-    flipToNewPlace(moveIntoPanel);
-    menuToggleBtn.setAttribute('aria-expanded', 'true');
+    backdrop.classList.add('opacity-50');
     siteHeader.classList.add('menu-open');
+    sidePanel.classList.add('is-open');
   } else {
-    flipToNewPlace(moveBackToHeader);
-    menuToggleBtn.setAttribute('aria-expanded', 'false');
+    backdrop.classList.remove('opacity-50');
     siteHeader.classList.remove('menu-open');
+    sidePanel.classList.remove('is-open');
   }
 });
