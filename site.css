@@ -1,20 +1,18 @@
 /* ──────────────────────────────────────────────────────────────
-   Stormen — site.css (single-button version)
-   - Fixed header + scroll swap
-   - Side panel + backdrop transitions
-   - One burger/X button that moves into panel (JS sets position)
+   Stormen — site.css (single-button, follower X)
    ────────────────────────────────────────────────────────────── */
 
-/* Panel width fallback; JS sets --panel-w on open */
+/* Fallback panel width; JS sets exact position on open */
 :root { --panel-w: 288px; --panel-pad: 16px; }
 
 /* 1) Header (fixed) + scroll states */
 #siteHeader {
-  position: fixed !important; top: 0; left: 0; right: 0;
+  position: fixed !important;
+  top: 0; left: 0; right: 0;
   background: transparent;
   transition: background-color .3s, box-shadow .3s, color .3s;
   color: #fff;
-  z-index: 2000; /* header follows; panel will overtake while open */
+  z-index: 2000; /* header follows scroll */
 }
 #siteHeader .logo-white { opacity: 1; transition: opacity .3s; }
 #siteHeader .logo-black { opacity: 0; transition: opacity .3s; }
@@ -25,7 +23,7 @@
   color: #000;
 }
 
-/* When menu is open, let the panel sit above the header */
+/* When menu is open, the panel sits above header; button will be above panel */
 #siteHeader.menu-open { z-index: 1900 !important; }
 
 /* Dark mode on scroll */
@@ -35,57 +33,63 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 #siteHeader.scrolled .logo-white { opacity: 0; }
 #siteHeader.scrolled .logo-black { opacity: 1; }
 
-/* 2) Burger/X button — aligned baseline, longer lines, lower stroke position */
+/* 2) Burger/X button — aligned baseline, longer lines, slightly lower */
 #menuToggleBtn {
-  position: absolute; left: 16px; top: 16px;                 /* baseline with panel X */
+  position: absolute;
+  left: 16px;
+  top: 16px;                     /* baseline to match panel’s X */
   z-index: 2050;
   color: currentColor;
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 44px; height: 44px; border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px; height: 44px;
+  border-radius: 9999px;
   transition: background-color .2s ease, box-shadow .2s ease, color .2s ease;
 }
 #menuToggleBtn:hover { box-shadow: 0 2px 10px rgba(0,0,0,.12); }
 
-/* Lines 1.5× longer (36px); top thicker than bottom; slightly lower spacing */
+/* Lines 1.5× longer (36px); top thicker than bottom, a bit lower than before */
 #menuToggleBtn .burger-line {
   position: absolute;
   width: 36px;
-  height: 3px;                              /* top thickness */
+  height: 3px;                 /* thicker top line */
   background: currentColor;
   border-radius: 2px;
   transition: transform .28s ease, opacity .2s ease, width .2s ease, height .2s ease, background-color .2s ease;
 }
-#menuToggleBtn .burger-line.lower { height: 2px; }            /* bottom thinner */
+#menuToggleBtn .burger-line.lower { height: 2px; } /* thinner bottom line */
 
-/* Resting offsets (lowered a bit vs before) */
-#menuToggleBtn .burger-line:not(.lower) { transform: translateY(-5px); }  /* top */
-#menuToggleBtn .burger-line.lower       { transform: translateY( 5px); }  /* bottom */
+/* Resting offsets (lowered) */
+#menuToggleBtn .burger-line:not(.lower) { transform: translateY(-4px); }  /* top */
+#menuToggleBtn .burger-line.lower       { transform: translateY( 6px); }  /* bottom */
 
-/* Morph to X when open (header has .menu-open or aria-expanded=true) */
+/* Morph to X */
 #siteHeader.menu-open #menuToggleBtn .burger-line:not(.lower),
 #menuToggleBtn[aria-expanded="true"] .burger-line:not(.lower) {
-  transform: translateY(0) rotate(45deg);
+  transform: translateY(1px) rotate(45deg);
 }
 #siteHeader.menu-open #menuToggleBtn .burger-line.lower,
 #menuToggleBtn[aria-expanded="true"] .burger-line.lower {
-  transform: translateY(0) rotate(-45deg);
+  transform: translateY(1px) rotate(-45deg);
 }
-
-/* Optional chip while open */
 #siteHeader.menu-open #menuToggleBtn,
 #menuToggleBtn[aria-expanded="true"] {
   background: rgba(17,24,39,.08);
   border-radius: 9999px;
 }
 
-/* 3) Side panel + backdrop + stacking */
+/* 3) Side panel + backdrop */
 #sidePanel {
-  position: fixed; transition: transform .3s ease-in-out;
-  z-index: 1950 !important; /* above header (1900) while open */
+  position: fixed;
+  transition: transform .30s ease-in-out;
+  z-index: 1950 !important; /* above header when open */
 }
 #backdrop {
-  position: fixed; background: rgba(0,0,0,.5);
-  opacity: 0; pointer-events: none; transition: opacity .3s ease-in-out;
+  position: fixed;
+  background: rgba(0,0,0,.5);
+  opacity: 0; pointer-events: none;
+  transition: opacity .30s ease-in-out;
   z-index: 1800; /* below header & panel */
 }
 #backdrop.opacity-50 { opacity: .5; pointer-events: auto; }
@@ -94,19 +98,23 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 #sidePanel.-translate-x-full { pointer-events: none !important; }
 #sidePanel:not(.-translate-x-full) { pointer-events: auto !important; }
 
-/* 4) REMOVE/HIDE any legacy in-panel X if still in the HTML */
+/* 4) Hide any legacy in-panel X (we use one button only) */
 #panelCloseBtn { display: none !important; }
 
-/* 5) Nav links underline */
+/* 5) Nav styling */
 #sidePanel nav a {
   font-family: "Roboto Condensed", sans-serif !important;
-  text-decoration: none !important; margin-bottom: 1rem; color: inherit;
-  position: relative; display: inline-block;
+  text-decoration: none !important;
+  margin-bottom: 1rem;
+  color: inherit;
+  position: relative;
+  display: inline-block;
 }
 #sidePanel nav a span { position: relative; display: inline-block; }
 #sidePanel nav a span::after {
-  content: ''; position: absolute; left: 0; bottom: -2px; width: 0; height: 2px;
-  background-color: currentColor; transition: width .25s ease-in-out;
+  content: ''; position: absolute; left: 0; bottom: -2px;
+  width: 0; height: 2px; background-color: currentColor;
+  transition: width .25s ease-in-out;
 }
 #sidePanel nav a:hover span::after { width: 100%; }
 
