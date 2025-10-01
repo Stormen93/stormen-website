@@ -223,3 +223,35 @@ html.dark #siteHeader #logoWhite                { opacity: 1 !important; }
 
 /* Ensure header text/icon color is black after scroll (lines, etc.) */
 #siteHeader.scrolled { color: #000 !important; }
+
+/* ===== FINAL OVERRIDES: dark mode + SCROLLED should look like LIGHT ===== */
+
+/* 1) Force header color to black after scroll in BOTH themes */
+#siteHeader.scrolled { 
+  background: #fff !important;
+  color: #000 !important;                /* burger/X uses currentColor ⇒ black */
+}
+
+/* 2) Force COLORED logo after scroll in BOTH themes */
+#siteHeader.scrolled .logo-color,
+#siteHeader.scrolled .logo-black,
+#siteHeader.scrolled #logoColor { 
+  opacity: 1 !important; 
+}
+#siteHeader.scrolled .logo-white,
+#siteHeader.scrolled #logoWhite { 
+  opacity: 0 !important; 
+}
+
+/* 3) Ensure the in-panel X also stays dark (black) on its white chip */
+#sidePanel #menuToggleBtn { 
+  color: #0f172a !important; 
+  background: rgba(255,255,255,.96) !important; 
+  box-shadow: 0 2px 10px rgba(0,0,0,.12) !important;
+}
+
+/* 4) Belt-and-suspenders: if any hover/focus utilities try to recolor lines */
+#siteHeader.scrolled #menuToggleBtn,
+#siteHeader.scrolled #menuToggleBtn .burger-line { 
+  color: #000 !important; 
+}
