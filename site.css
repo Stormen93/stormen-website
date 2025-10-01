@@ -174,3 +174,52 @@ html.dark #siteHeader .logo-white{ opacity: 1; }
   #menuToggleBtn{ left: 12px; top: 12px; width: 42px; height: 42px; }
   #sidePanel #menuToggleBtn{ top: 20px !important; }
 }
+/* === STOP THE HOVER JUMP — pin the stroke baselines === */
+/* Resting (menu closed): keep lowered positions even on :hover/focus/active */
+#menuToggleBtn .burger-line:not(.lower) { top: 15px !important; transform: none !important; }
+#menuToggleBtn .burger-line.lower       { top: 27px !important; transform: none !important; }
+
+/* Don’t let any :hover/:focus utility move them */
+#menuToggleBtn:hover .burger-line:not(.lower),
+#menuToggleBtn:focus .burger-line:not(.lower),
+#menuToggleBtn:active .burger-line:not(.lower) { top: 15px !important; transform: none !important; }
+
+#menuToggleBtn:hover .burger-line.lower,
+#menuToggleBtn:focus .burger-line.lower,
+#menuToggleBtn:active .burger-line.lower { top: 27px !important; transform: none !important; }
+
+/* When menu is OPEN (aria-expanded=true): center both strokes, then rotate to X */
+#menuToggleBtn[aria-expanded="true"] .burger-line:not(.lower) { top: 22px !important; transform: rotate(45deg) !important; }
+#menuToggleBtn[aria-expanded="true"] .burger-line.lower       { top: 22px !important; transform: rotate(-45deg) !important; }
+
+/* Also pin hover/focus while open so they never “bounce” */
+#menuToggleBtn[aria-expanded="true"]:hover .burger-line,
+#menuToggleBtn[aria-expanded="true"]:focus .burger-line,
+#menuToggleBtn[aria-expanded="true"]:active .burger-line { top: 22px !important; }
+
+/* === LOGO ALWAYS MATCHES THE RULE YOU WANT === */
+/* Accept either .logo-color/.logo-black as the colored mark, and .logo-white as the white mark.
+   Also support IDs if your markup uses #logoColor / #logoWhite. */
+
+/* Top of page (no scroll): light → colored, dark → white */
+:root:not(.dark) #siteHeader .logo-color,
+:root:not(.dark) #siteHeader .logo-black,
+:root:not(.dark) #siteHeader #logoColor         { opacity: 1 !important; }
+:root:not(.dark) #siteHeader .logo-white,
+:root:not(.dark) #siteHeader #logoWhite         { opacity: 0 !important; }
+
+html.dark #siteHeader .logo-color,
+html.dark #siteHeader .logo-black,
+html.dark #siteHeader #logoColor                { opacity: 0 !important; }
+html.dark #siteHeader .logo-white,
+html.dark #siteHeader #logoWhite                { opacity: 1 !important; }
+
+/* After ANY scroll: header is white → always show the colored logo */
+#siteHeader.scrolled .logo-color,
+#siteHeader.scrolled .logo-black,
+#siteHeader.scrolled #logoColor                 { opacity: 1 !important; }
+#siteHeader.scrolled .logo-white,
+#siteHeader.scrolled #logoWhite                 { opacity: 0 !important; }
+
+/* Ensure header text/icon color is black after scroll (lines, etc.) */
+#siteHeader.scrolled { color: #000 !important; }
