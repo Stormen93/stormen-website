@@ -188,3 +188,18 @@ html.dark #panelCloseBtn { color: #0b1220; }
 @media (max-width: 480px) {
   #panelCloseBtn { top: 12px; right: 12px; }
 }
+
+
+/* ===== Z-INDEX & CLICKABILITY FIX ===== */
+#backdrop { z-index: 900 !important; }          /* below panel */
+#sidePanel { z-index: 1000 !important; }        /* panel above header */
+#panelCloseBtn { z-index: 1100 !important; }    /* close button above panel */
+
+/* keep header under the panel while the menu is open */
+#siteHeader,
+#siteHeader.menu-open {
+  z-index: 800 !important;
+}
+
+/* make sure nothing blocks clicks on the X */
+#panelCloseBtn { pointer-events: auto; }
