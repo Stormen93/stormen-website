@@ -31,29 +31,30 @@ document.addEventListener('DOMContentLoaded', () => {
   /* --------- State helpers --------- */
   const isOpen = () => !sidePanel.classList.contains('-translate-x-full');
 
-  function openPanel() {
-    sidePanel.classList.remove('-translate-x-full');  // slide in
-    backdrop.classList.add('opacity-50');             // fade in backdrop
-    siteHeader.classList.add('menu-open');            // lift header
+function openPanel() {
+  sidePanel.classList.remove('-translate-x-full');  // slide in
+  backdrop.classList.add('opacity-50');
+  siteHeader.classList.add('menu-open');
 
-    // Header burger optional state (kept subtle)
-    menuToggleBtn.setAttribute('aria-expanded', 'true');
+  menuToggleBtn.setAttribute('aria-expanded', 'true');
 
-    // Show the in-panel close button (and ensure it can be clicked)
-    panelCloseBtn.classList.add('show');
-    panelCloseBtn.style.pointerEvents = 'auto';
-  }
+  // show the in-panel close button
+  panelCloseBtn.classList.add('show');
+  panelCloseBtn.style.pointerEvents = 'auto';
+
+  sidePanel.classList.add('open');                 // <— ADD THIS (enables X slide-in)
+}
 
   function closePanel() {
-    sidePanel.classList.add('-translate-x-full');
-    backdrop.classList.remove('opacity-50');
-    siteHeader.classList.remove('menu-open');
+  sidePanel.classList.add('-translate-x-full');
+  backdrop.classList.remove('opacity-50');
+  siteHeader.classList.remove('menu-open');
 
-    menuToggleBtn.setAttribute('aria-expanded', 'false');
+  panelCloseBtn.classList.remove('show');
+  panelCloseBtn.style.display = 'none'; // (if you keep this line in your file)
 
-    panelCloseBtn.classList.remove('show');
-    // (display toggled by CSS class; pointer events irrelevant when hidden)
-  }
+  sidePanel.classList.remove('open');              // <— ADD THIS
+}
 
   /* --------- Wire up interactions --------- */
   menuToggleBtn.addEventListener('click', (e) => {
