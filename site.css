@@ -31,7 +31,6 @@ html.dark #siteHeader.scrolled .logo-black { opacity:0; }
 #siteHeader.scrolled .logo-black { opacity: 1; }   /* show yellow logo  */
 
 /* --- Burger Icon & Animation --- */
-
 #menuToggleBtn.open {
   color: #111827; /* A dark gray to match your panel text */
 }
