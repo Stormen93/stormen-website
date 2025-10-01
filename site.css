@@ -1,8 +1,11 @@
 /* ──────────────────────────────────────────────────────────────
-   Stormen — site.css (final)
+   Stormen — site.css (single-button version)
+   - Fixed header + scroll swap
+   - Side panel + backdrop transitions
+   - One burger/X button that moves into panel (JS sets position)
    ────────────────────────────────────────────────────────────── */
 
-/* Panel width fallback; JS will set --panel-w precisely on open */
+/* Panel width fallback; JS sets --panel-w on open */
 :root { --panel-w: 288px; --panel-pad: 16px; }
 
 /* 1) Header (fixed) + scroll states */
@@ -11,7 +14,7 @@
   background: transparent;
   transition: background-color .3s, box-shadow .3s, color .3s;
   color: #fff;
-  z-index: 2000; /* header follows; panel will overtake when open */
+  z-index: 2000; /* header follows; panel will overtake while open */
 }
 #siteHeader .logo-white { opacity: 1; transition: opacity .3s; }
 #siteHeader .logo-black { opacity: 0; transition: opacity .3s; }
@@ -22,7 +25,7 @@
   color: #000;
 }
 
-/* When menu is open, let the sliding panel sit above the header */
+/* When menu is open, let the panel sit above the header */
 #siteHeader.menu-open { z-index: 1900 !important; }
 
 /* Dark mode on scroll */
@@ -32,33 +35,33 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 #siteHeader.scrolled .logo-white { opacity: 0; }
 #siteHeader.scrolled .logo-black { opacity: 1; }
 
-/* 2) Burger button — aligned with in-panel X, longer lines, morph + slide */
+/* 2) Burger/X button — aligned baseline, longer lines, lower stroke position */
 #menuToggleBtn {
-  position: absolute; left: 16px; top: 16px;           /* ← same baseline as panel X */
+  position: absolute; left: 16px; top: 16px;                 /* baseline with panel X */
   z-index: 2050;
   color: currentColor;
   display: inline-flex; align-items: center; justify-content: center;
   width: 44px; height: 44px; border-radius: 9999px;
-  transition: transform .30s ease, background-color .2s ease, box-shadow .2s ease, color .2s ease;
+  transition: background-color .2s ease, box-shadow .2s ease, color .2s ease;
 }
 #menuToggleBtn:hover { box-shadow: 0 2px 10px rgba(0,0,0,.12); }
 
-/* Lines 1.5× longer; top thicker than bottom */
+/* Lines 1.5× longer (36px); top thicker than bottom; slightly lower spacing */
 #menuToggleBtn .burger-line {
   position: absolute;
-  width: 36px;                /* ← longer */
-  height: 3px;                /* top thickness */
+  width: 36px;
+  height: 3px;                              /* top thickness */
   background: currentColor;
   border-radius: 2px;
   transition: transform .28s ease, opacity .2s ease, width .2s ease, height .2s ease, background-color .2s ease;
 }
-#menuToggleBtn .burger-line.lower { height: 2px; }      /* bottom thinner */
+#menuToggleBtn .burger-line.lower { height: 2px; }            /* bottom thinner */
 
-/* Resting offsets */
-#menuToggleBtn .burger-line:not(.lower) { transform: translateY(-7px); } /* top */
-#menuToggleBtn .burger-line.lower       { transform: translateY(7px); }  /* bottom */
+/* Resting offsets (lowered a bit vs before) */
+#menuToggleBtn .burger-line:not(.lower) { transform: translateY(-5px); }  /* top */
+#menuToggleBtn .burger-line.lower       { transform: translateY( 5px); }  /* bottom */
 
-/* Morph to X */
+/* Morph to X when open (header has .menu-open or aria-expanded=true) */
 #siteHeader.menu-open #menuToggleBtn .burger-line:not(.lower),
 #menuToggleBtn[aria-expanded="true"] .burger-line:not(.lower) {
   transform: translateY(0) rotate(45deg);
@@ -68,17 +71,17 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
   transform: translateY(0) rotate(-45deg);
 }
 
-/* Slide the burger to the right AS the menu opens (glide ≈ panel width) */
+/* Optional chip while open */
 #siteHeader.menu-open #menuToggleBtn,
 #menuToggleBtn[aria-expanded="true"] {
-  transform: translateX(calc(var(--panel-w) - var(--panel-pad) - 16px));
   background: rgba(17,24,39,.08);
+  border-radius: 9999px;
 }
 
-/* 3) Side panel, backdrop, stacking */
+/* 3) Side panel + backdrop + stacking */
 #sidePanel {
   position: fixed; transition: transform .3s ease-in-out;
-  z-index: 1950 !important; /* above header when open */
+  z-index: 1950 !important; /* above header (1900) while open */
 }
 #backdrop {
   position: fixed; background: rgba(0,0,0,.5);
@@ -91,33 +94,8 @@ html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 #sidePanel.-translate-x-full { pointer-events: none !important; }
 #sidePanel:not(.-translate-x-full) { pointer-events: auto !important; }
 
-/* 4) In-panel close button (rides with the panel) */
-#panelCloseBtn {
-  position: absolute; top: 16px; right: 16px;
-  width: 40px; height: 40px; border-radius: 9999px;
-  display: none; align-items: center; justify-content: center;
-  background: rgba(255,255,255,.96); color: #0f172a;
-  border: 1px solid rgba(15,23,42,.08);
-  box-shadow: 0 2px 10px rgba(0,0,0,.10);
-  cursor: pointer; pointer-events: auto;
-  z-index: 1960;
-  transform: translateX(-24px); /* ride in */
-  transition: transform .30s ease, box-shadow .2s ease, background-color .2s ease;
-}
-#sidePanel #panelCloseBtn.show { display: inline-flex !important; }
-#panelCloseBtn:hover { box-shadow: 0 4px 16px rgba(0,0,0,.14); transform: translateX(-24px) translateY(-1px); }
-html.dark #panelCloseBtn { color: #0b1220; }
-
-/* Slide to final position whenever the panel is onscreen */
-#sidePanel:not(.-translate-x-full) #panelCloseBtn { transform: translateX(0); }
-
-/* X lines inside the panel button (match burger sizes) */
-#panelCloseBtn .burger-line {
-  position: absolute; width: 36px; height: 3px; border-radius: 2px; background: currentColor;
-}
-#panelCloseBtn .burger-line.lower { height: 2px; }
-#panelCloseBtn .burger-line:not(.lower) { transform: rotate(45deg); }
-#panelCloseBtn .burger-line.lower       { transform: rotate(-45deg); }
+/* 4) REMOVE/HIDE any legacy in-panel X if still in the HTML */
+#panelCloseBtn { display: none !important; }
 
 /* 5) Nav links underline */
 #sidePanel nav a {
@@ -149,6 +127,5 @@ html.dark #panelCloseBtn { color: #0b1220; }
 
 /* 9) Small screens */
 @media (max-width: 480px) {
-  #menuToggleBtn { left: 12px; top: 12px; }
-  #panelCloseBtn { top: 12px; right: 12px; }
+  #menuToggleBtn { left: 12px; top: 12px; width: 42px; height: 42px; }
 }

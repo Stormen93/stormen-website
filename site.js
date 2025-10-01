@@ -1,8 +1,9 @@
 /* ──────────────────────────────────────────────────────────────
-   Stormen — site.js (final)
-   - Burger morph + slide to the right in sync with panel
-   - In-panel X always visible/clickable when open
-   - Header remains fixed; scroll color swap preserved
+   Stormen — site.js (single-button version)
+   - Only one button: #menuToggleBtn (burger ↔ X)
+   - On open: place it inside the panel’s top-right and above it
+   - On close: return to header’s top-left position
+   - Header stays fixed; scroll color swap preserved
    ────────────────────────────────────────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -17,32 +18,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!siteHeader || !sidePanel || !backdrop || !menuToggleBtn) return;
 
-  /* Ensure an in-panel close button exists */
-  let panelCloseBtn = document.getElementById('panelCloseBtn');
-  if (!panelCloseBtn) {
-    panelCloseBtn = document.createElement('button');
-    panelCloseBtn.id = 'panelCloseBtn';
-    panelCloseBtn.type = 'button';
-    panelCloseBtn.setAttribute('aria-label', 'Close menu');
-    panelCloseBtn.innerHTML = '<span class="burger-line"></span><span class="burger-line lower"></span>';
-    sidePanel.appendChild(panelCloseBtn);
-  }
+  /* Remove any legacy in-panel X if present (we only use one button) */
+  const legacyClose = document.getElementById('panelCloseBtn');
+  if (legacyClose && legacyClose.parentElement) legacyClose.parentElement.removeChild(legacyClose);
 
   const isOpen = () => !sidePanel.classList.contains('-translate-x-full');
 
+  function moveButtonIntoPanelTopRight() {
+    // Compute exact pixel position for top-right inside the visible panel
+    const rect = sidePanel.getBoundingClientRect();
+    const btnW = menuToggleBtn.offsetWidth || 44;
+    const left = rect.left + rect.width - 16 - btnW; // 16px panel padding from right
+    menuToggleBtn.style.position = 'fixed';
+    menuToggleBtn.style.left     = `${left}px`;
+    menuToggleBtn.style.top      = '16px';
+    menuToggleBtn.style.zIndex   = '2200'; // above the panel
+  }
+
+  function resetButtonToHeader() {
+    // Return to default header placement (CSS handles left/top)
+    menuToggleBtn.style.position = '';
+    menuToggleBtn.style.left     = '';
+    menuToggleBtn.style.top      = '';
+    menuToggleBtn.style.zIndex   = '';
+  }
+
   function openPanel() {
-    // Set the exact panel width so the burger slides precisely to the right
+    // Update CSS variable for potential CSS consumers (not required, but nice)
     document.documentElement.style.setProperty('--panel-w', sidePanel.offsetWidth + 'px');
 
-    sidePanel.classList.remove('-translate-x-full');      // slide in
-    backdrop.classList.add('opacity-50');                 // fade in overlay
-    siteHeader.classList.add('menu-open');                // allow panel to overtake header
+    sidePanel.classList.remove('-translate-x-full');  // slide in
+    backdrop.classList.add('opacity-50');             // fade in overlay
+    siteHeader.classList.add('menu-open');            // let panel overtake header z-index
 
-    // Trigger burger morph + slide (CSS hooks on aria-expanded/ .menu-open)
+    // Move the existing button inside the panel, top-right, and above it
+    moveButtonIntoPanelTopRight();
+
+    // Trigger burger→X morph (also a CSS hook)
     menuToggleBtn.setAttribute('aria-expanded', 'true');
-
-    // Show the in-panel X (CSS controls display)
-    panelCloseBtn.classList.add('show');
   }
 
   function closePanel() {
@@ -50,44 +63,34 @@ document.addEventListener('DOMContentLoaded', () => {
     backdrop.classList.remove('opacity-50');
     siteHeader.classList.remove('menu-open');
 
-    // Reset burger
-    menuToggleBtn.setAttribute('aria-expanded', 'false');
+    // Return button to header default spot
+    resetButtonToHeader();
 
-    // Hide in-panel X
-    panelCloseBtn.classList.remove('show');
+    // Reset morph
+    menuToggleBtn.setAttribute('aria-expanded', 'false');
   }
 
-  /* Interactions */
+  // Toggle
   menuToggleBtn.addEventListener('click', (e) => {
     e.preventDefault();
     isOpen() ? closePanel() : openPanel();
   });
 
-  panelCloseBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    closePanel();
-  });
-
+  // Backdrop / ESC / nav link close
   backdrop.addEventListener('click', closePanel);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) closePanel(); });
+  sidePanel.addEventListener('click', (e) => { if (e.target.closest('a')) closePanel(); });
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isOpen()) closePanel();
-  });
+  // Recompute position if the user resizes while open
+  window.addEventListener('resize', () => { if (isOpen()) moveButtonIntoPanelTopRight(); });
 
-  // Close after clicking any nav link inside the panel
-  sidePanel.addEventListener('click', (e) => {
-    if (e.target.closest('a')) closePanel();
-  });
-
-  /* Header scroll color swap */
-  const onScroll = () => {
-    if (window.scrollY > 10) siteHeader.classList.add('scrolled');
-    else siteHeader.classList.remove('scrolled');
-  };
+  // Header scroll color swap
+  const onScroll = () => { (window.scrollY > 10) ? siteHeader.classList.add('scrolled')
+                                                 : siteHeader.classList.remove('scrolled'); };
   onScroll();
   window.addEventListener('scroll', onScroll);
 
-  /* Theme toggle (kept simple) */
+  // Theme toggle (unchanged)
   const applyTheme = () => {
     const isDark = localStorage.getItem('theme') === 'dark';
     document.documentElement.classList.toggle('dark', isDark);
@@ -102,14 +105,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   applyTheme();
 
-  /* Initial state (e.g., hot reload) */
+  // Initial state (hot reload, SSR hydration, etc.)
   if (isOpen()) {
-    document.documentElement.style.setProperty('--panel-w', sidePanel.offsetWidth + 'px');
-    panelCloseBtn.classList.add('show');
+    moveButtonIntoPanelTopRight();
     menuToggleBtn.setAttribute('aria-expanded', 'true');
     siteHeader.classList.add('menu-open');
   } else {
-    panelCloseBtn.classList.remove('show');
+    resetButtonToHeader();
     menuToggleBtn.setAttribute('aria-expanded', 'false');
     siteHeader.classList.remove('menu-open');
   }
