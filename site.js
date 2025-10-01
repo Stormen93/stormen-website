@@ -38,6 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Side Panel & Menu Animation ---
   const openPanel = () => {
+    // LIFT THE HEADER TO THE TOP STACKING LAYER
+    siteHeader.classList.add('menu-open');
+    
     // Animate burger icon to 'X'
     menuToggleBtn.classList.add('open');
     
@@ -54,6 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const closePanel = () => {
+    // RETURN THE HEADER TO ITS NORMAL STACKING LAYER
+    siteHeader.classList.remove('menu-open');
+    
     // Animate 'X' back to burger icon
     menuToggleBtn.classList.remove('open');
     
@@ -96,3 +102,4 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize theme on page load
   applyTheme();
 });
+
