@@ -1,8 +1,13 @@
 /* ──────────────────────────────────────────────────────────────
-   Stormen — site.css (single toggle morphs & moves into the menu)
+   Stormen — site.css
+   - Fixed header
+   - Single toggle button (burger ↔ X) with no hover “jump”
+   - Theme/scroll-aware logo swap
+   - Button moves into panel when open
+   - Panel/backdrop layers + small polish
    ────────────────────────────────────────────────────────────── */
 
-/* Fallbacks (Tailwind w-72 = 288px). Adjust if your panel width differs. */
+/* Fallbacks (Tailwind w-72 = 288px) */
 :root { --panel-w: 288px; }
 
 /* =========================================
@@ -12,41 +17,50 @@
   position: fixed !important;
   top: 0; left: 0; right: 0;
   background: transparent;
-  color: #fff;                           /* default; overridden below */
+  color: #fff;                           /* overridden below by theme rules */
   transition: background-color .3s, box-shadow .3s, color .3s;
   z-index: 2000;
 }
 
-#siteHeader .logo-white { opacity: 1; transition: opacity .3s; }
-#siteHeader .logo-black { opacity: 0; transition: opacity .3s; }
+/* Logo elements (use .logo-color for your colored mark;
+   if your markup uses .logo-black, it’s treated as the colored mark too). */
+#siteHeader .logo-color,
+#siteHeader .logo-black,
+#siteHeader .logo-white{
+  transition: opacity .3s;
+}
 
+/* TOP OF PAGE (before scroll): theme decides */
+:root:not(.dark) #siteHeader{ color: #000 !important; }  /* light → black lines */
+html.dark #siteHeader        { color: #fff !important; }  /* dark  → white lines */
+
+/* TOP OF PAGE: logo choice by theme */
+:root:not(.dark) #siteHeader .logo-color,
+:root:not(.dark) #siteHeader .logo-black{ opacity: 1; }
+:root:not(.dark) #siteHeader .logo-white{ opacity: 0; }
+
+html.dark #siteHeader .logo-color,
+html.dark #siteHeader .logo-black{ opacity: 0; }
+html.dark #siteHeader .logo-white{ opacity: 1; }
+
+/* AFTER SCROLL: header turns white, use colored logo and black lines in all modes */
 #siteHeader.scrolled{
   background: #fff;
   box-shadow: 0 2px 4px rgba(0,0,0,.1);
-  color: #000;                           /* after scroll: lines always black */
+  color: #000 !important;                     /* forces burger/X to black */
 }
-#siteHeader.scrolled .logo-white{ opacity: 0; }
-#siteHeader.scrolled .logo-black{ opacity: 1; }
+#siteHeader.scrolled .logo-color,
+#siteHeader.scrolled .logo-black{ opacity: 1 !important; }
+#siteHeader.scrolled .logo-white{ opacity: 0 !important; }
 
-/* Panel stacks above header when open (the button will be above both) */
+/* While menu is open, panel sits above header; the button will be above both */
 #siteHeader.menu-open{ z-index: 1900 !important; }
 
 /* =========================================
-   2) THEME–AWARE COLOR LOGIC (top of page)
-   - Light mode (top): black
-   - Dark mode (top): white
-   - After scroll: black (handled above)
-   ========================================= */
-:root:not(.dark) #siteHeader{ color: #000 !important; }  /* light → black at top */
-html.dark #siteHeader{ color: #fff !important; }         /* dark  → white at top */
-
-/* =========================================
-   3) TOGGLE BUTTON (burger ⇄ X)
-   - longer lines (36px), top thicker, lowered
-   - morph driven by [aria-expanded]
+   2) TOGGLE BUTTON (burger ⇄ X) — no hover jump
    ========================================= */
 #menuToggleBtn{
-  position: absolute; left: 16px; top: 16px;           /* default spot in header */
+  position: absolute; left: 16px; top: 16px;            /* default spot in header */
   display: inline-flex; align-items: center; justify-content: center;
   width: 44px; height: 44px; border-radius: 9999px;
   color: currentColor; cursor: pointer;
@@ -55,33 +69,34 @@ html.dark #siteHeader{ color: #fff !important; }         /* dark  → white at t
 }
 #menuToggleBtn:hover{ box-shadow: 0 2px 10px rgba(0,0,0,.12); }
 
-/* strokes */
+/* Strokes: 1.5× longer, top thicker, positioned with `top` (no translate) */
 #menuToggleBtn .burger-line{
-  position: absolute;
-  width: 36px;          /* 1.5× longer */
-  height: 3px;          /* thicker top */
+  position: absolute; left: 4px; right: 4px;            /* keep 36px visible in 44px box */
+  width: 36px; height: 3px; border-radius: 2px;
   background: currentColor;
-  border-radius: 2px;
-  transition: transform .28s ease, opacity .2s ease;
+  transition: top .28s ease, transform .28s ease, opacity .2s ease;
 }
-#menuToggleBtn .burger-line.lower{ height: 2px; }                 /* thinner bottom */
 
-/* lowered baseline */
-#menuToggleBtn .burger-line:not(.lower){ transform: translateY(-1px); }
-#menuToggleBtn .burger-line.lower      { transform: translateY(11px); }
+/* Thinner bottom */
+#menuToggleBtn .burger-line.lower{ height: 2px; }
 
-/* morph to X (centered) */
+/* Resting positions (no transform) — this prevents the hover “jump” */
+#menuToggleBtn .burger-line:not(.lower){ top: 15px; }   /* upper stroke */
+#menuToggleBtn .burger-line.lower      { top: 27px; }   /* lower stroke */
+
+/* Morph to X: both strokes move to center line then rotate */
+#menuToggleBtn[aria-expanded="true"] .burger-line{ top: 22px; }
 #menuToggleBtn[aria-expanded="true"] .burger-line:not(.lower){ transform: rotate(45deg); }
 #menuToggleBtn[aria-expanded="true"] .burger-line.lower      { transform: rotate(-45deg); }
 
 /* =========================================
-   4) WHEN THE SAME BUTTON LIVES INSIDE THE PANEL
-   (JS appends #menuToggleBtn inside #sidePanel on open)
+   3) WHEN THE SAME BUTTON LIVES INSIDE THE PANEL
+   (JS appends #menuToggleBtn into #sidePanel on open)
    ========================================= */
 #sidePanel #menuToggleBtn{
   position: absolute !important;
   right: 16px !important; left: auto !important;
-  top: 24px !important;                                  /* slightly lower in panel */
+  top: 24px !important;                                  /* slightly lower in the panel */
   z-index: 3000 !important;                              /* above panel UI */
   color: #0f172a !important;                             /* black strokes on white */
   background: rgba(255,255,255,.96) !important;          /* white chip */
@@ -89,7 +104,7 @@ html.dark #siteHeader{ color: #fff !important; }         /* dark  → white at t
 }
 
 /* =========================================
-   5) SIDE PANEL + BACKDROP + INTERACTION
+   4) SIDE PANEL + BACKDROP + INTERACTION
    ========================================= */
 #sidePanel{
   position: fixed;
@@ -97,8 +112,7 @@ html.dark #siteHeader{ color: #fff !important; }         /* dark  → white at t
   z-index: 1950 !important;                              
 }
 #backdrop{
-  position: fixed;
-  background: rgba(0,0,0,.5);
+  position: fixed; background: rgba(0,0,0,.5);
   opacity: 0; pointer-events: none;
   transition: opacity .30s ease-in-out;
   z-index: 1800;
@@ -108,11 +122,11 @@ html.dark #siteHeader{ color: #fff !important; }         /* dark  → white at t
 #sidePanel.-translate-x-full{ pointer-events: none !important; }
 #sidePanel:not(.-translate-x-full){ pointer-events: auto !important; }
 
-/* Kill any legacy in-panel X if it still exists (we use one button only) */
+/* Hide any legacy in-panel X (we use one button only) */
 #panelCloseBtn, #panelCloseBtnLegacy, .panel-close{ display: none !important; }
 
 /* =========================================
-   6) NAV UNDERLINE HOVER (optional polish)
+   5) NAV UNDERLINE HOVER (optional polish)
    ========================================= */
 #sidePanel nav a{
   font-family: "Roboto Condensed", sans-serif !important;
@@ -129,7 +143,7 @@ html.dark #siteHeader{ color: #fff !important; }         /* dark  → white at t
 #sidePanel nav a:hover span::after{ width: 100%; }
 
 /* =========================================
-   7) MISC (embeds + CTA styles you had)
+   6) Misc (embeds + CTA styles)
    ========================================= */
 .embed-wrapper{
   position: relative; width: 100%; max-width: 1024px;
@@ -154,7 +168,7 @@ html.dark #siteHeader{ color: #fff !important; }         /* dark  → white at t
 .watch-link:hover span::after{ width: 100%; }
 
 /* =========================================
-   8) SMALL SCREENS
+   7) SMALL SCREENS
    ========================================= */
 @media (max-width: 480px){
   #menuToggleBtn{ left: 12px; top: 12px; width: 42px; height: 42px; }
