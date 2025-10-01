@@ -1,105 +1,162 @@
 /* ──────────────────────────────────────────────────────────────
-   Stormen — site.css (single toggle morphs & moves inside menu)
+   Stormen — site.css (single toggle morphs & moves into the menu)
    ────────────────────────────────────────────────────────────── */
 
-/* 0) Defaults (Tailwind w-72 is 288px; only used as a fallback elsewhere) */
+/* Fallbacks (Tailwind w-72 = 288px). Adjust if your panel width differs. */
 :root { --panel-w: 288px; }
 
-/* 1) Header: fixed, color swap on scroll */
+/* =========================================
+   1) HEADER (fixed) + scroll color swap
+   ========================================= */
 #siteHeader{
-  position:fixed !important; top:0; left:0; right:0;
-  background:transparent; color:#fff;
-  transition:background-color .3s, box-shadow .3s, color .3s;
-  z-index:2000;
+  position: fixed !important;
+  top: 0; left: 0; right: 0;
+  background: transparent;
+  color: #fff;                           /* default; overridden below */
+  transition: background-color .3s, box-shadow .3s, color .3s;
+  z-index: 2000;
 }
-#siteHeader.scrolled{ background:#fff; box-shadow:0 2px 4px rgba(0,0,0,.1); color:#000; }
-#siteHeader .logo-white{ opacity:1; transition:opacity .3s; }
-#siteHeader .logo-black{ opacity:0; transition:opacity .3s; }
-#siteHeader.scrolled .logo-white{ opacity:0; }
-#siteHeader.scrolled .logo-black{ opacity:1; }
 
-/* While menu is open, the panel sits above the header */
-#siteHeader.menu-open{ z-index:1900 !important; }
+#siteHeader .logo-white { opacity: 1; transition: opacity .3s; }
+#siteHeader .logo-black { opacity: 0; transition: opacity .3s; }
 
-/* 2) ONE toggle button (burger ⇄ X) */
+#siteHeader.scrolled{
+  background: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  color: #000;                           /* after scroll: lines always black */
+}
+#siteHeader.scrolled .logo-white{ opacity: 0; }
+#siteHeader.scrolled .logo-black{ opacity: 1; }
+
+/* Panel stacks above header when open (the button will be above both) */
+#siteHeader.menu-open{ z-index: 1900 !important; }
+
+/* =========================================
+   2) THEME–AWARE COLOR LOGIC (top of page)
+   - Light mode (top): black
+   - Dark mode (top): white
+   - After scroll: black (handled above)
+   ========================================= */
+:root:not(.dark) #siteHeader{ color: #000 !important; }  /* light → black at top */
+html.dark #siteHeader{ color: #fff !important; }         /* dark  → white at top */
+
+/* =========================================
+   3) TOGGLE BUTTON (burger ⇄ X)
+   - longer lines (36px), top thicker, lowered
+   - morph driven by [aria-expanded]
+   ========================================= */
 #menuToggleBtn{
-  position:absolute; left:16px; top:16px;        /* header default */
-  display:inline-flex; align-items:center; justify-content:center;
-  width:44px; height:44px; border-radius:9999px;
-  color:currentColor; cursor:pointer;
+  position: absolute; left: 16px; top: 16px;           /* default spot in header */
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; border-radius: 9999px;
+  color: currentColor; cursor: pointer;
   transition: background-color .2s, box-shadow .2s, color .2s;
-  z-index:2050;
+  z-index: 2050;
 }
-#menuToggleBtn:hover{ box-shadow:0 2px 10px rgba(0,0,0,.12); }
+#menuToggleBtn:hover{ box-shadow: 0 2px 10px rgba(0,0,0,.12); }
 
-/* 2a) Strokes: 1.5× longer, lowered, top thicker than bottom */
+/* strokes */
 #menuToggleBtn .burger-line{
-  position:absolute; width:36px; height:3px; border-radius:2px;
-  background:currentColor; transition:transform .28s ease, opacity .2s ease;
+  position: absolute;
+  width: 36px;          /* 1.5× longer */
+  height: 3px;          /* thicker top */
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform .28s ease, opacity .2s ease;
 }
-#menuToggleBtn .burger-line.lower{ height:2px; }
-#menuToggleBtn .burger-line:not(.lower){ transform:translateY(-1px); } /* lowered */
-#menuToggleBtn .burger-line.lower      { transform:translateY(11px); } /* lowered */
+#menuToggleBtn .burger-line.lower{ height: 2px; }                 /* thinner bottom */
 
-/* 2b) Morph to X (center) */
-#menuToggleBtn[aria-expanded="true"] .burger-line:not(.lower){ transform:rotate(45deg); }
-#menuToggleBtn[aria-expanded="true"] .burger-line.lower      { transform:rotate(-45deg); }
+/* lowered baseline */
+#menuToggleBtn .burger-line:not(.lower){ transform: translateY(-1px); }
+#menuToggleBtn .burger-line.lower      { transform: translateY(11px); }
 
-/* 2c) When the SAME button lives INSIDE the panel (JS appends it there) */
+/* morph to X (centered) */
+#menuToggleBtn[aria-expanded="true"] .burger-line:not(.lower){ transform: rotate(45deg); }
+#menuToggleBtn[aria-expanded="true"] .burger-line.lower      { transform: rotate(-45deg); }
+
+/* =========================================
+   4) WHEN THE SAME BUTTON LIVES INSIDE THE PANEL
+   (JS appends #menuToggleBtn inside #sidePanel on open)
+   ========================================= */
 #sidePanel #menuToggleBtn{
-  position:absolute !important;
-  right:16px !important; left:auto !important;
-  top:24px !important;                                  /* a bit lower in the panel */
-  z-index:3000 !important;                              /* on top of panel */
-  color:#0f172a !important;                             /* dark lines */
-  background:rgba(255,255,255,.96) !important;          /* white chip */
-  box-shadow:0 2px 10px rgba(0,0,0,.12) !important;
+  position: absolute !important;
+  right: 16px !important; left: auto !important;
+  top: 24px !important;                                  /* slightly lower in panel */
+  z-index: 3000 !important;                              /* above panel UI */
+  color: #0f172a !important;                             /* black strokes on white */
+  background: rgba(255,255,255,.96) !important;          /* white chip */
+  box-shadow: 0 2px 10px rgba(0,0,0,.12) !important;
 }
 
-/* 3) Side panel + backdrop */
+/* =========================================
+   5) SIDE PANEL + BACKDROP + INTERACTION
+   ========================================= */
 #sidePanel{
-  position:fixed; transition:transform .30s ease-in-out;
-  z-index:1950 !important; /* above header when open */
+  position: fixed;
+  transition: transform .30s ease-in-out;                /* keep in sync with JS */
+  z-index: 1950 !important;                              
 }
 #backdrop{
-  position:fixed; background:rgba(0,0,0,.5); opacity:0; pointer-events:none;
-  transition:opacity .30s ease-in-out; z-index:1800;
+  position: fixed;
+  background: rgba(0,0,0,.5);
+  opacity: 0; pointer-events: none;
+  transition: opacity .30s ease-in-out;
+  z-index: 1800;
 }
-#backdrop.opacity-50{ opacity:.5; pointer-events:auto; }
-#sidePanel.-translate-x-full{ pointer-events:none !important; }
-#sidePanel:not(.-translate-x-full){ pointer-events:auto !important; }
+#backdrop.opacity-50{ opacity: .5; pointer-events: auto; }
 
-/* 4) Kill any legacy close buttons so we don’t see double X’s */
-#panelCloseBtn, #panelCloseBtnLegacy, .panel-close { display:none !important; }
+#sidePanel.-translate-x-full{ pointer-events: none !important; }
+#sidePanel:not(.-translate-x-full){ pointer-events: auto !important; }
 
-/* 5) FLIP movement tween (the button uses this only during the move) */
-#menuToggleBtn.is-flipping{ transition: transform .30s ease; }
+/* Kill any legacy in-panel X if it still exists (we use one button only) */
+#panelCloseBtn, #panelCloseBtnLegacy, .panel-close{ display: none !important; }
 
-/* 6) Nav underline (unchanged) */
+/* =========================================
+   6) NAV UNDERLINE HOVER (optional polish)
+   ========================================= */
 #sidePanel nav a{
-  font-family:"Roboto Condensed",sans-serif !important;
-  text-decoration:none !important; margin-bottom:1rem; color:inherit;
-  position:relative; display:inline-block;
+  font-family: "Roboto Condensed", sans-serif !important;
+  text-decoration: none !important;
+  margin-bottom: 1rem; color: inherit;
+  position: relative; display: inline-block;
 }
+#sidePanel nav a span{ position: relative; display: inline-block; }
 #sidePanel nav a span::after{
-  content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px;
-  background:currentColor; transition:width .25s ease-in-out;
+  content: ''; position: absolute; left: 0; bottom: -2px;
+  width: 0; height: 2px; background: currentColor;
+  transition: width .25s ease-in-out;
 }
-#sidePanel nav a:hover span::after{ width:100%; }
+#sidePanel nav a:hover span::after{ width: 100%; }
 
-/* 7) Misc (embeds/CTA unchanged) */
-.embed-wrapper{ position:relative; width:100%; max-width:1024px; margin:2rem auto 5rem; border:4px solid #ff9f3a; border-radius:16px; overflow:hidden; }
-.embed-wrapper::before{ content:''; display:block; padding-top:56.25%; }
-.embed-wrapper iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
+/* =========================================
+   7) MISC (embeds + CTA styles you had)
+   ========================================= */
+.embed-wrapper{
+  position: relative; width: 100%; max-width: 1024px;
+  margin: 2rem auto 5rem;
+  border: 4px solid #ff9f3a; border-radius: 16px; overflow: hidden;
+}
+.embed-wrapper::before{ content: ''; display: block; padding-top: 56.25%; }
+.embed-wrapper iframe{ position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
 
-.watch-link{ font-family:'Roboto Mono',monospace; font-weight:700; display:inline-block; margin-top:1.5rem; padding:.75rem 1.5rem; background:#ff9f3a; color:#000; border-radius:9999px; text-decoration:none; transition:filter .2s; }
-.watch-link:hover{ filter:brightness(1.1); }
-.watch-link span{ position:relative; }
-.watch-link span::after{ content:''; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:#000; transition:width .25s; }
-.watch-link:hover span::after{ width:100%; }
+.watch-link{
+  font-family: 'Roboto Mono', monospace; font-weight: 700;
+  display: inline-block; margin-top: 1.5rem; padding: .75rem 1.5rem;
+  background: #ff9f3a; color: #000; border-radius: 9999px; text-decoration: none;
+  transition: filter .2s;
+}
+.watch-link:hover{ filter: brightness(1.1); }
+.watch-link span{ position: relative; }
+.watch-link span::after{
+  content: ''; position: absolute; left: 0; bottom: -2px; width: 0; height: 2px;
+  background: #000; transition: width .25s;
+}
+.watch-link:hover span::after{ width: 100%; }
 
-/* 8) Small screens */
-@media (max-width:480px){
-  #menuToggleBtn{ left:12px; top:12px; width:42px; height:42px; }
-  #sidePanel #menuToggleBtn{ top:20px !important; }
+/* =========================================
+   8) SMALL SCREENS
+   ========================================= */
+@media (max-width: 480px){
+  #menuToggleBtn{ left: 12px; top: 12px; width: 42px; height: 42px; }
+  #sidePanel #menuToggleBtn{ top: 20px !important; }
 }
