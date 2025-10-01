@@ -3,91 +3,92 @@
    ────────────────────────────────────────────────────────────── */
 #siteHeader {
   background: transparent;
-  transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
-  color: #fff; /* white bars/logo at top by default */
+  transition: background-color .3s, box-shadow .3s, color .3s;
+  color: #fff; /* white icons/logo by default on hero */
 }
 
-#siteHeader .logo-white { opacity: 1; transition: opacity 0.3s; }
-#siteHeader .logo-black { opacity: 0; transition: opacity 0.3s; }
+#siteHeader .logo-white { opacity: 1; transition: opacity .3s; }
+#siteHeader .logo-black { opacity: 0; transition: opacity .3s; }
 
 #siteHeader.scrolled {
   background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  color: #000; /* black bars when scrolled */
+  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  color: #000; /* dark icons/logo on scroll */
 }
 
 /* Lift header when the menu is open so the toggle stays on top */
-#siteHeader.menu-open {
-  z-index: 900;
-}
+#siteHeader.menu-open { z-index: 900; }
 
 /* ──────────────────────────────────────────────────────────────
    2) Dark mode header on scroll
    ────────────────────────────────────────────────────────────── */
 html.dark #siteHeader.scrolled {
-  background-color: #0d1117;   /* dark header in dark mode */
-  color: #fff;                 /* keep text/icons light     */
+  background-color: #0d1117;
+  color: #fff;
 }
 
-/* swap the logos back (white logo on the dark banner) */
+/* swap the logos back (white logo on dark banner) */
 html.dark #siteHeader.scrolled .logo-white { opacity: 1; }
 html.dark #siteHeader.scrolled .logo-black { opacity: 0; }
 
-/* On scroll in light mode: show the dark logo, hide the white */
+/* light-mode on scroll: dark logo */
 #siteHeader.scrolled .logo-white { opacity: 0; }
 #siteHeader.scrolled .logo-black { opacity: 1; }
 
 /* ──────────────────────────────────────────────────────────────
-   3) Burger / X button + animation + visibility fixes
+   3) Burger / X button + animation + visibility
    ────────────────────────────────────────────────────────────── */
 
-/* Keep the button above panel & backdrop, inherit color by default */
+/* Base toggle: sits within header; inherits header color */
 #menuToggleBtn {
   position: relative;
-  z-index: 1000;          /* safely above header/panel/backdrop */
-  color: currentColor;    /* inherits header color (white at top, black on scroll) */
+  z-index: 1000;                 /* above header/panel/backdrop */
+  color: currentColor;           /* follow header text color */
+  transition:
+    top .3s ease, left .3s ease, right .3s ease, transform .3s ease,
+    background-color .3s ease, color .3s ease, box-shadow .3s ease;
 }
 
-/* Make sure the two lines follow the button color */
+/* Lines follow the button color */
 #menuToggleBtn .burger-line {
   display: block;
   width: 32px;
   height: 2px;
-  background-color: currentColor; /* inherits from #menuToggleBtn */
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  background-color: currentColor;
+  transition: transform .3s ease-in-out, opacity .3s ease-in-out, background-color .3s ease-in-out;
   transform-origin: center;
 }
 
 #menuToggleBtn .burger-line + .burger-line { margin-top: 8px; }
-#menuToggleBtn .burger-line.lower {}
 
-/* X state transforms */
-#menuToggleBtn.open .burger-line {
-  /* keep visible; color is enforced below too */
-  background-color: currentColor;
-}
-
+/* X transforms */
+#menuToggleBtn.open .burger-line { background-color: currentColor; }
 #menuToggleBtn.open .burger-line:not(.lower) {
   transform: translateY(5px) rotate(45deg);
 }
-
 #menuToggleBtn.open .burger-line.lower {
   transform: translateY(-5px) rotate(-45deg);
 }
 
-/* When the menu is open, give the toggle a high-contrast pill background */
+/* When menu opens:
+   - detach from header flow
+   - animate to panel's TOP-RIGHT corner
+   - give contrast pill so X is always visible */
 #siteHeader.menu-open #menuToggleBtn {
-  color: #0f172a;                    /* dark X for contrast over light panel */
-  background: rgba(255, 255, 255, 0.96);
+  position: fixed !important;    /* follow the viewport/panel */
+  top: 16px !important;
+  right: 16px !important;        /* <— TOP-RIGHT placement */
+  left: auto !important;
+  transform: none !important;    /* cancel -translate-y-1/2 etc */
+  color: #0f172a;                /* dark X over light panel */
+  background: rgba(255, 255, 255, .96);
   border-radius: 9999px;
-  padding: 10px 12px;                /* nicer hit target */
+  padding: 10px 12px;            /* bigger hit target */
   box-shadow: 0 2px 8px rgba(0,0,0,.12);
 }
 
-/* Dark mode: keep the X dark for contrast regardless of theme */
-html.dark #siteHeader.menu-open #menuToggleBtn {
-  color: #0b1220;
-}
+/* Dark mode: keep X dark for contrast regardless of theme */
+html.dark #siteHeader.menu-open #menuToggleBtn { color: #0b1220; }
 
 /* Accessible focus ring */
 #menuToggleBtn:focus-visible {
@@ -99,30 +100,26 @@ html.dark #siteHeader.menu-open #menuToggleBtn {
    4) Side panel & backdrop
    ────────────────────────────────────────────────────────────── */
 #sidePanel {
-  transition: transform 0.3s ease-in-out;
+  transition: transform .3s ease-in-out;
 }
 
 /* Backdrop defaults + transitions */
 #backdrop {
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,.5);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity .3s ease-in-out;
 }
 
-/* Use a utility-like class to activate it (from your JS) */
+/* Activated by your JS */
 #backdrop.opacity-50 {
-  opacity: 0.5;
+  opacity: .5;
   pointer-events: auto; /* backdrop becomes clickable */
 }
 
 /* Panel clickability: ignore clicks while fully offscreen */
-#sidePanel.-translate-x-full {
-  pointer-events: none !important;
-}
-#sidePanel:not(.-translate-x-full) {
-  pointer-events: auto !important;
-}
+#sidePanel.-translate-x-full { pointer-events: none !important; }
+#sidePanel:not(.-translate-x-full) { pointer-events: auto !important; }
 
 /* ──────────────────────────────────────────────────────────────
    5) Sidebar links & hover underline
@@ -136,10 +133,7 @@ html.dark #siteHeader.menu-open #menuToggleBtn {
   display: inline-block;
 }
 
-#sidePanel nav a span {
-  position: relative;
-  display: inline-block;
-}
+#sidePanel nav a span { position: relative; display: inline-block; }
 
 #sidePanel nav a span::after {
   content: '';
@@ -149,20 +143,15 @@ html.dark #siteHeader.menu-open #menuToggleBtn {
   width: 0;
   height: 2px;
   background-color: currentColor;
-  transition: width 0.3s ease-in-out;
+  transition: width .3s ease-in-out;
 }
 
-#sidePanel nav a:hover span::after {
-  width: 100%;
-}
+#sidePanel nav a:hover span::after { width: 100%; }
 
 /* ──────────────────────────────────────────────────────────────
    6) Theme-toggle icon
    ────────────────────────────────────────────────────────────── */
-#themeIcon {
-  filter: invert(100%);
-  transition: filter 0.3s ease;
-}
+#themeIcon { filter: invert(100%); transition: filter .3s ease; }
 
 /* ──────────────────────────────────────────────────────────────
    7) Universal 16:9 media wrapper (embeds)
