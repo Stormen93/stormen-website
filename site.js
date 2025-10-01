@@ -1,19 +1,16 @@
 /* ──────────────────────────────────────────────────────────────
-   Stormen — site.js (full, stable)
+   Stormen — site.js
    - Opens/closes the side menu
    - Header burger stays in header
-   - Separate close (X) button is injected INSIDE #sidePanel
+   - Separate close (X) button INSIDE #sidePanel
    - Backdrop click + ESC + nav-link close
    - Header color swap on scroll
    ────────────────────────────────────────────────────────────── */
 
 document.addEventListener('DOMContentLoaded', () => {
-  /* Feather icons (safe if not loaded) */
-  if (window.feather && typeof feather.replace === 'function') {
-    try { feather.replace(); } catch {}
-  }
+  // Feather icons (safe if not loaded)
+  if (window.feather && typeof feather.replace === 'function') { try { feather.replace(); } catch {} }
 
-  /* Elements */
   const siteHeader    = document.getElementById('siteHeader');
   const sidePanel     = document.getElementById('sidePanel');
   const backdrop      = document.getElementById('backdrop');
@@ -23,37 +20,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!siteHeader || !sidePanel || !backdrop || !menuToggleBtn) return;
 
-  /* --------- Inject a dedicated close button inside the panel --------- */
+  /* --------- Create a dedicated close button inside the panel --------- */
   const panelCloseBtn = document.createElement('button');
   panelCloseBtn.id = 'panelCloseBtn';
   panelCloseBtn.type = 'button';
   panelCloseBtn.setAttribute('aria-label', 'Close menu');
-  panelCloseBtn.className = ''; // CSS handles look/position
-
-  // Two lines for the "X"
   panelCloseBtn.innerHTML = '<span class="burger-line"></span><span class="burger-line lower"></span>';
   sidePanel.appendChild(panelCloseBtn);
 
-  // Make it look like an X
-  panelCloseBtn.classList.add('open');
-
-  /* --------- Menu state helpers --------- */
+  /* --------- State helpers --------- */
   const isOpen = () => !sidePanel.classList.contains('-translate-x-full');
 
   function openPanel() {
-    sidePanel.classList.remove('-translate-x-full');  // slide in (Tailwind handles transform)
+    sidePanel.classList.remove('-translate-x-full');  // slide in
     backdrop.classList.add('opacity-50');             // fade in backdrop
     siteHeader.classList.add('menu-open');            // lift header
 
-    // Header burger becomes inert/hidden while menu is open (optional but tidy)
+    // Header burger optional state (kept subtle)
     menuToggleBtn.setAttribute('aria-expanded', 'true');
-    menuToggleBtn.classList.add('open');
-    menuToggleBtn.style.visibility = 'hidden';
-    menuToggleBtn.style.pointerEvents = 'none';
 
-    // Show the in-panel close button
-    panelCloseBtn.style.display = 'block';
+    // Show the in-panel close button (and ensure it can be clicked)
     panelCloseBtn.classList.add('show');
+    panelCloseBtn.style.pointerEvents = 'auto';
   }
 
   function closePanel() {
@@ -61,25 +49,21 @@ document.addEventListener('DOMContentLoaded', () => {
     backdrop.classList.remove('opacity-50');
     siteHeader.classList.remove('menu-open');
 
-    // Restore header burger
     menuToggleBtn.setAttribute('aria-expanded', 'false');
-    menuToggleBtn.classList.remove('open');
-    menuToggleBtn.style.visibility = '';
-    menuToggleBtn.style.pointerEvents = '';
 
-    // Hide the in-panel close button
     panelCloseBtn.classList.remove('show');
-    panelCloseBtn.style.display = 'none';
+    // (display toggled by CSS class; pointer events irrelevant when hidden)
   }
 
   /* --------- Wire up interactions --------- */
   menuToggleBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if (isOpen()) closePanel(); else openPanel();
+    isOpen() ? closePanel() : openPanel();
   });
 
   panelCloseBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    // Guard: if something above is catching clicks, this still runs
     closePanel();
   });
 
@@ -119,9 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* --------- Safety: if menu starts open (hot reload etc.) --------- */
   if (isOpen()) {
-    menuToggleBtn.style.visibility = 'hidden';
-    menuToggleBtn.style.pointerEvents = 'none';
-    panelCloseBtn.style.display = 'block';
     panelCloseBtn.classList.add('show');
+    panelCloseBtn.style.pointerEvents = 'auto';
   }
 });
