@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Contact – Stormen</title>
+  <link rel='stylesheet' href='style.css'>
+  <script src='https://unpkg.com/feather-icons' defer></script>
+</head>
+<body>
+  <header>
+    <a href='index.html' class='logo'>Stormen</a>
+    <div class='menu-toggle' aria-label='Toggle navigation' tabindex='0'>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav>
+      <ul>
+        <li><a href='index.html'>Home</a></li>
+        <li><a href='about.html'>About</a></li>
+        <li><a href='watch.html'>Watch</a></li>
+        <li><a href='collection.html'>Shop</a></li>
+        <li><a href='social.html'>Community</a></li>
+        <li><a href='contact.html' class='active'>Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class='hero'>
+    <h1>Get&nbsp;in&nbsp;Touch</h1>
+    <p>Questions, business inquiries or just want to say hi? Drop me a line below.</p>
+  </section>
+
+  <section class='section' id='contact'>
+    <h2 class='section-title'>Contact Form</h2>
+    <p class='section-subtitle'>I read every message! Please fill out the form and I’ll get back to you as soon as possible.</p>
+    <form action='mailto:stormen@thenewgen.com' method='post' enctype='text/plain' class='contact-form'>
+      <label for='name'>Name</label>
+      <input type='text' id='name' name='name' required placeholder='Your Name'>
+      <label for='email'>Email</label>
+      <input type='email' id='email' name='email' required placeholder='you@example.com'>
+      <label for='subject'>Subject</label>
+      <input type='text' id='subject' name='subject' required placeholder='Subject'>
+      <label for='message'>Message</label>
+      <textarea id='message' name='message' rows='5' required placeholder='Write your message here'></textarea>
+      <button type='submit' class='btn btn-primary'>Send&nbsp;Message</button>
+    </form>
+    <div style='max-width: 600px; margin: 2rem auto 0; text-align: center; font-size: 0.9rem; color: var(--text-light);'>
+      <p>If you prefer email, you can reach me at <a href='mailto:stormen@thenewgen.com'>stormen@thenewgen.com</a>. For sponsorships and business collaborations, contact my manager at <a href='mailto:business@thenewgen.com'>business@thenewgen.com</a>.</p>
+      <p>I value your privacy. Your information will only be used to respond to your message and will never be shared.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Stormen. All rights reserved.</p>
+    <div class='social-icons'>
+      <a href='https://instagram.com/stormentwitch' aria-label='Instagram'><i data-feather='instagram'></i></a>
+      <a href='https://www.tiktok.com/@stormentwitch' aria-label='TikTok'><i data-feather='music'></i></a>
+      <a href='https://twitter.com/stormentv' aria-label='Twitter'><i data-feather='twitter'></i></a>
+      <a href='https://youtube.com/@stormentv' aria-label='YouTube'><i data-feather='youtube'></i></a>
+      <a href='https://twitch.tv/stormen' aria-label='Twitch'><i data-feather='twitch'></i></a>
+      <a href='https://discord.gg/8pgUDRT5Wv' aria-label='Discord'><i data-feather='message-circle'></i></a>
+    </div>
+  </footer>
+
+  <script src='script.js'></script>
+  <script>
+    feather.replace();
+  </script>
+</body>
+</html>
