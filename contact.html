@@ -1,72 +1,82 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='en' class='dark'>
 <head>
   <meta charset='UTF-8'>
   <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-  <title>Contact – Stormen</title>
-  <link rel='stylesheet' href='style.css'>
-  <script src='https://unpkg.com/feather-icons' defer></script>
+  <title>Contact | Stormen</title>
+  <link rel='stylesheet' href='/dist/site.css?v=1'>
+  <link rel='stylesheet' href='site.css'>
+  <script src='https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js'></script>
 </head>
-<body>
-  <header>
-    <a href='index.html' class='logo'>Stormen</a>
-    <div class='menu-toggle' aria-label='Toggle navigation' tabindex='0'>
-      <span></span>
-      <span></span>
-      <span></span>
+<body class='flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white'>
+  <header class='bg-white dark:bg-gray-900'>
+    <div class='px-6 py-4 flex items-center justify-between'>
+      <button id='menu-toggle' class='md:hidden focus:outline-none'>
+        <i data-feather='menu'></i>
+      </button>
+      <h1 class='text-2xl font-bold'><a href='index.html'>Stormen</a></h1>
+      <button id='mode-toggle' class='focus:outline-none'>
+        <i data-feather='sun'></i>
+      </button>
     </div>
-    <nav>
-      <ul>
-        <li><a href='index.html'>Home</a></li>
-        <li><a href='about.html'>About</a></li>
-        <li><a href='watch.html'>Watch</a></li>
-        <li><a href='collection.html'>Shop</a></li>
-        <li><a href='social.html'>Community</a></li>
-        <li><a href='contact.html' class='active'>Contact</a></li>
-      </ul>
-    </nav>
   </header>
-
-  <section class='hero'>
-    <h1>Get&nbsp;in&nbsp;Touch</h1>
-    <p>Questions, business inquiries or just want to say hi? Drop me a line below.</p>
-  </section>
-
-  <section class='section' id='contact'>
-    <h2 class='section-title'>Contact Form</h2>
-    <p class='section-subtitle'>I read every message! Please fill out the form and I’ll get back to you as soon as possible.</p>
-    <form action='mailto:stormen@thenewgen.com' method='post' enctype='text/plain' class='contact-form'>
-      <label for='name'>Name</label>
-      <input type='text' id='name' name='name' required placeholder='Your Name'>
-      <label for='email'>Email</label>
-      <input type='email' id='email' name='email' required placeholder='you@example.com'>
-      <label for='subject'>Subject</label>
-      <input type='text' id='subject' name='subject' required placeholder='Subject'>
-      <label for='message'>Message</label>
-      <textarea id='message' name='message' rows='5' required placeholder='Write your message here'></textarea>
-      <button type='submit' class='btn btn-primary'>Send&nbsp;Message</button>
-    </form>
-    <div style='max-width: 600px; margin: 2rem auto 0; text-align: center; font-size: 0.9rem; color: var(--text-light);'>
-      <p>If you prefer email, you can reach me at <a href='mailto:stormen@thenewgen.com'>stormen@thenewgen.com</a>. For sponsorships and business collaborations, contact my manager at <a href='mailto:business@thenewgen.com'>business@thenewgen.com</a>.</p>
-      <p>I value your privacy. Your information will only be used to respond to your message and will never be shared.</p>
+  <div class='flex flex-1'>
+    <aside id='side-panel' class='fixed inset-y-0 left-0 w-64 bg-white dark:bg-gray-900 shadow-md transform -translate-x-full transition-transform duration-300 ease-in-out'>
+      <nav class='mt-10'>
+        <a href='index.html' class='flex items-center px-6 py-3 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800'>
+          <i data-feather='home' class='mr-3'></i> Home
+        </a>
+        <a href='stormen.html' class='flex items-center px-6 py-3 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800'>
+          <i data-feather='zap' class='mr-3'></i> Stormen
+        </a>
+        <a href='watch.html' class='flex items-center px-6 py-3 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800'>
+          <i data-feather='play' class='mr-3'></i> Watch
+        </a>
+        <a href='collection.html' class='flex items-center px-6 py-3 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800'>
+          <i data-feather='shopping-cart' class='mr-3'></i> Collection
+        </a>
+        <a href='social.html' class='flex items-center px-6 py-3 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800'>
+          <i data-feather='share-2' class='mr-3'></i> Social Media
+        </a>
+        <a href='contact.html' class='flex items-center px-6 py-3 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800'>
+          <i data-feather='mail' class='mr-3'></i> Contact
+        </a>
+      </nav>
+    </aside>
+    <main class='flex-grow flex flex-col items-center justify-center py-20 px-6'>
+      <h2 class='text-4xl font-bold mb-6 text-center'>Get in Touch</h2>
+      <p class='mb-8 text-center max-w-lg'>Whether you have questions, feedback, or just want to say hello, feel free to reach out. I love hearing from you!</p>
+      <form action='mailto:stormen@thenewgen.com' method='post' enctype='text/plain' class='w-full max-w-lg space-y-4'>
+        <div>
+          <label for='name' class='block mb-2'>Name</label>
+          <input type='text' id='name' name='name' class='w-full p-2 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-700' required>
+        </div>
+        <div>
+          <label for='email' class='block mb-2'>Email</label>
+          <input type='email' id='email' name='email' class='w-full p-2 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-700' required>
+        </div>
+        <div>
+          <label for='message' class='block mb-2'>Message</label>
+          <textarea id='message' name='message' rows='5' class='w-full p-2 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-700' required></textarea>
+        </div>
+        <button type='submit' class='bg-yellow-500 hover:bg-yellow-400 text-white py-2 px-4 rounded transition-colors duration-300'>Send Message</button>
+      </form>
+    </main>
+  </div>
+  <footer class='bg-white dark:bg-gray-900 text-center py-4 mt-auto'>
+    <div class='flex justify-center space-x-6'>
+      <a href='https://instagram.com/stormengg' class='text-gray-900 dark:text-white hover:text-yellow-500' target='_blank'><i data-feather='instagram'></i></a>
+      <a href='https://tiktok.com/@stormengg' class='text-gray-900 dark:text-white hover:text-yellow-500' target='_blank'><i data-feather='music'></i></a>
+      <a href='https://twitter.com/stormen' class='text-gray-900 dark:text-white hover:text-yellow-500' target='_blank'><i data-feather='twitter'></i></a>
+      <a href='https://youtube.com/channel/UCtYWnG9UY2zXjUo9i0FoZmw' class='text-gray-900 dark:text-white hover:text-yellow-500' target='_blank'><i data-feather='youtube'></i></a>
+      <a href='https://twitch.tv/stormen' class='text-gray-900 dark:text-white hover:text-yellow-500' target='_blank'><i data-feather='twitch'></i></a>
+      <a href='https://discord.gg/stormen' class='text-gray-900 dark:text-white hover:text-yellow-500' target='_blank'><i data-feather='message-circle'></i></a>
     </div>
-  </section>
-
-  <footer>
-    <p>© 2026 Stormen. All rights reserved.</p>
-    <div class='social-icons'>
-      <a href='https://instagram.com/stormentwitch' aria-label='Instagram'><i data-feather='instagram'></i></a>
-      <a href='https://www.tiktok.com/@stormentwitch' aria-label='TikTok'><i data-feather='music'></i></a>
-      <a href='https://twitter.com/stormentv' aria-label='Twitter'><i data-feather='twitter'></i></a>
-      <a href='https://youtube.com/@stormentv' aria-label='YouTube'><i data-feather='youtube'></i></a>
-      <a href='https://twitch.tv/stormen' aria-label='Twitch'><i data-feather='twitch'></i></a>
-      <a href='https://discord.gg/8pgUDRT5Wv' aria-label='Discord'><i data-feather='message-circle'></i></a>
-    </div>
+    <p class='mt-4 text-sm'>&copy; 2025 Stormen. All rights reserved.</p>
   </footer>
-
-  <script src='script.js'></script>
   <script>
     feather.replace();
   </script>
+  <script src='site.js'></script>
 </body>
 </html>
