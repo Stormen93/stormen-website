@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en" class="">
 <head>
   <meta charset="UTF-8" />
@@ -10,10 +9,9 @@
   <!-- Roboto Mono -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet"/>
   <!-- Tailwind CSS -->
- <link rel="stylesheet" href="/dist/site.css?v=1">
-
-<!-- Site CSS -->
-<link href="site.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="/dist/site.css?v=1">
+  <!-- Site CSS -->
+  <link href="site.css" rel="stylesheet"/>
   <!-- Feather Icons -->
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.1/dist/feather.min.js"></script>
   <style>body { font-family: 'Roboto Condensed', sans-serif; }</style>
@@ -21,16 +19,14 @@
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
   <!-- Backdrop -->
   <div id="backdrop" class="fixed inset-0 bg-gray-900 opacity-0 pointer-events-none z-40 transition-opacity"></div>
-
   <!-- Header -->
-
   <header id="siteHeader" class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
     <button id="menuToggleBtn" aria-controls="sidePanel"
-  class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none z-[60]"
-  aria-label="Open menu" aria-expanded="false">
-  <span class="burger-line"></span>
-  <span class="burger-line lower"></span>
-</button>
+      class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none z-[60]"
+      aria-label="Open menu" aria-expanded="false">
+      <span class="burger-line"></span>
+      <span class="burger-line lower"></span>
+    </button>
     <a href="/" class="mx-auto relative h-36 flex items-center justify-center z-10">
       <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
       <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
@@ -40,13 +36,9 @@
       <img id="themeIcon" src="images/lightmode.png" alt="Toggle theme" class="w-8 h-8" />
     </button>
   </header>
-
   <!-- Side Panel -->
-
   <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl" role="dialog" aria-label="Main menu">
-
-
-     <nav class="mt-14 space-y-6 pl-4">
+    <nav class="mt-14 space-y-6 pl-4">
       <div>
         <a href="/">
           <i data-feather="home" class="inline-block w-5 h-5 mr-2"></i>
@@ -85,62 +77,51 @@
       </div>
     </nav>
   </aside>
-
   <!-- Hero Section -->
-
- <section class="relative h-screen">
-  <!-- only the video itself is clipped -->
-  <div class="absolute inset-0 overflow-hidden">
-    <video
-      class="w-full h-full object-cover object-center"
-      autoplay loop muted playsinline preload="auto"
-    >
-      <source src="/media/LightningVideos.mp4" type="video/mp4"/>
-    </video>
-  </div>
-
-  <!-- dark overlay -->
-  <div class="absolute inset-0 bg-black/40"></div>
-
-  <!-- your copy & CTA -->
-  <div class="relative z-20 flex flex-col items-center justify-center h-full text-center px-6">
-    <h1 class="font-extralight uppercase tracking-[0.2em] text-white text-4xl sm:text-6xl lg:text-8xl whitespace-nowrap drop-shadow-[0_4px_6px_rgba(0,0,0,0.55)]">
-      <span>Chase&nbsp;the&nbsp;Storm</span>
-    </h1>
-    <a
-      href="/collection"
-      class="cta group relative inline-block px-10 py-3 mt-8
-             rounded-full border border-white/40 bg-white/10
-             backdrop-blur-md text-white uppercase tracking-widest
-             text-sm whitespace-nowrap transition-all duration-300
-             hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/50"
-    >
-      ⚡Shop Official Merch⚡
-    </a>
-  </div>
-</section>
-
-<section id="latest" class="bg-gray-100 dark:bg-gray-800 py-16">
-  <div class="container mx-auto px-4">
-
-    <div class="embed-wrapper">
-      <iframe
-        src="https://www.youtube.com/embed/videoseries?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-      </iframe>
+  <section class="relative h-screen">
+    <!-- only the video itself is clipped -->
+    <div class="absolute inset-0 overflow-hidden">
+      <video
+        class="w-full h-full object-cover object-center"
+        autoplay loop muted playsinline preload="auto">
+        <source src="/media/LightningVideos.mp4" type="video/mp4"/>
+      </video>
     </div>
-
-    <div class="flex justify-center mt-16"> <!-- 64 px gap -->
-      <a href="https://twitch.tv/stormen" target="_blank" class="watch-link">
-        <span>WATCH STORMEN’S STREAM</span>
+    <!-- dark overlay -->
+    <div class="absolute inset-0 bg-black/40"></div>
+    <!-- your copy & CTA -->
+    <div class="relative z-20 flex flex-col items-center justify-center h-full text-center px-6">
+      <h1 class="font-extralight uppercase tracking-[0.2em] text-white text-4xl sm:text-6xl lg:text-8xl whitespace-nowrap drop-shadow-[0_4px_6px_rgba(0,0,0,0.55)]">
+        <span>Chase&nbsp;the&nbsp;Storm</span>
+      </h1>
+      <a
+        href="/collection"
+        class="cta group relative inline-block px-10 py-3 mt-8
+               rounded-full border border-white/40 bg-white/10
+               backdrop-blur-md text-white uppercase tracking-widest
+               text-sm whitespace-nowrap transition-all duration-300
+               hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/50">
+        ⚡Shop Official Merch⚡
       </a>
     </div>
-
-  </div>
-</section>
-
-   <!-- Footer -->
+  </section>
+  <section id="latest" class="bg-gray-100 dark:bg-gray-800 py-16">
+    <div class="container mx-auto px-4">
+      <div class="embed-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/videoseries?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <div class="flex justify-center mt-16">
+        <a href="https://twitch.tv/stormen" target="_blank" class="watch-link">
+          <span>WATCH STORMEN’S STREAM</span>
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
   <footer class="bg-white py-10 text-gray-900">
     <div class="container mx-auto flex flex-col items-center space-y-6">
       <div class="flex space-x-6">
@@ -170,14 +151,9 @@
       <div class="text-sm">© 2025 Stormen. All rights reserved.</div>
     </div>
   </footer>
-
   <!-- Cloudflare Email Decode -->
-
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-
   <!-- Site-wide JS -->
-
   <script src="site.js" defer></script>
-
 </body>
 </html>

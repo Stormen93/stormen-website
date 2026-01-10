@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang='en' class='dark'>
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <title>Contact | Stormen</title>
+  <link rel='stylesheet' href='/dist/site.css?v=1'>
+  <link rel='stylesheet' href='site.css'>
+  <script src='https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js'></script>
+</head>
+<body class='flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white'>
+  <header class='bg-white dark:bg-gray-900'>
+    <div class='px-6 py-4 flex items-center justify-between'>
+      <button id='menu-toggle' class='md:hidden focus:outline-none'>
+        <i data-feather='menu'></i>
+      </button>
+      <h1 class='text-2xl font-bold'><a href='index.html'>Stormen</a></h1>
+      <button id='mode-toggle' class='focus:outline-none'>
+        <i data-feather='sun'></i>
+      </button>
+    </div>
+  </header>
+  <div class='flex flex-1'>
+    <aside id='side-panel' class='fixed inset-y-0 left-0 w-64 bg-white dark:bg-gray-900 shadow-md transform -translate-x-full transition-transform duration-300 ease-in-out'>
+      <nav class='mt-10'>
+        <a href='index.html' class='flex items-center px-6 py-3 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800'>
+          <i data-feather='home' class='mr-3'></i> Home
+        </a>
+        <a href='stormen.html' class='flex items-center px-6 py-3 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800'>
+          <i data-feather='zap' class='mr-3'></i> Stormen
+        </a>
+        <a href='watch.html' class='flex items-center px-6 py-3 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800'>
+          <i data-feather='play' class='mr-3'></i> Watch
+        </a>
+        <a href='collection.html' class='flex items-center px-6 py-3 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800'>
+          <i data-feather='shopping-cart' class='mr-3'></i> Collection
+        </a>
+        <a href='social.html' class='flex items-center px-6 py-3 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800'>
+          <i data-feather='share-2' class='mr-3'></i> Social Media
+        </a>
+        <a href='contact.html' class='flex items-center px-6 py-3 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800'>
+          <i data-feather='mail' class='mr-3'></i> Contact
+        </a>
+      </nav>
+    </aside>
+    <main class='flex-grow flex flex-col items-center justify-center py-20 px-6'>
+      <h2 class='text-4xl font-bold mb-6 text-center'>Get in Touch</h2>
+      <p class='mb-8 text-center max-w-lg'>Whether you have questions, feedback, or just want to say hello, feel free to reach out. I love hearing from you!</p>
+      <form action='mailto:stormen@thenewgen.com' method='post' enctype='text/plain' class='w-full max-w-lg space-y-4'>
+        <div>
+          <label for='name' class='block mb-2'>Name</label>
+          <input type='text' id='name' name='name' class='w-full p-2 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-700' required>
+        </div>
+        <div>
+          <label for='email' class='block mb-2'>Email</label>
+          <input type='email' id='email' name='email' class='w-full p-2 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-700' required>
+        </div>
+        <div>
+          <label for='message' class='block mb-2'>Message</label>
+          <textarea id='message' name='message' rows='5' class='w-full p-2 border border-gray-300 rounded dark:bg-gray-800 dark:border-gray-700' required></textarea>
+        </div>
+        <button type='submit' class='bg-yellow-500 hover:bg-yellow-400 text-white py-2 px-4 rounded transition-colors duration-300'>Send Message</button>
+      </form>
+    </main>
+  </div>
+  <footer class='bg-white dark:bg-gray-900 text-center py-4 mt-auto'>
+    <div class='flex justify-center space-x-6'>
+      <a href='https://instagram.com/stormengg' class='text-gray-900 dark:text-white hover:text-yellow-500' target='_blank'><i data-feather='instagram'></i></a>
+      <a href='https://tiktok.com/@stormengg' class='text-gray-900 dark:text-white hover:text-yellow-500' target='_blank'><i data-feather='music'></i></a>
+      <a href='https://twitter.com/stormen' class='text-gray-900 dark:text-white hover:text-yellow-500' target='_blank'><i data-feather='twitter'></i></a>
+      <a href='https://youtube.com/channel/UCtYWnG9UY2zXjUo9i0FoZmw' class='text-gray-900 dark:text-white hover:text-yellow-500' target='_blank'><i data-feather='youtube'></i></a>
+      <a href='https://twitch.tv/stormen' class='text-gray-900 dark:text-white hover:text-yellow-500' target='_blank'><i data-feather='twitch'></i></a>
+      <a href='https://discord.gg/stormen' class='text-gray-900 dark:text-white hover:text-yellow-500' target='_blank'><i data-feather='message-circle'></i></a>
+    </div>
+    <p class='mt-4 text-sm'>&copy; 2025 Stormen. All rights reserved.</p>
+  </footer>
+  <script>
+    feather.replace();
+  </script>
+  <script src='site.js'></script>
+</body>
+</html>
