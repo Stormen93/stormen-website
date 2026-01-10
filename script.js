@@ -1,0 +1,11 @@
+// Simple mobile navigation toggle
+document.addEventListener('DOMContentLoaded', () => {
+  const menuToggle = document.querySelector('.menu-toggle');
+  const navList = document.querySelector('nav ul');
+  if (menuToggle && navList) {
+    menuToggle.addEventListener('click', () => {
+      navList.classList.toggle('open');
+      menuToggle.classList.toggle('active');
+    });
+  }
+});
