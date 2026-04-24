@@ -103,12 +103,37 @@
 
       <section id="latest-videos" class="watch-video-strip" aria-labelledby="latestVideosTitle" data-watch-section="youtube">
         <div class="watch-section-kicker" id="latestVideosTitle">Latest YouTube</div>
-        <div class="watch-video-grid" data-youtube-grid>
-          <article class="watch-video-placeholder">
-            <i data-feather="youtube"></i>
-            <h3>Latest Videos Load Here</h3>
-            <p>Add a restricted YouTube Data API key in `site.js` to show your newest long videos and shorts with real thumbnails, titles, and view counts.</p>
-            <a href="https://youtube.com/@stormentv" target="_blank" rel="noopener noreferrer">Open YouTube</a>
+        <div class="watch-playlist-grid">
+          <article class="watch-playlist-panel" data-video-kind="video">
+            <div class="watch-playlist-heading">
+              <h3>Latest Videos</h3>
+              <a href="https://www.youtube.com/playlist?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J" target="_blank" rel="noopener noreferrer">Open Playlist</a>
+            </div>
+            <div class="watch-youtube-embed">
+              <iframe
+                src="https://www.youtube.com/embed/videoseries?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
+                title="Stormen latest videos playlist"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </article>
+
+          <article class="watch-playlist-panel" data-video-kind="short">
+            <div class="watch-playlist-heading">
+              <h3>Best Shorts</h3>
+              <a href="https://www.youtube.com/playlist?list=PLlRbVc_QVCbVYjyudkiLKvJrjIExbbgpr" target="_blank" rel="noopener noreferrer">Open Playlist</a>
+            </div>
+            <div class="watch-youtube-embed">
+              <iframe
+                src="https://www.youtube.com/embed/videoseries?list=PLlRbVc_QVCbVYjyudkiLKvJrjIExbbgpr"
+                title="Stormen best shorts playlist"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
           </article>
         </div>
       </section>
