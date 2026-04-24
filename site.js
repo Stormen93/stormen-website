@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const stormenConfig = {
   twitchChannel: 'stormen',
   youtubeHandle: 'stormentv',
-  youtubeApiKey: 'AIzaSyCgJROqQatzCC7nvtRW8bjMDEkS5bgEKTc',
+  youtubeApiKey: '',
   ...(window.STORMEN_CONFIG || {}),
 };
 
