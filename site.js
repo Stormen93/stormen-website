@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initYouTubeVideos();
   initRollingScheduleDates();
   initProductImageSwaps();
+  initContactForm();
 });
 
 const stormenConfig = {
@@ -310,5 +311,47 @@ function initProductImageSwaps() {
       event.preventDefault();
       didSwipe = false;
     });
+  });
+}
+
+function initContactForm() {
+  const form = document.querySelector('[data-contact-form]');
+  if (!form) return;
+
+  const status = form.querySelector('[data-contact-status]');
+  const contactEmail = 'stormen@thenewgen.com';
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      if (status) {
+        status.textContent = 'Please fill out every field before sending.';
+        status.classList.add('is-error');
+      }
+      return;
+    }
+
+    const formData = new FormData(form);
+    const name = String(formData.get('name') || '').trim();
+    const email = String(formData.get('email') || '').trim();
+    const inquiry = String(formData.get('inquiry') || '').trim();
+    const message = String(formData.get('message') || '').trim();
+    const subject = `Stormen contact: ${inquiry}`;
+    const body = [
+      `Name: ${name}`,
+      `Email: ${email}`,
+      `Inquiry type: ${inquiry}`,
+      '',
+      message,
+    ].join('\n');
+
+    if (status) {
+      status.textContent = 'Opening your email app with the message ready to send.';
+      status.classList.remove('is-error');
+    }
+
+    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 }

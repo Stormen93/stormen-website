@@ -1566,17 +1566,20 @@ main {
 }
 
 .spotlight-image {
-  min-height: 290px;
+  min-height: 330px;
   background:
-    linear-gradient(180deg, rgba(255, 196, 0, 0.08), rgba(0, 0, 0, 0.1)),
-    url("images/mockups/stormen-header-bg.png");
+    linear-gradient(180deg, rgba(255, 196, 0, 0.04), rgba(0, 0, 0, 0.12)),
+    #050505;
   background-size: cover;
   background-position: center;
 }
 
 .spotlight-image img {
-  max-height: 300px;
-  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  min-height: 330px;
+  object-fit: cover;
+  object-position: center;
 }
 
 .spotlight-copy {
@@ -2623,6 +2626,19 @@ main {
   color: rgba(244, 240, 232, 0.7);
 }
 
+.contact-card-form select:valid {
+  color: #f4f0e8;
+}
+
+.contact-card-form select option {
+  color: #111;
+  background: #fff;
+}
+
+.contact-card-form select option:disabled {
+  color: #666;
+}
+
 .contact-card-form textarea {
   min-height: 96px;
   resize: vertical;
@@ -2683,6 +2699,17 @@ main {
 .contact-form-footer p i {
   width: 15px;
   height: 15px;
+}
+
+.contact-form-status {
+  min-height: 1.2em;
+  margin: -4px 0 0;
+  color: rgba(244, 240, 232, 0.72);
+  font-size: 0.95rem;
+}
+
+.contact-form-status.is-error {
+  color: #ffca14;
 }
 
 .contact-info-stack {
