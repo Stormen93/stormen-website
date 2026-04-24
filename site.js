@@ -319,9 +319,9 @@ function initContactForm() {
   if (!form) return;
 
   const status = form.querySelector('[data-contact-status]');
-  const contactEmail = 'stormen@thenewgen.com';
+  const submitButton = form.querySelector('[type="submit"]');
 
-  form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     if (!form.checkValidity()) {
@@ -329,29 +329,54 @@ function initContactForm() {
       if (status) {
         status.textContent = 'Please fill out every field before sending.';
         status.classList.add('is-error');
+        status.classList.remove('is-success');
       }
       return;
     }
 
     const formData = new FormData(form);
-    const name = String(formData.get('name') || '').trim();
-    const email = String(formData.get('email') || '').trim();
     const inquiry = String(formData.get('inquiry') || '').trim();
-    const message = String(formData.get('message') || '').trim();
-    const subject = `Stormen contact: ${inquiry}`;
-    const body = [
-      `Name: ${name}`,
-      `Email: ${email}`,
-      `Inquiry type: ${inquiry}`,
-      '',
-      message,
-    ].join('\n');
+    formData.append('_subject', `Stormen contact: ${inquiry}`);
 
     if (status) {
-      status.textContent = 'Opening your email app with the message ready to send.';
+      status.textContent = 'Sending your message...';
       status.classList.remove('is-error');
+      status.classList.remove('is-success');
     }
 
-    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    if (submitButton) {
+      submitButton.disabled = true;
+    }
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Formspree rejected the submission.');
+      }
+
+      form.reset();
+      if (status) {
+        status.textContent = 'Message sent. Thanks, I will get back to you soon.';
+        status.classList.add('is-success');
+        status.classList.remove('is-error');
+      }
+    } catch (error) {
+      if (status) {
+        status.textContent = 'Something went wrong. Please email stormen@thenewgen.com directly.';
+        status.classList.add('is-error');
+        status.classList.remove('is-success');
+      }
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+      }
+    }
   });
 }

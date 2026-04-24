@@ -2681,6 +2681,12 @@ main {
   filter: brightness(1.05);
 }
 
+.contact-send-button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+  transform: none;
+}
+
 .contact-send-button i {
   width: 20px;
   height: 20px;
@@ -2710,6 +2716,10 @@ main {
 
 .contact-form-status.is-error {
   color: #ffca14;
+}
+
+.contact-form-status.is-success {
+  color: #f4f0e8;
 }
 
 .contact-info-stack {
