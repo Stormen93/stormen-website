@@ -114,6 +114,10 @@ img {
   transform: scaleX(1);
 }
 
+.mobile-menu-toggle {
+  display: none;
+}
+
 .header-cta,
 .cta-primary,
 .cta-secondary,
@@ -689,49 +693,87 @@ main {
   }
 
   .landing-header {
-    position: absolute;
-    gap: 10px;
-    padding: 14px 12px 10px;
-    grid-template-columns: 1fr;
-    background: linear-gradient(180deg, rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.08));
+    position: fixed;
+    grid-template-columns: auto auto;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: rgba(4, 4, 4, 0.82);
+    backdrop-filter: blur(12px);
   }
 
   .site-brand {
-    width: 98px;
-    justify-self: center;
+    width: 112px;
+    justify-self: start;
+  }
+
+  .mobile-menu-toggle {
+    display: inline-grid;
+    place-items: center;
+    gap: 5px;
+    width: 48px;
+    height: 44px;
+    justify-self: end;
+    border: 1px solid rgba(255, 202, 20, 0.45);
+    background: rgba(0, 0, 0, 0.38);
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .mobile-menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: currentColor;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
+
+  .landing-header.nav-open .mobile-menu-toggle span:first-child {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .landing-header.nav-open .mobile-menu-toggle span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .landing-header.nav-open .mobile-menu-toggle span:last-child {
+    transform: translateY(-7px) rotate(-45deg);
   }
 
   .desktop-nav {
+    display: none;
+    grid-column: 1 / -1;
     width: 100%;
     justify-self: stretch;
-    justify-content: flex-start;
-    gap: 10px;
-    padding: 8px 2px 10px;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scrollbar-width: none;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 8px 0 0;
+    overflow: visible;
     font-size: 0.7rem;
     letter-spacing: 0.1em;
-    white-space: nowrap;
-    mask-image: linear-gradient(90deg, transparent, #000 18px, #000 calc(100% - 18px), transparent);
-  }
-
-  .desktop-nav::-webkit-scrollbar {
-    display: none;
+    white-space: normal;
   }
 
   .desktop-nav a {
-    flex: 0 0 auto;
-    padding: 8px 10px;
+    display: flex;
+    justify-content: center;
+    padding: 12px 10px;
     border: 1px solid rgba(255, 255, 255, 0.12);
-    background: rgba(0, 0, 0, 0.28);
+    background: rgba(255, 255, 255, 0.035);
   }
 
   .desktop-nav a::after {
     bottom: -1px;
   }
 
+  .landing-header.nav-open .desktop-nav {
+    display: grid;
+  }
+
   .header-cta {
+    display: none;
+    grid-column: 1 / -1;
     width: min(100%, 320px);
     min-width: 0;
     justify-self: center;
@@ -740,9 +782,13 @@ main {
     background: rgba(0, 0, 0, 0.32);
   }
 
+  .landing-header.nav-open .header-cta {
+    display: inline-flex;
+  }
+
   .hero-shell {
     min-height: 78vh;
-    padding: 190px 16px 24px;
+    padding: 122px 16px 24px;
     background-position: 74% top;
     background-size: cover;
   }
@@ -1462,15 +1508,42 @@ main {
 }
 
 .shop-card:hover .swap-image img:first-child,
-.shop-card:focus-visible .swap-image img:first-child {
+.shop-card:focus-visible .swap-image img:first-child,
+.shop-card.is-swapped .swap-image img:first-child {
   opacity: 0;
   transform: scale(0.98);
 }
 
 .shop-card:hover .swap-image img + img,
-.shop-card:focus-visible .swap-image img + img {
+.shop-card:focus-visible .swap-image img + img,
+.shop-card.is-swapped .swap-image img + img {
   opacity: 1;
   transform: scale(1);
+}
+
+.swap-image::after {
+  content: "Swipe";
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 5px 8px;
+  border: 1px solid rgba(255, 202, 20, 0.5);
+  background: rgba(0, 0, 0, 0.72);
+  color: var(--accent);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+@media (hover: none) {
+  .swap-image::after {
+    opacity: 1;
+  }
 }
 
 .shop-card p {
@@ -3581,10 +3654,10 @@ main {
   .social-hero-shell,
   .contact-main,
   .watch-main {
-    padding-top: 190px;
+    padding-top: 122px;
   }
 
   .about-hero-copy {
-    padding-top: 300px;
+    padding-top: 190px;
   }
 }

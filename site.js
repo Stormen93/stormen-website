@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const siteHeader = document.getElementById('siteHeader');
   if (!siteHeader) return;
+  const menuToggle = siteHeader.querySelector('.mobile-menu-toggle');
 
   const onScroll = () => {
     siteHeader.classList.toggle('scrolled', window.scrollY > 10);
@@ -15,9 +16,26 @@ document.addEventListener('DOMContentLoaded', () => {
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
+  if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+      const isOpen = siteHeader.classList.toggle('nav-open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+    });
+
+    siteHeader.querySelectorAll('.desktop-nav a, .header-cta').forEach((link) => {
+      link.addEventListener('click', () => {
+        siteHeader.classList.remove('nav-open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Open menu');
+      });
+    });
+  }
+
   initTwitchEmbeds();
   initYouTubeVideos();
   initRollingScheduleDates();
+  initProductImageSwaps();
 });
 
 const stormenConfig = {
@@ -252,5 +270,45 @@ function initRollingScheduleDates() {
     const weekday = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][scheduleDay - 1];
     dayLabel.firstChild.textContent = `${weekday} `;
     dateLabel.textContent = formatter.format(date);
+  });
+}
+
+function initProductImageSwaps() {
+  document.querySelectorAll('.shop-card .swap-image').forEach((swapImage) => {
+    const card = swapImage.closest('.shop-card');
+    if (!card) return;
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let didSwipe = false;
+
+    const toggleSwap = () => {
+      card.classList.toggle('is-swapped');
+    };
+
+    swapImage.addEventListener('touchstart', (event) => {
+      const touch = event.changedTouches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+      didSwipe = false;
+    }, { passive: true });
+
+    swapImage.addEventListener('touchend', (event) => {
+      const touch = event.changedTouches[0];
+      const deltaX = touch.clientX - touchStartX;
+      const deltaY = touch.clientY - touchStartY;
+
+      if (Math.abs(deltaX) > 34 && Math.abs(deltaX) > Math.abs(deltaY)) {
+        event.preventDefault();
+        didSwipe = true;
+        toggleSwap();
+      }
+    });
+
+    card.addEventListener('click', (event) => {
+      if (!didSwipe || !card.classList.contains('is-swapped')) return;
+      event.preventDefault();
+      didSwipe = false;
+    });
   });
 }

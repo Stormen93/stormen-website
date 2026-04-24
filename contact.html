@@ -7,16 +7,17 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/dist/site.css?v=2" />
-  <link href="site.css?v=2" rel="stylesheet" />
+  <link rel="stylesheet" href="/dist/site.css?v=4" />
+  <link href="site.css?v=4" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.1/dist/feather.min.js"></script>
 </head>
 <body class="landing-body contact-page">
   <header id="siteHeader" class="landing-header">
     <a href="index.html" class="site-brand" aria-label="Stormen home">
-      <img src="images/logo_white.png" alt="Stormen logo" class="brand-logo" />
+      <img src="images/logo.png" alt="Stormen logo" class="brand-logo" />
     </a>
-    <nav class="desktop-nav" aria-label="Primary">
+    <button type="button" class="mobile-menu-toggle" aria-controls="primaryNav" aria-expanded="false" aria-label="Open menu"><span></span><span></span><span></span></button>
+    <nav id="primaryNav" class="desktop-nav" aria-label="Primary">
       <a href="index.html">Home</a>
       <a href="stormen.html">Stormen</a>
       <a href="watch.html">Watch</a>
@@ -160,7 +161,7 @@
 
   <footer class="site-footer compact-footer">
     <div class="footer-brand">
-      <img src="images/logo_white.png" alt="Stormen logo" class="footer-logo" />
+      <img src="images/logo.png" alt="Stormen logo" class="footer-logo" />
     </div>
     <div class="footer-meta page-footer-nav">
       <div class="footer-meta-links">
@@ -171,10 +172,10 @@
         <a href="social.html">Social Media</a>
         <a href="contact.html">Contact</a>
       </div>
-      <span>&copy; 2025 Stormen. All rights reserved.</span>
+      <span>&copy; 2026 Stormen. All rights reserved.</span>
     </div>
   </footer>
 
-  <script src="site.js" defer></script>
+  <script src="site.js?v=3" defer></script>
 </body>
 </html>
