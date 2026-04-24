@@ -3,150 +3,132 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Collection | Stormen</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
+  <title>Stormen | Collection</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/dist/site.css?v=1" />
   <link href="site.css" rel="stylesheet" />
-  <style>
-    body { font-family: 'Roboto Condensed', sans-serif; }
-
-    .merch-item {
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      height: 22rem;
-    }
-
-    .merch-item img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      object-position: center;
-      transition: opacity .3s ease;
-    }
-
-    .merch-item .back { opacity: 0; pointer-events: none; }
-    .merch-item:hover .front,
-    .merch-item.flip .front { opacity: 0; }
-    .merch-item:hover .back,
-    .merch-item.flip .back { opacity: 1; }
-  </style>
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.1/dist/feather.min.js"></script>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
-  <div id="backdrop" class="fixed inset-0 bg-gray-900 opacity-0 pointer-events-none z-40 transition-opacity"></div>
-
-  <header id="siteHeader" class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
-    <button id="menuToggleBtn" aria-controls="sidePanel"
-      class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none z-[60]"
-      aria-label="Open menu" aria-expanded="false">
-      <span class="burger-line"></span>
-      <span class="burger-line lower"></span>
-    </button>
-    <a href="/" class="mx-auto relative h-36 flex items-center justify-center z-10">
-      <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
-      <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
+<body class="landing-body subpage-body collection-page">
+  <header id="siteHeader" class="landing-header">
+    <a href="index.html" class="site-brand" aria-label="Stormen home">
+      <img src="images/logo.png" alt="Stormen logo" class="brand-logo" />
     </a>
-    <button id="themeToggle" class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 transition-colors duration-300" aria-label="Toggle Theme">
-      <img id="themeIcon" src="images/lightmode.png" alt="Toggle theme" class="w-8 h-8" />
-    </button>
+    <nav class="desktop-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="stormen.html">Stormen</a>
+      <a href="watch.html">Watch</a>
+      <a href="collection.html" class="is-active">Collection</a>
+      <a href="social.html">Social Media</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a href="https://stormen-shop.fourthwall.com/" target="_blank" rel="noopener noreferrer" class="header-cta">Shop Merch</a>
   </header>
 
-  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl" role="dialog" aria-label="Main menu">
-    <nav class="mt-14 space-y-6 pl-4">
-      <div><a href="/"><i data-feather="home" class="inline-block w-5 h-5 mr-2"></i><span>HOME</span></a></div>
-      <div><a href="/stormen"><i data-feather="zap" class="inline-block w-5 h-5 mr-2"></i><span>STORMEN</span></a></div>
-      <div><a href="/watch"><i data-feather="play" class="inline-block w-5 h-5 mr-2"></i><span>WATCH</span></a></div>
-      <div><a href="/collection"><i data-feather="shopping-cart" class="inline-block w-5 h-5 mr-2"></i><span>COLLECTION</span></a></div>
-      <div><a href="/social"><i data-feather="share-2" class="inline-block w-5 h-5 mr-2"></i><span>SOCIAL MEDIA</span></a></div>
-      <div><a href="mailto:stormen@thenewgen.com"><i data-feather="mail" class="inline-block w-5 h-5 mr-2"></i><span>CONTACT</span></a></div>
-    </nav>
-  </aside>
+  <main class="page-main">
+    <section class="collection-hero">
+      <div class="collection-hero-shell">
+        <div class="collection-hero-copy">
+          <p class="eyebrow">Quality. Purpose. Energy.</p>
+          <h1 class="subpage-title">Stormen Collection</h1>
+          <p class="subpage-text">
+            Premium streetwear built for the community. Every piece is a reminder to chase the storm,
+            stay authentic, and rep the energy.
+          </p>
+          <div class="hero-actions">
+            <a href="https://stormen-shop.fourthwall.com/" target="_blank" rel="noopener noreferrer" class="cta-primary">Shop The Collection</a>
+            <a href="#featured-drop" class="cta-secondary">New Drops</a>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
 
-  <main class="flex-grow w-[90%] mx-auto px-2 pt-24 pb-16 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-    <a href="https://stormen-shop.fourthwall.com/products/stormen-t-shirt" target="_blank" rel="noopener noreferrer" class="merch-item block min-w-0 w-full rounded-lg shadow-md">
-      <img src="images/tshirt_front.png" alt="Stormen Tee front" class="front block w-full rounded-lg shadow-md" />
-      <img src="images/tshirt_back.png" alt="Stormen Tee back" class="back w-full rounded-lg shadow-md" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com/products/stormen-hoodie" target="_blank" rel="noopener noreferrer" class="merch-item block min-w-0 w-full rounded-lg shadow-md">
-      <img src="images/hoodies_front.png" alt="Stormen Hoodie front" class="front block w-full rounded-lg shadow-md" />
-      <img src="images/hoodies_back.png" alt="Stormen Hoodie back" class="back w-full rounded-lg shadow-md" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com/en-usd/products/stormen-dad-hat" target="_blank" rel="noopener noreferrer" class="merch-item block min-w-0 w-full rounded-lg shadow-md">
-      <img src="images/dadhat_front.png" alt="Stormen Dad Hat front" class="front block w-full rounded-lg shadow-md" />
-      <img src="images/dadhat_back.png" alt="Stormen Dad Hat back" class="back w-full rounded-lg shadow-md" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com/en-usd/products/stormen-sweatshirt" target="_blank" rel="noopener noreferrer" class="merch-item block min-w-0 w-full rounded-lg shadow-md">
-      <img src="images/sweatshirt_front.png" alt="Stormen Sweatshirt front" class="front block w-full rounded-lg shadow-md" />
-      <img src="images/sweat_back.png" alt="Stormen Sweatshirt back" class="back w-full rounded-lg shadow-md" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com/en-usd/products/stormen-heavyweight-t-shirt" target="_blank" rel="noopener noreferrer" class="merch-item block min-w-0 w-full rounded-lg shadow-md">
-      <img src="images/heavy_front.png" alt="Stormen Heavyweight front" class="front block w-full rounded-lg shadow-md" />
-      <img src="images/heavy_back.png" alt="Stormen Heavyweight back" class="back w-full rounded-lg shadow-md" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com/en-usd/products/stormen-joggers" target="_blank" rel="noopener noreferrer" class="merch-item block min-w-0 w-full rounded-lg shadow-md">
-      <img src="images/joggers_front.png" alt="Stormen Joggers front" class="front block w-full rounded-lg shadow-md" />
-      <img src="images/joggers_back.png" alt="Stormen Joggers back" class="back w-full rounded-lg shadow-md" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com/en-usd/products/stormen-coffee-mug" target="_blank" rel="noopener noreferrer" class="merch-item block min-w-0 w-full rounded-lg shadow-md">
-      <img src="images/stormen_mugblackfront.png" alt="Stormen Black Mug front" class="front block w-full rounded-lg shadow-md" />
-      <img src="images/stormen_mugblackback.png" alt="Stormen Black Mug back" class="back w-full rounded-lg shadow-md" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com/en-usd/products/stormen-moustache-mug" target="_blank" rel="noopener noreferrer" class="merch-item block min-w-0 w-full rounded-lg shadow-md">
-      <img src="images/whitemug_back.png" alt="Stormen White Mug back" class="front block w-full rounded-lg shadow-md" />
-      <img src="images/whitemug_front.png" alt="Stormen White Mug front" class="back w-full rounded-lg shadow-md" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com/en-usd/products/octane-hype-holo-sticker" target="_blank" rel="noopener noreferrer" class="merch-item block min-w-0 w-full rounded-lg shadow-md">
-      <img src="images/hype_sticker.png" alt="Stormen Hype Sticker" class="front block w-full rounded-lg shadow-md" />
-      <img src="images/hype_sticker2.png" alt="Stormen Hype Sticker alternate" class="back w-full rounded-lg shadow-md" />
-    </a>
-    <a href="https://stormen-shop.fourthwall.com/en-usd/products/octane-gasm-holo-sticker" target="_blank" rel="noopener noreferrer" class="merch-item block min-w-0 w-full rounded-lg shadow-md">
-      <img src="images/gasm_sticker.png" alt="Stormen Gasm Sticker front" class="front block w-full rounded-lg shadow-md" />
-      <img src="images/gasm_sticker2.png" alt="Stormen Gasm Sticker alternate" class="back w-full rounded-lg shadow-md" />
-    </a>
+    <section class="collection-filters">
+      <div class="filter-row">
+        <div class="filter-tabs">
+          <span class="is-active">All</span>
+          <span>Hoodies</span>
+          <span>Tees</span>
+          <span>Hats</span>
+          <span>Accessories</span>
+        </div>
+        <div class="sort-chip">Sort By: Newest</div>
+      </div>
+    </section>
+
+    <section class="product-grid">
+      <a href="https://stormen-shop.fourthwall.com/products/stormen-hoodie" target="_blank" rel="noopener noreferrer" class="shop-card"><div class="shop-image"><img src="images/hoodies_back.png" alt="Stormen Hoodie" /></div><h3>Stormen Hoodie</h3><p>Official Store</p></a>
+      <a href="https://stormen-shop.fourthwall.com/en-usd/products/stormen-sweatshirt" target="_blank" rel="noopener noreferrer" class="shop-card"><div class="shop-image"><img src="images/sweatshirt_front.png" alt="Stormen Sweatshirt" /></div><h3>Stormen Sweatshirt</h3><p>Official Store</p></a>
+      <a href="https://stormen-shop.fourthwall.com/products/stormen-t-shirt" target="_blank" rel="noopener noreferrer" class="shop-card"><div class="shop-image"><img src="images/tshirt_front.png" alt="Stormen Tee" /></div><h3>Stormen Tee</h3><p>Official Store</p></a>
+      <a href="https://stormen-shop.fourthwall.com/en-usd/products/stormen-dad-hat" target="_blank" rel="noopener noreferrer" class="shop-card"><div class="shop-image"><img src="images/dadhat_front.png" alt="Stormen Dad Hat" /></div><h3>Stormen Dad Hat</h3><p>Official Store</p></a>
+      <a href="https://stormen-shop.fourthwall.com/products/stormen-hoodie" target="_blank" rel="noopener noreferrer" class="shop-card"><div class="shop-image"><img src="images/hoodies_front.png" alt="Stormen Hoodie Front" /></div><h3>Stormen Hoodie</h3><p>Official Store</p></a>
+    </section>
+
+    <section class="spotlight-banner panel">
+      <div class="spotlight-image">
+        
+      </div>
+      <div class="spotlight-copy">
+        <p class="eyebrow">Official. Iconic. Everyday.</p>
+        <h2>The Lightning Hat</h2>
+        <p>A timeless staple. Clean design, premium fit, and the reminder that fools run, but we chase.</p>
+        <a href="https://stormen-shop.fourthwall.com/en-usd/products/stormen-dad-hat" target="_blank" rel="noopener noreferrer" class="cta-primary">Shop The Hat</a>
+      </div>
+    </section>
+
+    <section class="best-sellers">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Best Sellers</p>
+          <h2>Top Picks</h2>
+        </div>
+      </div>
+      <div class="seller-grid">
+        <article class="seller-card"><img src="images/heavy_front.png" alt="Stormen OG Tee" /><h3>Stormen OG Tee</h3></article>
+        <article class="seller-card"><img src="images/hoodies_front.png" alt="Signature Hoodie" /><h3>Signature Hoodie</h3></article>
+        <article class="seller-card"><img src="images/dadhat_front.png" alt="Stormen Hat" /><h3>Stormen Hat</h3></article>
+        <article class="seller-card"><img src="images/sweatshirt_front.png" alt="Focus Crewneck" /><h3>Focus Crewneck</h3></article>
+        <article class="seller-card"><img src="images/tshirt_front.png" alt="Energy Oversize Tee" /><h3>Energy Oversize Tee</h3></article>
+      </div>
+    </section>
+
+    <section class="benefit-row panel">
+      <article><i data-feather="shield"></i><h3>Premium Quality</h3><p>Built to last, wash after wash.</p></article>
+      <article><i data-feather="zap"></i><h3>Purpose Driven</h3><p>More than merch, it’s a mindset.</p></article>
+      <article><i data-feather="users"></i><h3>Community First</h3><p>Designed for the community, by the community.</p></article>
+      <article><i data-feather="smile"></i><h3>Comfort & Fit</h3><p>Streetwear that feels as good as it looks.</p></article>
+    </section>
+
+    <section class="cta-banner">
+      <div class="cta-banner-copy">
+        <p class="eyebrow">Rep The Energy</p>
+        <h2>Explore the full collection and find your piece of the storm.</h2>
+      </div>
+      <div class="cta-banner-actions">
+        <a href="https://stormen-shop.fourthwall.com/" target="_blank" rel="noopener noreferrer" class="cta-primary">Shop The Collection</a>
+      </div>
+    </section>
   </main>
 
-  <footer class="bg-white py-10 text-gray-900">
-    <div class="container mx-auto flex flex-col items-center space-y-6">
-      <div class="flex space-x-6">
-        <a href="https://instagram.com/stormentwitch" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/instagram.png" alt="Instagram" class="w-8 h-8" /></a>
-        <a href="https://www.tiktok.com/@stormentwitch" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/tiktok.png" alt="TikTok" class="w-7 h-7" /></a>
-        <a href="https://twitter.com/stormentv" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/twitter.png" alt="Twitter" class="w-8 h-8" /></a>
-        <a href="https://youtube.com/@stormentv" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/youtube.png" alt="YouTube" class="w-8 h-8" /></a>
-        <a href="https://twitch.tv/stormen" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/twitch.png" alt="Twitch" class="w-8 h-8" /></a>
-        <a href="https://discord.gg/8pgUDRT5Wv" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/discord.png" alt="Discord" class="w-8 h-8" /></a>
-        <a href="mailto:stormen@thenewgen.com" target="_blank" rel="noopener noreferrer" class="social-link"><i data-feather="mail" class="w-8 h-8"></i></a>
+  <footer class="site-footer compact-footer">
+    <div class="footer-brand">
+      <img src="images/logo.png" alt="Stormen logo" class="footer-logo" />
+    </div>
+    <div class="footer-meta page-footer-nav">
+      <div class="footer-meta-links">
+        <a href="index.html">Home</a>
+        <a href="stormen.html">Stormen</a>
+        <a href="watch.html">Watch</a>
+        <a href="collection.html">Collection</a>
+        <a href="social.html">Social Media</a>
+        <a href="contact.html">Contact</a>
       </div>
-      <div class="w-full border-t border-gray-700"></div>
-      <div class="text-sm">&copy; 2025 Stormen. All rights reserved.</div>
+      <span>&copy; 2026 Stormen. All rights reserved.</span>
     </div>
   </footer>
-
-  <script>
-    if (window.matchMedia('(hover: none), (pointer: coarse)').matches) {
-      const cards = document.querySelectorAll('.merch-item');
-
-      cards.forEach((card) => {
-        card.addEventListener('click', (event) => {
-          if (card.classList.contains('flip')) return;
-
-          event.preventDefault();
-          cards.forEach((otherCard) => {
-            if (otherCard !== card) otherCard.classList.remove('flip');
-          });
-          card.classList.add('flip');
-        });
-      });
-
-      document.addEventListener('click', (event) => {
-        if (!event.target.closest('.merch-item')) {
-          cards.forEach((card) => card.classList.remove('flip'));
-        }
-      });
-    }
-  </script>
 
   <script src="site.js" defer></script>
 </body>

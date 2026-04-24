@@ -4,90 +4,213 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Stormen | Official Site</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/dist/site.css?v=1" />
   <link href="site.css" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.29.1/dist/feather.min.js"></script>
-  <style>body { font-family: 'Roboto Condensed', sans-serif; }</style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
-  <div id="backdrop" class="fixed inset-0 bg-gray-900 opacity-0 pointer-events-none z-40 transition-opacity"></div>
-
-  <header id="siteHeader" class="fixed top-0 inset-x-0 z-50 h-20 flex items-center bg-transparent transition-colors duration-300">
-    <button id="menuToggleBtn" aria-controls="sidePanel"
-      class="absolute left-4 top-1/2 transform -translate-y-1/2 p-3 focus:outline-none z-[60]"
-      aria-label="Open menu" aria-expanded="false">
-      <span class="burger-line"></span>
-      <span class="burger-line lower"></span>
-    </button>
-    <a href="/" class="mx-auto relative h-36 flex items-center justify-center z-10">
-      <img src="images/logo_white.png" alt="Stormen white logo" class="h-36 logo-white transition-opacity duration-300" />
-      <img src="images/logo_yellow.png" alt="Stormen yellow logo" class="h-36 logo-black opacity-0 absolute inset-0 transition-opacity duration-300" />
+<body class="landing-body">
+  <header id="siteHeader" class="landing-header">
+    <a href="/" class="site-brand" aria-label="Stormen home">
+      <img src="images/Logo.png" alt="Stormen logo" class="brand-logo" />
     </a>
-    <button id="themeToggle" class="absolute right-4 top-1/2 transform -translate-y-1/2 p-3 transition-colors duration-300" aria-label="Toggle Theme">
-      <img id="themeIcon" src="images/lightmode.png" alt="Toggle theme" class="w-8 h-8" />
-    </button>
+
+    <nav class="desktop-nav" aria-label="Primary">
+      <a href="/" class="is-active">Home</a>
+      <a href="stormen.html">Stormen</a>
+      <a href="watch.html">Watch</a>
+      <a href="collection.html">Collection</a>
+      <a href="social.html">Social Media</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <a href="https://stormen-shop.fourthwall.com/" target="_blank" rel="noopener noreferrer" class="header-cta">
+      Shop Merch
+    </a>
   </header>
 
-  <aside id="sidePanel" class="fixed inset-y-0 left-0 w-72 bg-white text-gray-900 -translate-x-full transform z-50 p-6 shadow-xl" role="dialog" aria-label="Main menu">
-    <nav class="mt-14 space-y-6 pl-4">
-      <div><a href="/"><i data-feather="home" class="inline-block w-5 h-5 mr-2"></i><span>HOME</span></a></div>
-      <div><a href="/stormen"><i data-feather="zap" class="inline-block w-5 h-5 mr-2"></i><span>STORMEN</span></a></div>
-      <div><a href="/watch"><i data-feather="play" class="inline-block w-5 h-5 mr-2"></i><span>WATCH</span></a></div>
-      <div><a href="/collection"><i data-feather="shopping-cart" class="inline-block w-5 h-5 mr-2"></i><span>COLLECTION</span></a></div>
-      <div><a href="/social"><i data-feather="share-2" class="inline-block w-5 h-5 mr-2"></i><span>SOCIAL MEDIA</span></a></div>
-      <div><a href="mailto:stormen@thenewgen.com"><i data-feather="mail" class="inline-block w-5 h-5 mr-2"></i><span>CONTACT</span></a></div>
-    </nav>
-  </aside>
-
-  <section class="relative h-screen">
-    <div class="absolute inset-0 overflow-hidden">
-      <video class="w-full h-full object-cover object-center" autoplay loop muted playsinline preload="auto">
-        <source src="/media/LightningVideos.mp4" type="video/mp4" />
-      </video>
-    </div>
-    <div class="absolute inset-0 bg-black/40"></div>
-    <div class="relative z-20 flex flex-col items-center justify-center h-full text-center px-6">
-      <h1 class="font-extralight uppercase tracking-[0.2em] text-white text-4xl sm:text-6xl lg:text-8xl whitespace-nowrap drop-shadow-[0_4px_6px_rgba(0,0,0,0.55)]">
-        <span>Chase&nbsp;the&nbsp;Storm</span>
-      </h1>
-      <a href="/collection" class="cta group relative inline-block px-10 py-3 mt-8 rounded-full border border-white/40 bg-white/10 backdrop-blur-md text-white uppercase tracking-widest text-sm whitespace-nowrap transition-all duration-300 hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-white/50">
-        Shop Official Merch
-      </a>
-    </div>
-  </section>
-
-  <section id="latest" class="bg-gray-100 dark:bg-gray-800 py-16">
-    <div class="container mx-auto px-4">
-      <div class="embed-wrapper">
-        <iframe
-          src="https://www.youtube.com/embed/videoseries?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
+  <main>
+    <section class="hero-section">
+      <div class="hero-shell">
+        <div class="hero-copy">
+          <p class="eyebrow">Chase The Storm</p>
+          <h1 class="hero-title">
+            <span>High Energy.</span>
+            <span>Good Vibes.</span>
+            <span class="accent">Chase The Storm.</span>
+          </h1>
+          <p class="hero-text">
+            Official Stormen site. Watch the latest streams and videos, shop the collection,
+            and stay connected across every platform.
+          </p>
+          <div class="hero-actions">
+            <a href="https://stormen-shop.fourthwall.com/" target="_blank" rel="noopener noreferrer" class="cta-primary">
+              Shop Official Merch
+            </a>
+            <a href="https://twitch.tv/stormen" target="_blank" rel="noopener noreferrer" class="cta-secondary">
+              Watch Stormen's Stream
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="flex justify-center mt-16">
-        <a href="https://twitch.tv/stormen" target="_blank" rel="noopener noreferrer" class="watch-link">
-          <span>WATCH STORMEN'S STREAM</span>
+    </section>
+
+    <section id="watch" class="content-strip">
+      <a
+        href="https://www.youtube.com/playlist?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="content-card youtube"
+      >
+        <div class="content-card-inner">
+          <h2>YouTube Playlist</h2>
+          <p>Latest videos and highlights from the current playlist.</p>
+          <span>Watch Now</span>
+        </div>
+      </a>
+
+      <a
+        href="https://twitch.tv/stormen"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="content-card twitch"
+      >
+        <div class="content-card-inner">
+          <h2>Twitch</h2>
+          <p>Live streams, gameplay, and moments from the channel.</p>
+          <span>Watch Live</span>
+        </div>
+      </a>
+
+      <a
+        href="https://discord.gg/8pgUDRT5Wv"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="content-card discord"
+      >
+        <div class="content-card-inner">
+          <h2>Discord</h2>
+          <p>Join the community, hang out, and stay updated in the server.</p>
+          <span>Join Discord</span>
+        </div>
+      </a>
+    </section>
+
+    <section id="story" class="story-section">
+      <div class="story-copy">
+        <p class="eyebrow">Stormen</p>
+        <h2>Built For Big Moments.</h2>
+        <p>
+          Stormen is where live energy, creator-led entertainment, and merch all live under one roof.
+          The site now puts the stream, playlist, community, and collection up front in one place.
+        </p>
+      </div>
+
+      <div class="story-video-frame">
+        <div class="story-feature">
+          <p class="eyebrow">Watch</p>
+          <h3>Latest Videos Playlist</h3>
+          <p>
+            The embedded player breaks on local file previews, so this section now links directly to the real
+            YouTube playlist instead of showing a broken frame.
+          </p>
+          <div class="story-actions">
+            <a
+              href="https://www.youtube.com/playlist?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cta-primary"
+            >
+              Open Playlist
+            </a>
+            <a
+              href="https://youtube.com/@stormentv"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="cta-secondary"
+            >
+              Visit YouTube
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="merch-section">
+      <div class="section-heading">
+        <div>
+          
+          <h2>Stormen Collection</h2>
+        </div>
+        <a href="collection.html" class="outline-link">View Collection</a>
+      </div>
+
+      <div class="merch-grid">
+        <a href="https://stormen-shop.fourthwall.com/products/stormen-t-shirt" target="_blank" rel="noopener noreferrer" class="merch-card">
+          <div class="merch-image-wrap">
+            <img src="images/tshirt_front.png" alt="Stormen Tee" class="merch-image" />
+          </div>
+          <h3>Stormen Tee</h3>
+        </a>
+
+        <a href="https://stormen-shop.fourthwall.com/products/stormen-hoodie" target="_blank" rel="noopener noreferrer" class="merch-card">
+          <div class="merch-image-wrap">
+            <img src="images/hoodies_front.png" alt="Stormen Hoodie" class="merch-image" />
+          </div>
+          <h3>Stormen Hoodie</h3>
+        </a>
+
+        <a href="https://stormen-shop.fourthwall.com/en-usd/products/stormen-dad-hat" target="_blank" rel="noopener noreferrer" class="merch-card">
+          <div class="merch-image-wrap">
+            <img src="images/dadhat_front.png" alt="Stormen Dad Hat" class="merch-image" />
+          </div>
+          <h3>Stormen Dad Hat</h3>
+        </a>
+
+        <a href="https://stormen-shop.fourthwall.com/en-usd/products/stormen-sweatshirt" target="_blank" rel="noopener noreferrer" class="merch-card">
+          <div class="merch-image-wrap">
+            <img src="images/sweatshirt_front.png" alt="Stormen Sweatshirt" class="merch-image" />
+          </div>
+          <h3>Stormen Sweatshirt</h3>
         </a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer class="bg-white py-10 text-gray-900">
-    <div class="container mx-auto flex flex-col items-center space-y-6">
-      <div class="flex space-x-6">
-        <a href="https://instagram.com/stormentwitch" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/instagram.png" alt="Instagram" class="w-8 h-8" /></a>
-        <a href="https://www.tiktok.com/@stormentwitch" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/tiktok.png" alt="TikTok" class="w-7 h-7" /></a>
-        <a href="https://twitter.com/stormentv" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/twitter.png" alt="Twitter" class="w-8 h-8" /></a>
-        <a href="https://youtube.com/@stormentv" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/youtube.png" alt="YouTube" class="w-8 h-8" /></a>
-        <a href="https://twitch.tv/stormen" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/twitch.png" alt="Twitch" class="w-8 h-8" /></a>
-        <a href="https://discord.gg/8pgUDRT5Wv" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/discord.png" alt="Discord" class="w-8 h-8" /></a>
-        <a href="mailto:stormen@thenewgen.com" target="_blank" rel="noopener noreferrer" class="social-link"><i data-feather="mail" class="w-8 h-8"></i></a>
+    
+  </main>
+
+  <footer id="contact" class="site-footer">
+    <div class="footer-brand">
+      <img src="images/Logo.png" alt="Stormen logo" class="footer-logo" />
+      
+    </div>
+
+    <div class="footer-social">
+      <h2>Stay Connected</h2>
+      <div class="social-row">
+        <a href="https://instagram.com/stormentwitch" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/instagram.png" alt="Instagram" /></a>
+        <a href="https://www.tiktok.com/@stormentwitch" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/tiktok.png" alt="TikTok" /></a>
+        <a href="https://twitter.com/stormentv" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/twitter.png" alt="Twitter" /></a>
+        <a href="https://youtube.com/@stormentv" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/youtube.png" alt="YouTube" /></a>
+        <a href="https://twitch.tv/stormen" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/twitch.png" alt="Twitch" /></a>
+        <a href="https://discord.gg/8pgUDRT5Wv" target="_blank" rel="noopener noreferrer" class="social-link"><img src="images/discord.png" alt="Discord" /></a>
       </div>
-      <div class="w-full border-t border-gray-700"></div>
-      <div class="text-sm">&copy; 2025 Stormen. All rights reserved.</div>
+      <a href="mailto:stormen@thenewgen.com" class="footer-email">stormen@thenewgen.com</a>
+    </div>
+
+    <div class="footer-contact">
+      <h2>Work With Me</h2>
+      <p>Business inquiries and partnerships.</p>
+      <a href="mailto:stormen@thenewgen.com" class="footer-cta">Get In Touch</a>
+    </div>
+
+    <div class="footer-meta">
+      <span>&copy; 2025 Stormen. All rights reserved.</span>
+      <div class="footer-meta-links">
+        <span>Official links and store above</span>
+      </div>
     </div>
   </footer>
 
