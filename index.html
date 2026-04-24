@@ -109,31 +109,22 @@
       </div>
 
       <div class="story-video-frame">
-        <div class="story-feature">
-          <p class="eyebrow">Watch</p>
-          <h3>Latest Videos Playlist</h3>
-          <p>
-            The embedded player breaks on local file previews, so this section now links directly to the real
-            YouTube playlist instead of showing a broken frame.
-          </p>
-          <div class="story-actions">
-            <a
-              href="https://www.youtube.com/playlist?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="cta-primary"
-            >
-              Open Playlist
-            </a>
-            <a
-              href="https://youtube.com/@stormentv"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="cta-secondary"
-            >
-              Visit YouTube
-            </a>
-          </div>
+        <div class="youtube-playlist-embed">
+          <iframe
+            src="https://www.youtube.com/embed/videoseries?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
+            title="Stormen latest YouTube playlist"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+          <a
+            href="https://www.youtube.com/playlist?list=PLlRbVc_QVCbVIITtyLoazGK0g4IRwDa_J"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="youtube-playlist-fallback"
+          >
+            Open Latest Playlist
+          </a>
         </div>
       </div>
     </section>
