@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', onScroll, { passive: true });
 
   initTwitchEmbeds();
-  initWatchFilters();
   initYouTubeVideos();
   initRollingScheduleDates();
 });
@@ -45,38 +44,6 @@ function initTwitchEmbeds() {
   });
 }
 
-function initWatchFilters() {
-  const buttons = document.querySelectorAll('[data-watch-filter]');
-  if (!buttons.length) return;
-
-  buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const filter = button.dataset.watchFilter || 'all';
-      buttons.forEach((item) => item.classList.toggle('is-active', item === button));
-      applyWatchFilter(filter);
-    });
-  });
-}
-
-function applyWatchFilter(filter) {
-  const liveSection = document.querySelector('[data-watch-section="live"]');
-  const youtubeSection = document.querySelector('[data-watch-section="youtube"]');
-  const videoCards = document.querySelectorAll('[data-video-kind]');
-
-  if (liveSection) {
-    liveSection.hidden = filter === 'videos' || filter === 'shorts';
-  }
-
-  if (youtubeSection) {
-    youtubeSection.hidden = filter === 'live';
-  }
-
-  videoCards.forEach((card) => {
-    card.hidden = filter === 'videos' && card.dataset.videoKind !== 'video'
-      || filter === 'shorts' && card.dataset.videoKind !== 'short';
-  });
-}
-
 async function initYouTubeVideos() {
   const grid = document.querySelector('[data-youtube-grid]');
   if (!grid) return;
@@ -90,7 +57,6 @@ async function initYouTubeVideos() {
     const channelId = await getYouTubeChannelId();
     const videos = await getLatestYouTubeVideos(channelId);
     renderYouTubeVideos(grid, videos);
-    applyWatchFilter(document.querySelector('[data-watch-filter].is-active')?.dataset.watchFilter || 'all');
   } catch (error) {
     grid.innerHTML = `
       <article class="watch-video-placeholder">
