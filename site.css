@@ -4170,7 +4170,9 @@ body.collection-page {
 }
 
 .watch-page .compact-footer,
-.contact-page .compact-footer {
+.contact-page .compact-footer,
+.watch-page .clean-footer,
+.contact-page .clean-footer {
   position: relative;
   z-index: 1;
   margin-top: 28px;
@@ -4187,13 +4189,13 @@ body.collection-page {
 
 .watch-page .footer-meta,
 .contact-page .footer-meta {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.86);
   border-top-color: rgba(255, 202, 20, 0.18);
 }
 
 .watch-page .footer-meta-links a,
 .contact-page .footer-meta-links a {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.92);
 }
 
 .watch-page .footer-meta-links a:hover,
