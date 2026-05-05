@@ -241,6 +241,7 @@ main {
   flex-wrap: wrap;
   gap: 16px;
   margin-top: 32px;
+  max-width: 760px;
 }
 
 .cta-primary,
@@ -249,6 +250,7 @@ main {
 .footer-cta {
   min-height: 60px;
   padding: 0 24px;
+  text-align: center;
 }
 
 .cta-primary {
@@ -902,16 +904,27 @@ main {
   }
 
   .hero-title {
-    font-size: clamp(3rem, 15vw, 4.9rem);
+    font-size: clamp(2.8rem, 13vw, 4.2rem);
   }
 
   .hero-text {
-    font-size: 1.12rem;
+    font-size: 1.04rem;
   }
 
   .hero-actions {
     flex-direction: column;
     align-items: stretch;
+    gap: 10px;
+    margin-top: 22px;
+  }
+
+  .cta-primary,
+  .cta-secondary,
+  .outline-link,
+  .footer-cta {
+    min-height: 52px;
+    padding: 0 16px;
+    font-size: 0.78rem;
   }
 
   .hero-copy {
@@ -3419,6 +3432,42 @@ body.collection-page {
   font-size: 1.12rem;
 }
 
+.contact-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 24px 0 24px;
+}
+
+.contact-proof-grid article {
+  min-height: 104px;
+  padding: 16px;
+  border: 1px solid rgba(255, 202, 20, 0.28);
+  background: rgba(0, 0, 0, 0.34);
+}
+
+.contact-proof-grid strong,
+.contact-proof-grid span {
+  display: block;
+}
+
+.contact-proof-grid strong {
+  color: var(--accent);
+  font-size: clamp(2rem, 4vw, 3.1rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.contact-proof-grid span {
+  margin-top: 10px;
+  color: rgba(244, 240, 232, 0.76);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
 .contact-social-icons {
   display: flex;
   flex-wrap: wrap;
@@ -3521,6 +3570,10 @@ body.collection-page {
     padding-top: 0;
   }
 
+  .contact-proof-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .contact-info-card {
     grid-template-columns: 82px minmax(0, 1fr);
   }
@@ -3555,6 +3608,7 @@ body.collection-page {
 
   .contact-field-row,
   .contact-info-stack,
+  .contact-proof-grid,
   .contact-topic-grid {
     grid-template-columns: 1fr;
   }
@@ -4092,6 +4146,29 @@ body.collection-page {
   margin: 0;
 }
 
+.watch-schedule-kicker,
+.watch-schedule-note,
+.schedule-status {
+  margin: 0;
+  font-family: "IBM Plex Mono", monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.watch-schedule-kicker {
+  margin-bottom: 8px;
+  color: rgba(244, 240, 232, 0.68);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.watch-schedule-note {
+  margin-top: 10px;
+  color: rgba(244, 240, 232, 0.62);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
 .watch-row-heading a {
   color: var(--accent);
   font-family: "IBM Plex Mono", monospace;
@@ -4109,10 +4186,38 @@ body.collection-page {
 
 .watch-schedule-grid article {
   position: relative;
-  min-height: 106px;
-  padding: 16px;
+  min-height: 156px;
+  padding: 46px 16px 16px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: linear-gradient(180deg, rgba(18, 18, 18, 0.86), rgba(7, 7, 7, 0.94));
+  transition: border-color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+}
+
+.watch-schedule-grid article.is-today {
+  border-color: rgba(255, 202, 20, 0.78);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(255, 202, 20, 0.18), transparent 42%),
+    linear-gradient(180deg, rgba(28, 26, 16, 0.95), rgba(7, 7, 7, 0.96));
+  box-shadow: 0 0 0 1px rgba(255, 202, 20, 0.08), 0 18px 48px rgba(255, 202, 20, 0.08);
+}
+
+.schedule-status {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  max-width: calc(100% - 54px);
+  padding: 5px 8px;
+  border: 1px solid rgba(255, 202, 20, 0.24);
+  color: rgba(244, 240, 232, 0.7);
+  background: rgba(0, 0, 0, 0.34);
+  font-size: 0.66rem;
+  font-weight: 800;
+}
+
+.watch-schedule-grid article.is-today .schedule-status {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #111;
 }
 
 .watch-schedule-grid strong {
@@ -4148,9 +4253,9 @@ body.collection-page {
 }
 
 .watch-schedule-grid p {
-  margin: 18px 0 6px;
+  margin: 20px 0 8px;
   color: var(--accent);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   font-weight: 800;
 }
 

@@ -271,6 +271,18 @@ function initRollingScheduleDates() {
     const weekday = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][scheduleDay - 1];
     dayLabel.firstChild.textContent = `${weekday} `;
     dateLabel.textContent = formatter.format(date);
+
+    item.classList.toggle('is-today', scheduleDay === dayOfWeek);
+    const status = item.querySelector('.schedule-status');
+    if (status) {
+      if (scheduleDay === dayOfWeek) {
+        status.textContent = item.classList.contains('is-muted') ? 'Today / offline' : 'Today';
+      } else if (scheduleDay < dayOfWeek) {
+        status.textContent = item.classList.contains('is-muted') ? 'Offline' : 'Earlier this week';
+      } else if (scheduleDay > dayOfWeek && !item.classList.contains('is-muted')) {
+        status.textContent = 'Upcoming';
+      }
+    }
   });
 }
 
